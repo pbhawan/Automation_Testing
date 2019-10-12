@@ -49,7 +49,7 @@ public class Customer {
 		
 		//String XLXSFilePath =FC.convertXLS2XLSX("./src/test/resources/DemoSheet.xls");
 
-		List<String> PostJson = EJ.CreteJSONAndTextFileFromExcel("./src/test/resources/DemoSheet.xls");
+		List<String> PostJson = EJ.CreteJSONAndTextFileFromExcel("./src/test/resources/DemoSheet.xlsx");
 		for (String s : PostJson) {
 			JSONObject CustomerJsonData = HC.PostCustomer(s);
 			TimeUnit.SECONDS.sleep(30);
