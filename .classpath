@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="Automation_Testing/src/main/java"/>
+	<classpathentry kind="src" path="Automation_Testing/src/test/java"/>
+	<classpathentry kind="lib" path="Automation_Testing/Drivers/RedshiftJDBC42-no-awssdk-1.2.34.1058.jar"/>
+	<classpathentry kind="lib" path="Automation_Testing/target/Automation_Testing-0.0.1-SNAPSHOT.jar"/>
+	<classpathentry kind="output" path="Automation_Testing/target/classes"/>
+</classpath>

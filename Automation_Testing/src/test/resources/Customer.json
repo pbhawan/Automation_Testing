@@ -12,7 +12,7 @@
   "last_order_id": null,
   "note": "This customer loves ice cream",
   "verified_email": true,
-  "multipass_identifier": null,
+  "multipass_identifier":null,
   "tax_exempt": false,
   "phone": null,
   "tags": "",

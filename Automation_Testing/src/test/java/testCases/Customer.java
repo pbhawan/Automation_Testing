@@ -1,30 +1,22 @@
 package testCases;
 
-import static org.testng.Assert.assertTrue;
-
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
-import org.apache.commons.codec.binary.Base64;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import com.viome.components.ConnectionProperties;
 import com.viome.components.DBConnection;
+import com.viome.components.ExcelToJSONConvertor;
 import com.viome.components.HTTPConnection;
+import com.viome.utilites.FileConversionXLSToXLXS;
 
 import junit.framework.Assert;
 
@@ -33,12 +25,16 @@ public class Customer {
 	DBConnection DB;
 	ResultSet rs;
 	ConnectionProperties _CP;
+	ExcelToJSONConvertor EJ;
+	FileConversionXLSToXLXS FC;
 
 	@BeforeTest
 	public void Setup() throws IOException {
 
 		HC = new HTTPConnection();
 		DB = new DBConnection();
+		EJ = new ExcelToJSONConvertor();
+		FC=new FileConversionXLSToXLXS();
 	}
 
 	@AfterTest
@@ -49,34 +45,46 @@ public class Customer {
 	}
 
 	@Test
-	public void VerifyCustomerData() throws IOException, InterruptedException, SQLException {
-		String RFN = null;
-		JSONObject CustomerJsonData = HC.GetHttpConnectionForCustomer();
-		_CP = DB.DBConnectionCustomer(CustomerJsonData);
-		while (_CP.rs.next()) {
-			Assert.assertEquals(CustomerJsonData.get("first_name").toString(),_CP.rs.getString("first_name").toString());
-			Assert.assertEquals(CustomerJsonData.get("last_name").toString(),_CP.rs.getString("last_name").toString());
-			Assert.assertEquals(CustomerJsonData.get("email").toString(),_CP.rs.getString("email").toString());
-			Assert.assertEquals(CustomerJsonData.get("accepts_marketing").toString(),_CP.rs.getString("accepts_marketing").toString());
-			Assert.assertEquals(CustomerJsonData.get("orders_count").toString(),_CP.rs.getString("orders_count").toString());
-			Assert.assertEquals(CustomerJsonData.get("total_spent").toString(),_CP.rs.getString("total_spent").toString());
+	public void VerifyCustomerData() throws IOException, InterruptedException, SQLException, ParseException {
+		
+		//String XLXSFilePath =FC.convertXLS2XLSX("./src/test/resources/DemoSheet.xls");
+
+		List<String> PostJson = EJ.CreteJSONAndTextFileFromExcel("./src/test/resources/DemoSheet.xls");
+		for (String s : PostJson) {
+			JSONObject CustomerJsonData = HC.PostCustomer(s);
+			TimeUnit.SECONDS.sleep(30);
+			_CP = DB.GetCustomerFromDB(CustomerJsonData);
+			while (_CP.rs.next()) {
+				Assert.assertEquals(CustomerJsonData.get("first_name").toString(),
+						_CP.rs.getString("first_name").toString());
+				Assert.assertEquals(CustomerJsonData.get("last_name").toString(),
+						_CP.rs.getString("last_name").toString());
+				Assert.assertEquals(CustomerJsonData.get("email").toString(), _CP.rs.getString("email").toString());
+				Assert.assertEquals(CustomerJsonData.get("accepts_marketing").toString(),
+						_CP.rs.getString("accepts_marketing").toString());
+				Assert.assertEquals(CustomerJsonData.get("orders_count").toString(),
+						_CP.rs.getString("orders_count").toString());
+				Assert.assertEquals(CustomerJsonData.get("total_spent").toString(),
+						_CP.rs.getString("total_spent").toString());
 //            Assert.assertEquals(CustomerJsonData.get("last_order_id").toString(),_CP.rs.getString("last_order_id").toString());
-		//	Assert.assertEquals(CustomerJsonData.get("note").toString(),_CP.rs.getString("note").toString(), "Note issue");
-			Assert.assertEquals(CustomerJsonData.get("verified_email").toString(),_CP.rs.getString("verified_email").toString());
-			//Assert.assertEquals(CustomerJsonData.get("multipass_identifier").toString(),_CP.rs.getString("multipass_identifier").toString());
-			Assert.assertEquals(CustomerJsonData.get("tax_exempt").toString(),_CP.rs.getString("tax_exempt").toString());
-			//Assert.assertEquals(CustomerJsonData.get("phone").toString(),_CP.rs.getString("phone").toString());
-			Assert.assertEquals(CustomerJsonData.get("tags").toString(),_CP.rs.getString("tags").toString());
-			//Assert.assertEquals(CustomerJsonData.get("last_order_name").toString(),_CP.rs.getString("last_order_name").toString());
-			Assert.assertEquals(CustomerJsonData.get("currency").toString(),_CP.rs.getString("currency").toString());
-			//Assert.assertEquals(CustomerJsonData.get("accepts_marketing_updated_at").toString(),_CP.rs.getString("accepts_marketing_updated_at").toString());
-			//Assert.assertEquals(CustomerJsonData.get("marketing_opt_in_level").toString(),_CP.rs.getString("marketing_opt_in_level").toString());
+				// Assert.assertEquals(CustomerJsonData.get("note").toString(),_CP.rs.getString("note").toString(),
+				// "Note issue");
+				Assert.assertEquals(CustomerJsonData.get("verified_email").toString(),
+						_CP.rs.getString("verified_email").toString());
+				// Assert.assertEquals(CustomerJsonData.get("multipass_identifier").toString(),_CP.rs.getString("multipass_identifier").toString());
+				Assert.assertEquals(CustomerJsonData.get("tax_exempt").toString(),
+						_CP.rs.getString("tax_exempt").toString());
+				// Assert.assertEquals(CustomerJsonData.get("phone").toString(),_CP.rs.getString("phone").toString());
+				Assert.assertEquals(CustomerJsonData.get("tags").toString(), _CP.rs.getString("tags").toString());
+				// Assert.assertEquals(CustomerJsonData.get("last_order_name").toString(),_CP.rs.getString("last_order_name").toString());
+				Assert.assertEquals(CustomerJsonData.get("currency").toString(),
+						_CP.rs.getString("currency").toString());
+				// Assert.assertEquals(CustomerJsonData.get("accepts_marketing_updated_at").toString(),_CP.rs.getString("accepts_marketing_updated_at").toString());
+				// Assert.assertEquals(CustomerJsonData.get("marketing_opt_in_level").toString(),_CP.rs.getString("marketing_opt_in_level").toString());
 
-			
+			}
 
-			
 		}
-
 	}
 
 }
