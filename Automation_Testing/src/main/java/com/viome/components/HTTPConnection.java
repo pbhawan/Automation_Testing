@@ -12,6 +12,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public class HTTPConnection {
 	PageFactory PF = new PageFactory();
 	JSONObject data;
@@ -20,14 +22,14 @@ public class HTTPConnection {
 	public HTTPConnection() {
 	}
 
-	public JSONObject PostCustomer(String s) throws ParseException {
+	public JSONObject PostCustomer(String Record) throws ParseException {
 
 		//File file = new File("./src/test/resources/Customer.json");
 		try {
 			/*JSONParser parser = new JSONParser();
 			data = (JSONObject) parser.parse(new FileReader(file.getAbsolutePath()));*/
 			HttpPost request = SetHeader();
-			StringEntity params = new StringEntity(s);
+			StringEntity params = new StringEntity(Record);
 			request.setEntity(params);
 			HttpResponse response = httpClient.execute(request);
 			System.out.println("Response is" + "=" + response);
@@ -42,7 +44,7 @@ public class HTTPConnection {
 			// httpClient.getConnectionManager().shutdown();
 		}
 		JSONParser parser = new JSONParser();
-		JSONObject json = (JSONObject) parser.parse(s);
+		JSONObject json = (JSONObject) parser.parse(Record);
 		return json;
 	}
 
