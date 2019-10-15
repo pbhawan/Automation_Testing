@@ -30,19 +30,20 @@ public class Customer {
 	ExcelToJSONConvertor EJ;
 	FileConversionXLSToXLXS FC;
 	private static ObjectMapper mapper = new ObjectMapper();
-	List<String> PostJsonRecords;
+	List<String> JsonRecords;
 	int Iteration = 0;
 
 	@BeforeTest
-	public void Setup() throws IOException {
+	public void Setup() throws IOException, SQLException {
 
 		HC = new HTTPConnection();
 		DB = new DBConnection();
 		EJ = new ExcelToJSONConvertor();
 		FC = new FileConversionXLSToXLXS();
-		PostJsonRecords = EJ.CreteJSONFileFromExcel("./src/test/resources/DemoSheet.xlsx");
+		JsonRecords = EJ.CreteJSONFileFromExcel("./src/test/resources/DemoSheet.xlsx");
+		ConnectionProperties _CP = DB.DBConnection();
 	}
-
+ 
 	@AfterTest
 	public void Teardown() throws SQLException {
 
@@ -55,11 +56,11 @@ public class Customer {
 	@Test
 	public void VerifyCustomerData() throws IOException, InterruptedException, SQLException, ParseException {
 
-		for (String record : PostJsonRecords) {
+		for (String record : JsonRecords) {
 			Map map = mapper.readValue(record, Map.class);
 			map.put("id", new Date().getTime());
-			JSONObject CustomerJsonData = HC.PostCustomer(mapper.writeValueAsString(map));
-			TimeUnit.SECONDS.sleep(40);
+			JSONObject CustomerJsonData = HC.PostCustomerJson(mapper.writeValueAsString(map));
+			TimeUnit.SECONDS.sleep(30);
 			_CP = DB.GetCustomerFromDB(CustomerJsonData);
 			if (_CP.rs.next()) {
 
@@ -76,10 +77,14 @@ public class Customer {
 							"accepts_marketing not Match in Row" + Iteration);
 					Assert.assertEquals(CustomerJsonData.get("orders_count").toString(),
 							_CP.rs.getString("orders_count").toString(), "orders_count not Match in Row" + Iteration);
-				/*	Assert.assertEquals(CustomerJsonData.get("total_spent").toString(),
-							_CP.rs.getString("total_spent").toString(), "total_spent not Match in Row" + Iteration);
-					Assert.assertEquals(CustomerJsonData.get("last_order_id").toString(),
-							_CP.rs.getString("last_order_id").toString(), "last_order_id not Match in Row" + Iteration);*/
+					/*
+					 * Assert.assertEquals(CustomerJsonData.get("total_spent").toString(),
+					 * _CP.rs.getString("total_spent").toString(), "total_spent not Match in Row" +
+					 * Iteration);
+					 * Assert.assertEquals(CustomerJsonData.get("last_order_id").toString(),
+					 * _CP.rs.getString("last_order_id").toString(),
+					 * "last_order_id not Match in Row" + Iteration);
+					 */
 					Assert.assertEquals(CustomerJsonData.get("note").toString(), _CP.rs.getString("note").toString(),
 							"note not Match in Row" + Iteration);
 					Assert.assertEquals(CustomerJsonData.get("verified_email").toString(),
@@ -106,7 +111,7 @@ public class Customer {
 					System.err.println(ex.getMessage());
 					Iteration = Iteration + 1;
 					EJ.SetFailureStatus(Iteration);
-				
+					break;
 				}
 				Iteration = Iteration + 1;
 				EJ.SetPassStatus(Iteration);

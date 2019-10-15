@@ -14,10 +14,29 @@ public class DBConnection {
 	static final String MasterUsername = "viome";
 	static final String MasterUserPassword = "METAViomecube3";
 	ResultSet rs;
-
+	ConnectionProperties _CP = new ConnectionProperties();
 	public ConnectionProperties GetCustomerFromDB(JSONObject CustomerJsonData) throws SQLException {
-		ConnectionProperties _CP = new ConnectionProperties();
+	
 		String id = CustomerJsonData.get("id").toString();
+		try {
+			// Try a simple query.
+			System.out.println("Listing system tables...");
+			_CP.stmt = _CP.conn.createStatement();
+			String sql;
+			sql = "SELECT * FROM public.customer where id=" + id + ";";
+			_CP.rs = _CP.stmt.executeQuery(sql);
+
+		} catch (Exception ex) {
+			// For convenience, handle all errors here.
+			ex.printStackTrace();
+		} finally {
+
+		}
+
+		return _CP;
+	}
+	
+	public ConnectionProperties DBConnection() throws SQLException {
 		try {
 			// Dynamically load driver at runtime.
 			// Redshift JDBC 4.1 driver: com.amazon.redshift.jdbc41.Driver
@@ -37,18 +56,15 @@ public class DBConnection {
 			// Try a simple query.
 			System.out.println("Listing system tables...");
 			_CP.stmt = _CP.conn.createStatement();
-			String sql;
-			sql = "SELECT * FROM public.customer where id=" + id + ";";
-			_CP.rs = _CP.stmt.executeQuery(sql);
+	}catch (Exception ex) {
+		// For convenience, handle all errors here.
+		ex.printStackTrace();
+	} finally {
 
-		} catch (Exception ex) {
-			// For convenience, handle all errors here.
-			ex.printStackTrace();
-		} finally {
-
-		}
-
-		return _CP;
 	}
+		return _CP;
 
+	}
+	
+	
 }

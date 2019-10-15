@@ -22,7 +22,7 @@ public class HTTPConnection {
 	public HTTPConnection() {
 	}
 
-	public JSONObject PostCustomer(String Record) throws ParseException {
+	public JSONObject PostCustomerJson(String Record) throws ParseException {
 
 		//File file = new File("./src/test/resources/Customer.json");
 		try {
