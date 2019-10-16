@@ -1,5 +1,6 @@
 package testCases;
 
+
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import org.json.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.testng.Assert;
@@ -30,7 +32,7 @@ public class Customer {
 	ExcelToJSONConvertor EJ;
 	FileConversionXLSToXLXS FC;
 	private static ObjectMapper mapper = new ObjectMapper();
-	List<String> JsonRecords;
+	JSONArray JsonRecords;
 	int Iteration = 0;
 
 	@BeforeTest
@@ -40,7 +42,8 @@ public class Customer {
 		DB = new DBConnection();
 		EJ = new ExcelToJSONConvertor();
 		FC = new FileConversionXLSToXLXS();
-		JsonRecords = EJ.CreteJSONFileFromExcel("./src/test/resources/DemoSheet.xlsx");
+		JsonRecords = EJ.CreteJSONFileFromExcel("./src/test/resources/DemoSheet.csv");
+		
 		ConnectionProperties _CP = DB.DBConnection();
 	}
  
@@ -56,16 +59,15 @@ public class Customer {
 	@Test
 	public void VerifyCustomerData() throws IOException, InterruptedException, SQLException, ParseException {
 
-		for (String record : JsonRecords) {
-			Map map = mapper.readValue(record, Map.class);
+		for (Object record : JsonRecords) {			
+			@SuppressWarnings("unchecked")
+			Map<String, Long> map = mapper.readValue(record.toString(), Map.class);
 			map.put("id", new Date().getTime());
 			JSONObject CustomerJsonData = HC.PostCustomerJson(mapper.writeValueAsString(map));
 			TimeUnit.SECONDS.sleep(30);
 			_CP = DB.GetCustomerFromDB(CustomerJsonData);
 			if (_CP.rs.next()) {
-
 				try {
-
 					Assert.assertEquals(CustomerJsonData.get("first_name").toString(),
 							_CP.rs.getString("first_name").toString(), "First Name not Match in Row" + Iteration);
 					Assert.assertEquals(CustomerJsonData.get("last_name").toString(),

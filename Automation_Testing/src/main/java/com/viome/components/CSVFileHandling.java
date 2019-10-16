@@ -4,17 +4,13 @@ import java.io.BufferedWriter;
 import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -23,14 +19,9 @@ import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-
-public class ExcelToJSONConvertor {
+public class CSVFileHandling {
 
 	// static XSSFWorkbook excelWorkBook;
 	String Path;
@@ -38,13 +29,10 @@ public class ExcelToJSONConvertor {
 	int firstRowNum;
 	int lastRowNum;
 	int firstCellNum;
-	int lastCellNum;
-
-	public JSONArray CreteJSONFileFromExcel(String filePath) throws FileNotFoundException, IOException {
-	//List<String> jsonString = null;
-	JSONArray json;
-	//ArrayList<HashMap<String, String>> dataMap = new ArrayList<HashMap<String, String>>();
-	/*	try {
+	 int lastCellNum;
+	public List<String> CreteJSONFileFromExcel(String filePath) {
+		List<String> jsonString = null;
+		try {
 
 			InputStream fis = new FileInputStream(filePath.trim());
 			HSSFWorkbook excelWorkBook = new HSSFWorkbook(fis);
@@ -67,33 +55,16 @@ public class ExcelToJSONConvertor {
 					// Generate JSON format of above sheet data and write to a JSON file.
 					jsonString = getJSONStringFromList(sheetDataTable);
 					String jsonFileName = sheet.getSheetName() + ".json";
-					 writeStringToFile(jsonString, jsonFileName); 
+					/* writeStringToFile(jsonString, jsonFileName); */
 
 				}
 			}
 			// Close excel work book object.
-			// ((Closeable) excelWorkBook).close();
+			//((Closeable) excelWorkBook).close();
 		} catch (Exception ex) {
 			System.err.println(ex.getMessage());
 		}
-		return jsonString;*/
-		try (InputStream in = new FileInputStream(filePath);) {
-		    CSV csv = new CSV(true, ',', in );
-		    List < Object > fieldNames = null;
-		    if (csv.hasNext()) fieldNames = new ArrayList < > (csv.next());
-		    List < Map < Object, Object >> list = new ArrayList < > ();
-		    while (csv.hasNext()) {
-		        List < Object > x = csv.next();
-		        Map < Object, Object > obj = new LinkedHashMap < > ();
-		        for (int i = 0; i < fieldNames.size(); i++) {
-		        			        	
-		            obj.put(fieldNames.get(i), x.get(i));
-		        }
-		        list.add(obj);
-		    }
-		     json = new JSONArray(list);
-		 		}
-		 return json;
+		return jsonString;
 	}
 
 	/*
@@ -115,8 +86,8 @@ public class ExcelToJSONConvertor {
 				Row row = sheet.getRow(i);
 
 				// Get first and last cell number.
-				firstCellNum = row.getFirstCellNum();
-				lastCellNum = row.getLastCellNum() - 1;
+				 firstCellNum = row.getFirstCellNum();
+				 lastCellNum = row.getLastCellNum() - 1;
 
 				// Create a String list to save column data in a row.
 				List<Object> rowDataList = new LinkedList<Object>();
@@ -255,56 +226,48 @@ public class ExcelToJSONConvertor {
 		FileInputStream fsIP = new FileInputStream(new File(Path)); // Read the spreadsheet that needs to be updated
 
 		XSSFWorkbook excelWorkBook = new XSSFWorkbook(fsIP);
-		/*
-		 * CellStyle borderHeaderStyle = excelWorkBook.createCellStyle();
-		 * borderHeaderStyle.setBorderBottom(CellStyle.BORDER_THICK);
-		 */
+		/*CellStyle borderHeaderStyle = excelWorkBook.createCellStyle();
+		borderHeaderStyle.setBorderBottom(CellStyle.BORDER_THICK);*/
 		Sheet sheet = excelWorkBook.getSheetAt(0);
 		Row row1 = sheet.getRow(0);
-		Cell cell1 = row1.createCell(lastCellNum + 1);
+		Cell cell1 = row1.createCell(lastCellNum+1);
 		cell1.setCellValue("Results");
-		// cell1.setCellStyle(borderHeaderStyle);
-		/*
-		 * CellStyle backgroundStyle = excelWorkBook.createCellStyle();
-		 * backgroundStyle.setFillBackgroundColor(IndexedColors.CORNFLOWER_BLUE.getIndex
-		 * ()); backgroundStyle.setFillPattern(CellStyle.BORDER_HAIR);
-		 */
+		//cell1.setCellStyle(borderHeaderStyle);
+		/*CellStyle backgroundStyle = excelWorkBook.createCellStyle();
+		backgroundStyle.setFillBackgroundColor(IndexedColors.CORNFLOWER_BLUE.getIndex());
+		backgroundStyle.setFillPattern(CellStyle.BORDER_HAIR);*/
 		Row row = sheet.getRow(RowNumber);
-		Cell cell = row.createCell(lastCellNum + 1);
+		Cell cell = row.createCell(lastCellNum+1);
 		cell.setCellValue("Failed");
 		fsIP.close();
 		FileOutputStream outputStream = new FileOutputStream(Path);
 		excelWorkBook.write(outputStream);
 		outputStream.close();
-		System.out.println("Row Number" + RowNumber + "failed");
+		System.out.println("Row Number"+RowNumber+"failed");
 	}
 
 	public void SetPassStatus(int RowNumber) throws IOException {
 		FileInputStream fsIP = new FileInputStream(new File(Path)); // Read the spreadsheet that needs to be updated
 
 		XSSFWorkbook excelWorkBook = new XSSFWorkbook(fsIP);
-		/*
-		 * CellStyle borderHeaderStyle = excelWorkBook.createCellStyle();
-		 * borderHeaderStyle.setBorderBottom(CellStyle.BORDER_THICK);
-		 */
+		/*CellStyle borderHeaderStyle = excelWorkBook.createCellStyle();
+		borderHeaderStyle.setBorderBottom(CellStyle.BORDER_THICK);*/
 		Sheet sheet = excelWorkBook.getSheetAt(0);
 		Row row1 = sheet.getRow(0);
-		Cell cell1 = row1.createCell(lastCellNum + 1);
+		Cell cell1 = row1.createCell(lastCellNum+1);
 		cell1.setCellValue("Results");
-		// cell1.setCellStyle(borderHeaderStyle);
-		/*
-		 * CellStyle backgroundStyle = excelWorkBook.createCellStyle();
-		 * backgroundStyle.setFillBackgroundColor(IndexedColors.CORNFLOWER_BLUE.getIndex
-		 * ()); backgroundStyle.setFillPattern(CellStyle.BORDER_HAIR);
-		 */
+		//cell1.setCellStyle(borderHeaderStyle);
+		/*CellStyle backgroundStyle = excelWorkBook.createCellStyle();
+		backgroundStyle.setFillBackgroundColor(IndexedColors.CORNFLOWER_BLUE.getIndex());
+		backgroundStyle.setFillPattern(CellStyle.BORDER_HAIR);*/
 		Row row = sheet.getRow(RowNumber);
-		Cell cell = row.createCell(lastCellNum + 1);
+		Cell cell = row.createCell(lastCellNum+1);
 		cell.setCellValue("Passed");
 		fsIP.close();
 		FileOutputStream outputStream = new FileOutputStream(Path);
 		excelWorkBook.write(outputStream);
 		outputStream.close();
-		System.out.println("Row Number" + RowNumber + "Passed");
+		System.out.println("Row Number"+RowNumber+"Passed");
 	}
 
 }

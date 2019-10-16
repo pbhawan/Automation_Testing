@@ -1,0 +1,5 @@
+id,email,accepts_marketing,created_at,updated_at,first_name,last_name,orders_count,state,total_spent,last_order_id,total_spent,last_order_id,note,verified_email,multipass_identifier,tax_exempt,phone,multipass_identifier,tax_exempt,tags,phone,last_order_name,currency,addresses,accepts_marketing_updated_at,marketing_opt_in_level
+5879,pratibha.bhawan@metacube.com,TRUE,null,null,pratibha,Bhawan,0,disabled,null,null,0,null,PB,TRUE,null,null,null,null,FALSE,xyz,null,null,USD,null,null,null
+5880,bob1@biller.com,34r,null,null,Bob,Biller,0,disabled,null,null,0,null,BIL,TRUE,null,null,null,null,FALSE,op,null,null,USD,null,null,null
+5881,pratibha.bhawan@metacube.com,TRUE,null,null,pratibha,Bhawan,0,disabled,null,null,0,null,PB,TRUE,null,null,null,null,FALSE,xyz,null,null,USD,null,null,null
+5882,bob1@biller.com,TRUE,null,null,Bob,Biller,0,disabled,null,null,0,null,BIL,TRUE,null,null,null,null,FALSE,op,null,null,USD,null,null,null

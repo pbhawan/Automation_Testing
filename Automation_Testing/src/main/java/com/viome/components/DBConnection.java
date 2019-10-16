@@ -19,7 +19,6 @@ public class DBConnection {
 	
 		String id = CustomerJsonData.get("id").toString();
 		try {
-			// Try a simple query.
 			System.out.println("Listing system tables...");
 			_CP.stmt = _CP.conn.createStatement();
 			String sql;
