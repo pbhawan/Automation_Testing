@@ -4,13 +4,16 @@ import java.io.BufferedWriter;
 import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -19,6 +22,7 @@ import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class CSVFileHandling {
@@ -30,41 +34,25 @@ public class CSVFileHandling {
 	int lastRowNum;
 	int firstCellNum;
 	 int lastCellNum;
-	public List<String> CreteJSONFileFromExcel(String filePath) {
-		List<String> jsonString = null;
-		try {
-
-			InputStream fis = new FileInputStream(filePath.trim());
-			HSSFWorkbook excelWorkBook = new HSSFWorkbook(fis);
-			Path = filePath;
-			// Get all excel sheet count.
-			int totalSheetNumber = excelWorkBook.getNumberOfSheets();
-
-			// Loop in all excel sheet.
-			for (int i = 0; i < totalSheetNumber; i++) {
-				// Get current sheet.
-				Sheet sheet = excelWorkBook.getSheetAt(i);
-
-				// Get sheet name.
-				String sheetName = sheet.getSheetName();
-
-				if (sheetName != null && sheetName.length() > 0) {
-					// Get current sheet data in a list table.
-					List<List<Object>> sheetDataTable = getSheetDataList(sheet);
-
-					// Generate JSON format of above sheet data and write to a JSON file.
-					jsonString = getJSONStringFromList(sheetDataTable);
-					String jsonFileName = sheet.getSheetName() + ".json";
-					/* writeStringToFile(jsonString, jsonFileName); */
-
-				}
-			}
-			// Close excel work book object.
-			//((Closeable) excelWorkBook).close();
-		} catch (Exception ex) {
-			System.err.println(ex.getMessage());
-		}
-		return jsonString;
+	public JSONArray JSONUsingCSV(String filePath) throws FileNotFoundException, IOException {
+		JSONArray json;
+		try (InputStream in = new FileInputStream(filePath);) {
+		    CSV csv = new CSV(true, ',', in );
+		    List < Object > fieldNames = null;
+		    if (csv.hasNext()) fieldNames = new ArrayList < > (csv.next());
+		    List < Map < Object, Object >> list = new ArrayList < > ();
+		    while (csv.hasNext()) {
+		        List < Object > x = csv.next();
+		        Map < Object, Object > obj = new LinkedHashMap < > ();
+		        for (int i = 0; i < fieldNames.size(); i++) {
+		        			        	
+		            obj.put(fieldNames.get(i), x.get(i));
+		        }
+		        list.add(obj);
+		    }
+		     json = new JSONArray(list);
+		 		}
+		 return json;
 	}
 
 	/*

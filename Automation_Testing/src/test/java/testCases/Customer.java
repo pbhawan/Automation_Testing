@@ -18,6 +18,7 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.viome.components.CSVFileHandling;
 import com.viome.components.ConnectionProperties;
 import com.viome.components.DBConnection;
 import com.viome.components.ExcelToJSONConvertor;
@@ -30,6 +31,7 @@ public class Customer {
 	ResultSet rs;
 	ConnectionProperties _CP;
 	ExcelToJSONConvertor EJ;
+	CSVFileHandling CJ;
 	FileConversionXLSToXLXS FC;
 	private static ObjectMapper mapper = new ObjectMapper();
 	JSONArray JsonRecords;
@@ -41,8 +43,9 @@ public class Customer {
 		HC = new HTTPConnection();
 		DB = new DBConnection();
 		EJ = new ExcelToJSONConvertor();
+		CJ= new CSVFileHandling();
 		FC = new FileConversionXLSToXLXS();
-		JsonRecords = EJ.CreteJSONFileFromExcel("./src/test/resources/DemoSheet.csv");
+		JsonRecords = CJ.JSONUsingCSV("./src/test/resources/DemoSheet.csv");
 		
 		ConnectionProperties _CP = DB.DBConnection();
 	}
