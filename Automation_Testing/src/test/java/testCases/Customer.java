@@ -1,6 +1,6 @@
 package testCases;
 
-
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,15 +15,18 @@ import org.json.simple.parser.ParseException;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.viome.components.CSVFileHandling;
+
 import com.viome.components.ConnectionProperties;
 import com.viome.components.DBConnection;
+import com.viome.components.DataProviderClass;
 import com.viome.components.ExcelToJSONConvertor;
 import com.viome.components.HTTPConnection;
-import com.viome.utilites.FileConversionXLSToXLXS;
+
+
 
 public class Customer {
 	HTTPConnection HC;
@@ -31,25 +34,23 @@ public class Customer {
 	ResultSet rs;
 	ConnectionProperties _CP;
 	ExcelToJSONConvertor EJ;
-	CSVFileHandling CJ;
-	FileConversionXLSToXLXS FC;
+
+
 	private static ObjectMapper mapper = new ObjectMapper();
-	JSONArray JsonRecords;
+	List<String> JsonRecords;
 	int Iteration = 0;
 
 	@BeforeTest
-	public void Setup() throws IOException, SQLException {
-
+	public void Setup() throws Exception {
+			
 		HC = new HTTPConnection();
 		DB = new DBConnection();
 		EJ = new ExcelToJSONConvertor();
-		CJ= new CSVFileHandling();
-		FC = new FileConversionXLSToXLXS();
-		JsonRecords = CJ.JSONUsingCSV("./src/test/resources/DemoSheet.csv");
-		
+		//CJ = new CSVFileHandling();	
+		JsonRecords = EJ.CreteJSONFileFromExcel("./src/test/resources/Customer.xls", "Customer");
 		ConnectionProperties _CP = DB.DBConnection();
 	}
- 
+
 	@AfterTest
 	public void Teardown() throws SQLException {
 
@@ -58,13 +59,15 @@ public class Customer {
 		_CP.stmt.close();
 
 	}
-
+	
 	@Test
 	public void VerifyCustomerData() throws IOException, InterruptedException, SQLException, ParseException {
 
-		for (Object record : JsonRecords) {			
-			@SuppressWarnings("unchecked")
-			Map<String, Long> map = mapper.readValue(record.toString(), Map.class);
+		for (String record : JsonRecords)
+		{		
+
+         	@SuppressWarnings("unchecked")
+			Map<String, Long> map = mapper.readValue(record, Map.class);
 			map.put("id", new Date().getTime());
 			JSONObject CustomerJsonData = HC.PostCustomerJson(mapper.writeValueAsString(map));
 			TimeUnit.SECONDS.sleep(30);

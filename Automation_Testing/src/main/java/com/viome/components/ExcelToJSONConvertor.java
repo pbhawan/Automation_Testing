@@ -16,15 +16,18 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
+
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.testng.annotations.DataProvider;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -33,135 +36,125 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 public class ExcelToJSONConvertor {
 
 	// static XSSFWorkbook excelWorkBook;
-	String Path;
+	static String Path;
 
-	int firstRowNum;
-	int lastRowNum;
-	int firstCellNum;
-	int lastCellNum;
+	static int firstRowNum;
+	static int lastRowNum;
+	static int firstCellNum;
+	static int lastCellNum;
+	static Sheet sheet;
 
-	public JSONArray CreteJSONFileFromExcel(String filePath) throws FileNotFoundException, IOException {
-	//List<String> jsonString = null;
-	JSONArray json;
-	//ArrayList<HashMap<String, String>> dataMap = new ArrayList<HashMap<String, String>>();
-	/*	try {
+	@SuppressWarnings("unchecked")
+
+	public static List<String> CreteJSONFileFromExcel(String filePath, String SheetName)
+			throws FileNotFoundException, IOException {
+		List<String> jsonString = null;
+		try {
 
 			InputStream fis = new FileInputStream(filePath.trim());
+			@SuppressWarnings("resource")
 			HSSFWorkbook excelWorkBook = new HSSFWorkbook(fis);
 			Path = filePath;
-			// Get all excel sheet count.
 			int totalSheetNumber = excelWorkBook.getNumberOfSheets();
-
-			// Loop in all excel sheet.
-			for (int i = 0; i < totalSheetNumber; i++) {
-				// Get current sheet.
-				Sheet sheet = excelWorkBook.getSheetAt(i);
-
-				// Get sheet name.
-				String sheetName = sheet.getSheetName();
-
-				if (sheetName != null && sheetName.length() > 0) {
-					// Get current sheet data in a list table.
+			int i = 0;
+			while (i < totalSheetNumber) {
+				sheet = excelWorkBook.getSheetAt(i);
+				String CurrentsheetName = sheet.getSheetName();
+				if (CurrentsheetName.equalsIgnoreCase(SheetName) && CurrentsheetName != null
+						&& CurrentsheetName.length() > 0) {
 					List<List<Object>> sheetDataTable = getSheetDataList(sheet);
-
-					// Generate JSON format of above sheet data and write to a JSON file.
 					jsonString = getJSONStringFromList(sheetDataTable);
-					String jsonFileName = sheet.getSheetName() + ".json";
-					 writeStringToFile(jsonString, jsonFileName); 
 
+				} else {
+					break;
 				}
+				i++;
 			}
-			// Close excel work book object.
-			// ((Closeable) excelWorkBook).close();
+
 		} catch (Exception ex) {
 			System.err.println(ex.getMessage());
 		}
-		return jsonString;*/
-		try (InputStream in = new FileInputStream(filePath);) {
-		    CSV csv = new CSV(true, ',', in );
-		    List < Object > fieldNames = null;
-		    if (csv.hasNext()) fieldNames = new ArrayList < > (csv.next());
-		    List < Map < Object, Object >> list = new ArrayList < > ();
-		    while (csv.hasNext()) {
-		        List < Object > x = csv.next();
-		        Map < Object, Object > obj = new LinkedHashMap < > ();
-		        for (int i = 0; i < fieldNames.size(); i++) {
-		        			        	
-		            obj.put(fieldNames.get(i), x.get(i));
-		        }
-		        list.add(obj);
-		    }
-		     json = new JSONArray(list);
-		 		}
-		 return json;
+
+		return jsonString;
 	}
 
-	/*
-	 * Return sheet data in a two dimensional list. Each element in the outer list
-	 * is represent a row, each element in the inner list represent a column. The
-	 * first row is the column name row.
-	 */
-	private List<List<Object>> getSheetDataList(Sheet sheet) {
+	private static List<List<Object>> getSheetDataList(Sheet sheet) {
 		List<List<Object>> ret = new LinkedList<List<Object>>();
 
-		// Get the first and last sheet row number.
 		firstRowNum = sheet.getFirstRowNum();
 		lastRowNum = sheet.getLastRowNum();
+		int count = 0;
+		try {
+			if (lastRowNum > 0) {
 
-		if (lastRowNum > 0) {
-			// Loop in sheet rows.
-			for (int i = firstRowNum; i < lastRowNum + 1; i++) {
-				// Get current row object.
-				Row row = sheet.getRow(i);
+				for (int i = firstRowNum; i < lastRowNum + 1; i++) {
+					// Get current row object.
+					Row row = sheet.getRow(i);
+					count = 0;
+					// Get first and last cell number.
+					firstCellNum = row.getFirstCellNum();
+					lastCellNum = row.getLastCellNum() - 1;
 
-				// Get first and last cell number.
-				firstCellNum = row.getFirstCellNum();
-				lastCellNum = row.getLastCellNum() - 1;
+					// Create a String list to save column data in a row.
+					List<Object> rowDataList = new LinkedList<Object>();
 
-				// Create a String list to save column data in a row.
-				List<Object> rowDataList = new LinkedList<Object>();
+					// Loop in the row cells.
+					for (int j = firstCellNum; j < lastCellNum; j++) {
+						// Get current cell.
+						HSSFCell cell = (HSSFCell) row.getCell(j);
+						count = count + 1;
+						// Get cell type.
+						int cellType = -1;
+						if (cell!=null) {
+							cellType = cell.getCellType();
+						}
+						else {
+							cellType = Cell.CELL_TYPE_BLANK;
+						}
 
-				// Loop in the row cells.
-				for (int j = firstCellNum; j < lastCellNum; j++) {
-					// Get current cell.
-					Cell cell = row.getCell(j);
+						if (cellType == Cell.CELL_TYPE_NUMERIC) {
+							// long numberValue = ;
 
-					// Get cell type.
-					int cellType = cell.getCellType();
+							// BigDecimal is used to avoid double value is counted use Scientific counting
+							// method.
+							// For example the original double variable value is 12345678, but jdk
+							// translated the value to 1.2345678E7.
+							// String stringCellValue = BigDecimal.valueOf(numberValue).toPlainString();
 
-					if (cellType == cell.CELL_TYPE_NUMERIC) {
-						// long numberValue = ;
+							rowDataList.add(cell.getNumericCellValue());
 
-						// BigDecimal is used to avoid double value is counted use Scientific counting
-						// method.
-						// For example the original double variable value is 12345678, but jdk
-						// translated the value to 1.2345678E7.
-						// String stringCellValue = BigDecimal.valueOf(numberValue).toPlainString();
+						} else if (cellType == Cell.CELL_TYPE_STRING) {
+							String cellValue = cell.getStringCellValue();
+							if ("null".equals(cellValue)) {
+								rowDataList.add(null);
+							} else
+								rowDataList.add(cellValue);
+						} else if (cellType == Cell.CELL_TYPE_BOOLEAN) {
+							boolean numberValue = cell.getBooleanCellValue();
 
-						rowDataList.add(cell.getNumericCellValue());
+							// String stringCellValue = String.valueOf(numberValue);
 
-					} else if (cellType == cell.CELL_TYPE_STRING) {
-						String cellValue = cell.getStringCellValue();
-						if ("null".equals(cellValue)) {
-							rowDataList.add(null);
-						} else
-							rowDataList.add(cellValue);
-					} else if (cellType == cell.CELL_TYPE_BOOLEAN) {
-						boolean numberValue = cell.getBooleanCellValue();
+							rowDataList.add(numberValue);
 
-						// String stringCellValue = String.valueOf(numberValue);
+						} else if (cellType == Cell.CELL_TYPE_BLANK) {
+							rowDataList.add("");
+						} else if (cellType == Cell.CELL_TYPE_FORMULA) {
+							boolean numberValue = cell.getBooleanCellValue();
 
-						rowDataList.add(numberValue);
+							// String stringCellValue = String.valueOf(numberValue);
 
-					} else if (cellType == cell.CELL_TYPE_BLANK) {
-						rowDataList.add("");
+							rowDataList.add(numberValue);
+
+						}
+
 					}
 
+					ret.add(rowDataList);
 				}
-
-				// Add current row data list in the return list.
-				ret.add(rowDataList);
 			}
+		} catch (Exception e) {
+
+			System.out.println(count);
 		}
 		return ret;
 	}
@@ -199,19 +192,9 @@ public class ExcelToJSONConvertor {
 					}
 
 					Data.add(rowJsonObject.toString());
-					/*
-					 * String Data = rowJsonObject.toString(); JSONArray jsonArr = new
-					 * JSONArray(Data);
-					 * 
-					 * tableJsonObject.put("Row " + i, rowJsonObject);
-					 */
 
 				}
 
-				// Return string format data of JSONObject object.
-				/*
-				 * ret = tableJsonObject.toString();
-				 */
 			}
 		}
 		return Data;
@@ -252,23 +235,13 @@ public class ExcelToJSONConvertor {
 	}
 
 	public void SetFailureStatus(int RowNumber) throws IOException {
-		FileInputStream fsIP = new FileInputStream(new File(Path)); // Read the spreadsheet that needs to be updated
-
-		XSSFWorkbook excelWorkBook = new XSSFWorkbook(fsIP);
-		/*
-		 * CellStyle borderHeaderStyle = excelWorkBook.createCellStyle();
-		 * borderHeaderStyle.setBorderBottom(CellStyle.BORDER_THICK);
-		 */
+		FileInputStream fsIP = new FileInputStream(new File(Path));
+		@SuppressWarnings("resource")
+		HSSFWorkbook excelWorkBook = new HSSFWorkbook(fsIP);
 		Sheet sheet = excelWorkBook.getSheetAt(0);
 		Row row1 = sheet.getRow(0);
 		Cell cell1 = row1.createCell(lastCellNum + 1);
 		cell1.setCellValue("Results");
-		// cell1.setCellStyle(borderHeaderStyle);
-		/*
-		 * CellStyle backgroundStyle = excelWorkBook.createCellStyle();
-		 * backgroundStyle.setFillBackgroundColor(IndexedColors.CORNFLOWER_BLUE.getIndex
-		 * ()); backgroundStyle.setFillPattern(CellStyle.BORDER_HAIR);
-		 */
 		Row row = sheet.getRow(RowNumber);
 		Cell cell = row.createCell(lastCellNum + 1);
 		cell.setCellValue("Failed");
@@ -280,23 +253,13 @@ public class ExcelToJSONConvertor {
 	}
 
 	public void SetPassStatus(int RowNumber) throws IOException {
-		FileInputStream fsIP = new FileInputStream(new File(Path)); // Read the spreadsheet that needs to be updated
-
-		XSSFWorkbook excelWorkBook = new XSSFWorkbook(fsIP);
-		/*
-		 * CellStyle borderHeaderStyle = excelWorkBook.createCellStyle();
-		 * borderHeaderStyle.setBorderBottom(CellStyle.BORDER_THICK);
-		 */
+		FileInputStream fsIP = new FileInputStream(new File(Path));
+		@SuppressWarnings("resource")
+		HSSFWorkbook excelWorkBook = new HSSFWorkbook(fsIP);
 		Sheet sheet = excelWorkBook.getSheetAt(0);
 		Row row1 = sheet.getRow(0);
 		Cell cell1 = row1.createCell(lastCellNum + 1);
 		cell1.setCellValue("Results");
-		// cell1.setCellStyle(borderHeaderStyle);
-		/*
-		 * CellStyle backgroundStyle = excelWorkBook.createCellStyle();
-		 * backgroundStyle.setFillBackgroundColor(IndexedColors.CORNFLOWER_BLUE.getIndex
-		 * ()); backgroundStyle.setFillPattern(CellStyle.BORDER_HAIR);
-		 */
 		Row row = sheet.getRow(RowNumber);
 		Cell cell = row.createCell(lastCellNum + 1);
 		cell.setCellValue("Passed");

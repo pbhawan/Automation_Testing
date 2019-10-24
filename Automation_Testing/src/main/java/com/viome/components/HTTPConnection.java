@@ -24,17 +24,17 @@ public class HTTPConnection {
 
 	public JSONObject PostCustomerJson(String Record) throws ParseException {
 
-		//File file = new File("./src/test/resources/Customer.json");
+		
 		try {
-			/*JSONParser parser = new JSONParser();
-			data = (JSONObject) parser.parse(new FileReader(file.getAbsolutePath()));*/
-			HttpPost request = SetHeader();
+					
 			StringEntity params = new StringEntity(Record);
+			String params1=HmacUtil.calculateHMAC(params.toString(), "07ac5dfed552350b42c51225ea89e87f17f5b91d069c1d8fe8a96b8124e6ecfb");
+			HttpPost request = SetHeader(params1);
 			request.setEntity(params);
 			HttpResponse response = httpClient.execute(request);
 			System.out.println("Response is" + "=" + response);
 
-			// handle response here...
+		
 
 		} catch (Exception ex) {
 			System.out.println(ex);
@@ -48,11 +48,11 @@ public class HTTPConnection {
 		return json;
 	}
 
-	public HttpPost SetHeader() throws IOException {
+	public HttpPost SetHeader(String params1 ) throws IOException {
 		//HttpPost request = new HttpPost(PF.getURLPropertiesValue().getProperty("HttpshopifyURL"));
 		HttpPost request = new HttpPost("https://shopify-services.viome.com/v1/viome/shopify/webhook");		
 		request.addHeader("content-type", "application/json");
-		request.addHeader("x-shopify-hmac-sha256", "Tdf9G6igMrjlYOkpEyx0F4u6KGKKCJCG5bgIaCVc7LU=");
+		request.addHeader("x-shopify-hmac-sha256", params1);
 		request.addHeader("x-shopify-shop-domain", "viome3-QA.Automation.com,PB");
 		request.addHeader("x-shopify-topic", "customers/create");
 		request.addHeader("Host", "shopify-services.viome.com");
