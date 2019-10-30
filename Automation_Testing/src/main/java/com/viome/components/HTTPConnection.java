@@ -28,7 +28,7 @@ public class HTTPConnection {
 		try {
 					
 			StringEntity params = new StringEntity(Record);
-			String params1=HmacUtil.calculateHMAC(params.toString(), "07ac5dfed552350b42c51225ea89e87f17f5b91d069c1d8fe8a96b8124e6ecfb");
+			String params1=HmacUtil.calculateHMAC(Record, "07ac5dfed552350b42c51225ea89e87f17f5b91d069c1d8fe8a96b8124e6ecfb");
 			HttpPost request = SetHeader(params1);
 			request.setEntity(params);
 			HttpResponse response = httpClient.execute(request);

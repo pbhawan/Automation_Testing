@@ -30,13 +30,17 @@ import org.json.JSONObject;
 import org.testng.annotations.DataProvider;
 
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.cfg.MapperBuilder;
 
 public class ExcelToJSONConvertor {
 
 	// static XSSFWorkbook excelWorkBook;
 	static String Path;
+	
+	private static ObjectMapper mapper  = new ObjectMapper();
 
 	static int firstRowNum;
 	static int lastRowNum;
@@ -181,17 +185,18 @@ public class ExcelToJSONConvertor {
 					List dataRow = dataTable.get(i);
 
 					// Create a JSONObject object to store row data.
-					JSONObject rowJsonObject = new JSONObject();
-
+					Map map = new HashMap();
 					for (int j = 0; j < columnCount; j++) {
 						String columnName = String.valueOf(headerRow.get(j));
 						Object columnValue = dataRow.get(j);
 
-						rowJsonObject.put(columnName, columnValue);
+						map.put(columnName, columnValue);
 
 					}
-
-					Data.add(rowJsonObject.toString());
+					JSONObject rowJsonObject = new JSONObject(map);
+					String jsonFormattedString = rowJsonObject.toString().replaceAll("\\\\", ""); 
+					
+						Data.add(jsonFormattedString);
 
 				}
 
@@ -269,5 +274,13 @@ public class ExcelToJSONConvertor {
 		outputStream.close();
 		System.out.println("Row Number" + RowNumber + "Passed");
 	}
+	
+	
+	/*public static void main(String args[]) {
+		
+		String rowJsonObject = "abc\\";
+		String jsonFormattedString = rowJsonObject.replaceAll("\\\\", ""); 
+		
+	}*/
 
 }

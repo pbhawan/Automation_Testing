@@ -65,7 +65,6 @@ public class Customer {
 
 		for (String record : JsonRecords)
 		{		
-
          	@SuppressWarnings("unchecked")
 			Map<String, Long> map = mapper.readValue(record, Map.class);
 			map.put("id", new Date().getTime());
