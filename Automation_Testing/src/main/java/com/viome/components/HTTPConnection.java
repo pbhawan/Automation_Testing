@@ -18,12 +18,13 @@ public class HTTPConnection {
 	PageFactory PF = new PageFactory();
 	JSONObject data;
 	HttpClient httpClient = HttpClientBuilder.create().build();
+	String webhook;
 
 	public HTTPConnection() {
 	}
 
-	public JSONObject PostCustomerJson(String Record) throws ParseException {
-
+	public JSONObject PostJson(String Record, String webhook_nm) throws ParseException {
+		webhook=webhook_nm;
 		
 		try {
 					
@@ -54,7 +55,10 @@ public class HTTPConnection {
 		request.addHeader("content-type", "application/json");
 		request.addHeader("x-shopify-hmac-sha256", params1);
 		request.addHeader("x-shopify-shop-domain", "viome3-QA.Automation.com,PB");
+		if(webhook=="Customer")
 		request.addHeader("x-shopify-topic", "customers/create");
+		if(webhook=="Location")
+			request.addHeader("x-shopify-topic", "customers/create");
 		request.addHeader("Host", "shopify-services.viome.com");
 		return request;
 

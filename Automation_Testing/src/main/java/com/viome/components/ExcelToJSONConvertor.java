@@ -24,7 +24,7 @@ import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
-
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.testng.annotations.DataProvider;
@@ -39,8 +39,8 @@ public class ExcelToJSONConvertor {
 
 	// static XSSFWorkbook excelWorkBook;
 	static String Path;
-	
-	private static ObjectMapper mapper  = new ObjectMapper();
+
+	private static ObjectMapper mapper = new ObjectMapper();
 
 	static int firstRowNum;
 	static int lastRowNum;
@@ -109,10 +109,9 @@ public class ExcelToJSONConvertor {
 						count = count + 1;
 						// Get cell type.
 						int cellType = -1;
-						if (cell!=null) {
+						if (cell != null) {
 							cellType = cell.getCellType();
-						}
-						else {
+						} else {
 							cellType = Cell.CELL_TYPE_BLANK;
 						}
 
@@ -133,6 +132,7 @@ public class ExcelToJSONConvertor {
 								rowDataList.add(null);
 							} else
 								rowDataList.add(cellValue);
+
 						} else if (cellType == Cell.CELL_TYPE_BOOLEAN) {
 							boolean numberValue = cell.getBooleanCellValue();
 
@@ -189,14 +189,25 @@ public class ExcelToJSONConvertor {
 					for (int j = 0; j < columnCount; j++) {
 						String columnName = String.valueOf(headerRow.get(j));
 						Object columnValue = dataRow.get(j);
-
+						if (columnValue instanceof String && columnValue.toString().startsWith("[")
+								&& columnValue.toString().endsWith("]")) {
+							String tempValue =  columnValue.toString() ;
+							JSONArray jsonArray = new JSONArray(tempValue);
+							columnValue = jsonArray;
+						}
+						if (columnValue instanceof String && columnValue.toString().startsWith("{")
+								&& columnValue.toString().endsWith("}")) {
+							String tempValue =  columnValue.toString() ;
+							JSONObject jsonObject = new JSONObject(tempValue);
+							columnValue = jsonObject;
+						}
 						map.put(columnName, columnValue);
 
 					}
 					JSONObject rowJsonObject = new JSONObject(map);
-					String jsonFormattedString = rowJsonObject.toString().replaceAll("\\\\", ""); 
-					
-						Data.add(jsonFormattedString);
+					String jsonFormattedString = rowJsonObject.toString().replaceAll("\\\\", "");
+
+					Data.add(jsonFormattedString);
 
 				}
 
@@ -274,13 +285,14 @@ public class ExcelToJSONConvertor {
 		outputStream.close();
 		System.out.println("Row Number" + RowNumber + "Passed");
 	}
-	
-	
-	/*public static void main(String args[]) {
-		
-		String rowJsonObject = "abc\\";
-		String jsonFormattedString = rowJsonObject.replaceAll("\\\\", ""); 
-		
-	}*/
+
+	/*
+	 * public static void main(String args[]) {
+	 * 
+	 * String rowJsonObject = "abc\\"; String jsonFormattedString =
+	 * rowJsonObject.replaceAll("\\\\", "");
+	 * 
+	 * }
+	 */
 
 }

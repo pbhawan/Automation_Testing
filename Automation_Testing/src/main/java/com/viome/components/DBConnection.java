@@ -15,16 +15,23 @@ public class DBConnection {
 	static final String MasterUserPassword = "METAViomecube3";
 	ResultSet rs;
 	ConnectionProperties _CP = new ConnectionProperties();
-	public ConnectionProperties GetCustomerFromDB(JSONObject CustomerJsonData) throws SQLException {
+	public ConnectionProperties GetRecordFromDB(JSONObject CustomerJsonData, String webhook) throws SQLException {
 	
 		String id = CustomerJsonData.get("id").toString();
 		try {
 			System.out.println("Listing system tables...");
 			_CP.stmt = _CP.conn.createStatement();
 			String sql;
+			if(webhook=="Customer")
+			{
 			sql = "SELECT * FROM public.customer where id=" + id + ";";
 			_CP.rs = _CP.stmt.executeQuery(sql);
-
+			}
+			if(webhook=="Location")
+			{
+			sql = "SELECT * FROM public.location where id=" + id + ";";
+			_CP.rs = _CP.stmt.executeQuery(sql);
+			}
 		} catch (Exception ex) {
 			// For convenience, handle all errors here.
 			ex.printStackTrace();

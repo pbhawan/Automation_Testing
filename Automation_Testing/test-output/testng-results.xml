@@ -2,36 +2,20 @@
 <testng-results skipped="0" failed="1" ignored="0" total="1" passed="0">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="33698" started-at="2019-10-25T08:20:13Z" finished-at="2019-10-25T08:20:47Z">
+  <suite name="Default suite" duration-ms="4857" started-at="2019-10-31T07:27:10Z" finished-at="2019-10-31T07:27:15Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="33698" started-at="2019-10-25T08:20:13Z" finished-at="2019-10-25T08:20:47Z">
+    <test name="Default test" duration-ms="4857" started-at="2019-10-31T07:27:10Z" finished-at="2019-10-31T07:27:15Z">
       <class name="testCases.Customer">
-        <test-method status="PASS" signature="Setup()[pri:0, instance:testCases.Customer@58695725]" name="Setup" is-config="true" duration-ms="4828" started-at="2019-10-25T08:20:13Z" finished-at="2019-10-25T08:20:18Z">
+        <test-method status="PASS" signature="Setup()[pri:0, instance:testCases.Customer@f5acb9d]" name="Setup" is-config="true" duration-ms="4809" started-at="2019-10-31T07:27:10Z" finished-at="2019-10-31T07:27:15Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Setup -->
-        <test-method status="FAIL" signature="VerifyCustomerData()[pri:0, instance:testCases.Customer@58695725]" name="VerifyCustomerData" duration-ms="27130" started-at="2019-10-25T08:20:18Z" finished-at="2019-10-25T08:20:45Z">
-          <exception class="com.fasterxml.jackson.core.JsonParseException">
-            <message>
-              <![CDATA[Unexpected character ('d' (code 100)): was expecting double-quote to start field name
- at [Source: (String)"{default_address_province_code=GA, note=This customer loves icecream, addresses=[{"id":2685030793300,"customer_id":2534234226772,"first_name":"CustomerT3","last_name":"CustomerT3","company":"VioME3","address1":"N7390 Wisconsin 67","address2":"","city":"Plymouth","province":"Wisconsin","country":"United States","zip":"53073","phone":"","name":"CustomerT3 CustomerT3","province_code":"WI","country_code":"US","country_name":"United States","default":true}], last_order_name=8444, default_address_addr"[truncated 1002 chars]; line: 1, column: 3]]]>
-            </message>
+        <test-method status="FAIL" signature="VerifyCustomerData()[pri:0, instance:testCases.Customer@f5acb9d]" name="VerifyCustomerData" duration-ms="7" started-at="2019-10-31T07:27:15Z" finished-at="2019-10-31T07:27:15Z">
+          <exception class="java.lang.NullPointerException">
             <full-stacktrace>
-              <![CDATA[com.fasterxml.jackson.core.JsonParseException: Unexpected character ('d' (code 100)): was expecting double-quote to start field name
- at [Source: (String)"{default_address_province_code=GA, note=This customer loves icecream, addresses=[{"id":2685030793300,"customer_id":2534234226772,"first_name":"CustomerT3","last_name":"CustomerT3","company":"VioME3","address1":"N7390 Wisconsin 67","address2":"","city":"Plymouth","province":"Wisconsin","country":"United States","zip":"53073","phone":"","name":"CustomerT3 CustomerT3","province_code":"WI","country_code":"US","country_name":"United States","default":true}], last_order_name=8444, default_address_addr"[truncated 1002 chars]; line: 1, column: 3]
-at com.fasterxml.jackson.core.JsonParser._constructError(JsonParser.java:1840)
-at com.fasterxml.jackson.core.base.ParserMinimalBase._reportError(ParserMinimalBase.java:712)
-at com.fasterxml.jackson.core.base.ParserMinimalBase._reportUnexpectedChar(ParserMinimalBase.java:637)
-at com.fasterxml.jackson.core.json.ReaderBasedJsonParser._handleOddName(ReaderBasedJsonParser.java:1781)
-at com.fasterxml.jackson.core.json.ReaderBasedJsonParser.nextFieldName(ReaderBasedJsonParser.java:932)
-at com.fasterxml.jackson.databind.deser.std.MapDeserializer._readAndBindStringKeyMap(MapDeserializer.java:500)
-at com.fasterxml.jackson.databind.deser.std.MapDeserializer.deserialize(MapDeserializer.java:364)
-at com.fasterxml.jackson.databind.deser.std.MapDeserializer.deserialize(MapDeserializer.java:29)
-at com.fasterxml.jackson.databind.ObjectMapper._readMapAndClose(ObjectMapper.java:4202)
-at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3205)
-at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3173)
-at testCases.Customer.VerifyCustomerData(Customer.java:69)
+              <![CDATA[java.lang.NullPointerException
+at testCases.Customer.VerifyCustomerData(Customer.java:66)
 at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -59,11 +43,11 @@ at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
 at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
 ]]>
             </full-stacktrace>
-          </exception> <!-- com.fasterxml.jackson.core.JsonParseException -->
+          </exception> <!-- java.lang.NullPointerException -->
           <reporter-output>
           </reporter-output>
         </test-method> <!-- VerifyCustomerData -->
-        <test-method status="FAIL" signature="Teardown()[pri:0, instance:testCases.Customer@58695725]" name="Teardown" is-config="true" duration-ms="1" started-at="2019-10-25T08:20:47Z" finished-at="2019-10-25T08:20:47Z">
+        <test-method status="FAIL" signature="Teardown()[pri:0, instance:testCases.Customer@f5acb9d]" name="Teardown" is-config="true" duration-ms="1" started-at="2019-10-31T07:27:15Z" finished-at="2019-10-31T07:27:15Z">
           <exception class="java.lang.NullPointerException">
             <full-stacktrace>
               <![CDATA[java.lang.NullPointerException

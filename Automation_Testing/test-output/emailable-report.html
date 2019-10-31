@@ -9,9 +9,9 @@
 <table>
 <tr><th>Test</th><th># Passed</th><th># Skipped</th><th># Failed</th><th>Time (ms)</th><th>Included Groups</th><th>Excluded Groups</th></tr>
 <tr><th colspan="7">Default suite</th></tr>
-<tr><td><a href="#t0">Default test</a></td><td class="num">0</td><td class="num">0</td><td class="num attn">1</td><td class="num">33,698</td><td></td><td></td></tr>
+<tr><td><a href="#t0">Default test</a></td><td class="num">0</td><td class="num">0</td><td class="num attn">1</td><td class="num">4,857</td><td></td><td></td></tr>
 </table>
-<table id='summary'><thead><tr><th>Class</th><th>Method</th><th>Start</th><th>Time (ms)</th></tr></thead><tbody><tr><th colspan="4">Default suite</th></tr></tbody><tbody id="t0"><tr><th colspan="4">Default test &#8212; failed (configuration methods)</th></tr><tr class="failedeven"><td rowspan="1">testCases.Customer</td><td><a href="#m0">Teardown</a></td><td rowspan="1">1571991647173</td><td rowspan="1">1</td></tr><tr><th colspan="4">Default test &#8212; failed</th></tr><tr class="failedeven"><td rowspan="1">testCases.Customer</td><td><a href="#m1">VerifyCustomerData</a></td><td rowspan="1">1571991618351</td><td rowspan="1">27130</td></tr></tbody>
+<table id='summary'><thead><tr><th>Class</th><th>Method</th><th>Start</th><th>Time (ms)</th></tr></thead><tbody><tr><th colspan="4">Default suite</th></tr></tbody><tbody id="t0"><tr><th colspan="4">Default test &#8212; failed (configuration methods)</th></tr><tr class="failedeven"><td rowspan="1">testCases.Customer</td><td><a href="#m0">Teardown</a></td><td rowspan="1">1572506835269</td><td rowspan="1">1</td></tr><tr><th colspan="4">Default test &#8212; failed</th></tr><tr class="failedeven"><td rowspan="1">testCases.Customer</td><td><a href="#m1">VerifyCustomerData</a></td><td rowspan="1">1572506835248</td><td rowspan="1">7</td></tr></tbody>
 </table>
 <h2>Default test</h2><h3 id="m0">testCases.Customer#Teardown</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.NullPointerException
 	at testCases.Customer.Teardown(Customer.java:57)
@@ -40,20 +40,8 @@
 	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
 </div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m1">testCases.Customer#VerifyCustomerData</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">com.fasterxml.jackson.core.JsonParseException: Unexpected character (&apos;d&apos; (code 100)): was expecting double-quote to start field name
- at [Source: (String)&quot;{default_address_province_code=GA, note=This customer loves icecream, addresses=[{&quot;id&quot;:2685030793300,&quot;customer_id&quot;:2534234226772,&quot;first_name&quot;:&quot;CustomerT3&quot;,&quot;last_name&quot;:&quot;CustomerT3&quot;,&quot;company&quot;:&quot;VioME3&quot;,&quot;address1&quot;:&quot;N7390 Wisconsin 67&quot;,&quot;address2&quot;:&quot;&quot;,&quot;city&quot;:&quot;Plymouth&quot;,&quot;province&quot;:&quot;Wisconsin&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;zip&quot;:&quot;53073&quot;,&quot;phone&quot;:&quot;&quot;,&quot;name&quot;:&quot;CustomerT3 CustomerT3&quot;,&quot;province_code&quot;:&quot;WI&quot;,&quot;country_code&quot;:&quot;US&quot;,&quot;country_name&quot;:&quot;United States&quot;,&quot;default&quot;:true}], last_order_name=8444, default_address_addr&quot;[truncated 1002 chars]; line: 1, column: 3]
-	at com.fasterxml.jackson.core.JsonParser._constructError(JsonParser.java:1840)
-	at com.fasterxml.jackson.core.base.ParserMinimalBase._reportError(ParserMinimalBase.java:712)
-	at com.fasterxml.jackson.core.base.ParserMinimalBase._reportUnexpectedChar(ParserMinimalBase.java:637)
-	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser._handleOddName(ReaderBasedJsonParser.java:1781)
-	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser.nextFieldName(ReaderBasedJsonParser.java:932)
-	at com.fasterxml.jackson.databind.deser.std.MapDeserializer._readAndBindStringKeyMap(MapDeserializer.java:500)
-	at com.fasterxml.jackson.databind.deser.std.MapDeserializer.deserialize(MapDeserializer.java:364)
-	at com.fasterxml.jackson.databind.deser.std.MapDeserializer.deserialize(MapDeserializer.java:29)
-	at com.fasterxml.jackson.databind.ObjectMapper._readMapAndClose(ObjectMapper.java:4202)
-	at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3205)
-	at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3173)
-	at testCases.Customer.VerifyCustomerData(Customer.java:69)
+<h3 id="m1">testCases.Customer#VerifyCustomerData</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.NullPointerException
+	at testCases.Customer.VerifyCustomerData(Customer.java:66)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
