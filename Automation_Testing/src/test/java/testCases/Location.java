@@ -40,6 +40,7 @@ public class Location {
 	List<String> JsonRecords;
 	int Iteration = 0;
 
+	@SuppressWarnings("static-access")
 	@BeforeTest
 	public void Setup() throws Exception {
 			

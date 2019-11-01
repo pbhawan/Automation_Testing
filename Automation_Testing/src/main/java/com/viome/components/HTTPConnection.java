@@ -58,7 +58,7 @@ public class HTTPConnection {
 		if(webhook=="Customer")
 		request.addHeader("x-shopify-topic", "customers/create");
 		if(webhook=="Location")
-			request.addHeader("x-shopify-topic", "customers/create");
+			request.addHeader("x-shopify-topic", "locations/create");
 		request.addHeader("Host", "shopify-services.viome.com");
 		return request;
 

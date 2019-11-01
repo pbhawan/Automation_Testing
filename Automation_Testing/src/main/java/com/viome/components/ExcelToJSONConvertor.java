@@ -60,8 +60,8 @@ public class ExcelToJSONConvertor {
 			HSSFWorkbook excelWorkBook = new HSSFWorkbook(fis);
 			Path = filePath;
 			int totalSheetNumber = excelWorkBook.getNumberOfSheets();
-			int i = 0;
-			while (i < totalSheetNumber) {
+			
+			for(int i = 0;i<totalSheetNumber; i++) {
 				sheet = excelWorkBook.getSheetAt(i);
 				String CurrentsheetName = sheet.getSheetName();
 				if (CurrentsheetName.equalsIgnoreCase(SheetName) && CurrentsheetName != null
@@ -70,7 +70,7 @@ public class ExcelToJSONConvertor {
 					jsonString = getJSONStringFromList(sheetDataTable);
 
 				} else {
-					break;
+					continue;
 				}
 				i++;
 			}
@@ -97,7 +97,7 @@ public class ExcelToJSONConvertor {
 					count = 0;
 					// Get first and last cell number.
 					firstCellNum = row.getFirstCellNum();
-					lastCellNum = row.getLastCellNum() - 1;
+					lastCellNum = row.getLastCellNum();
 
 					// Create a String list to save column data in a row.
 					List<Object> rowDataList = new LinkedList<Object>();
@@ -177,7 +177,7 @@ public class ExcelToJSONConvertor {
 				// The first row is the header row, store each column name.
 				List headerRow = dataTable.get(0);
 
-				int columnCount = (headerRow.size()) - 1;
+				int columnCount = (headerRow.size());
 
 				// Loop in the row data list.
 				for (int i = 1; i < rowCount; i++) {
