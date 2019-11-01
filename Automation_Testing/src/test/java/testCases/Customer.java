@@ -22,9 +22,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.viome.components.ConnectionProperties;
 import com.viome.components.DBConnection;
-import com.viome.components.DataProviderClass;
+
 import com.viome.components.ExcelToJSONConvertor;
 import com.viome.components.HTTPConnection;
+import com.viome.enums.webhooks;
 
 
 
@@ -34,6 +35,7 @@ public class Customer {
 	ResultSet rs;
 	ConnectionProperties _CP;
 	ExcelToJSONConvertor EJ;
+	webhooks WH;
 
 
 	private static ObjectMapper mapper = new ObjectMapper();
@@ -47,7 +49,7 @@ public class Customer {
 		DB = new DBConnection();
 		EJ = new ExcelToJSONConvertor();
 		//CJ = new CSVFileHandling();	
-		JsonRecords = EJ.CreteJSONFileFromExcel("./src/test/resources/DataSet.xls", "Customer");
+		JsonRecords = EJ.CreteJSONFileFromExcel("./src/test/resources/DataSet.xls", WH.Customer);
 		ConnectionProperties _CP = DB.DBConnection();
 	}
 
@@ -68,7 +70,7 @@ public class Customer {
          	@SuppressWarnings("unchecked")
 			Map<String, Long> map = mapper.readValue(record, Map.class);
 			map.put("id", new Date().getTime());
-			JSONObject CustomerJsonData = HC.PostJson(mapper.writeValueAsString(map), "Customer");
+			JSONObject CustomerJsonData = HC.PostJson(mapper.writeValueAsString(map), WH.Customer);
 			TimeUnit.SECONDS.sleep(30);
 			_CP = DB.GetRecordFromDB(CustomerJsonData,"Customer");
 			if (_CP.rs.next()) {

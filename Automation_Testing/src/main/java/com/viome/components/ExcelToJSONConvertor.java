@@ -50,7 +50,7 @@ public class ExcelToJSONConvertor {
 
 	@SuppressWarnings("unchecked")
 
-	public static List<String> CreteJSONFileFromExcel(String filePath, String SheetName)
+	public static List<String> CreteJSONFileFromExcel(String filePath, Enum SheetName)
 			throws FileNotFoundException, IOException {
 		List<String> jsonString = null;
 		try {
@@ -64,7 +64,7 @@ public class ExcelToJSONConvertor {
 			for(int i = 0;i<totalSheetNumber; i++) {
 				sheet = excelWorkBook.getSheetAt(i);
 				String CurrentsheetName = sheet.getSheetName();
-				if (CurrentsheetName.equalsIgnoreCase(SheetName) && CurrentsheetName != null
+				if (CurrentsheetName.equalsIgnoreCase(SheetName.toString()) && CurrentsheetName != null
 						&& CurrentsheetName.length() > 0) {
 					List<List<Object>> sheetDataTable = getSheetDataList(sheet);
 					jsonString = getJSONStringFromList(sheetDataTable);

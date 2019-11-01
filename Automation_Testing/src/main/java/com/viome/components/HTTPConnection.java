@@ -13,17 +13,19 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.viome.enums.webhooks;
 
 public class HTTPConnection {
 	PageFactory PF = new PageFactory();
 	JSONObject data;
 	HttpClient httpClient = HttpClientBuilder.create().build();
-	String webhook;
+	Enum webhook;
+	webhooks WH;
 
 	public HTTPConnection() {
 	}
 
-	public JSONObject PostJson(String Record, String webhook_nm) throws ParseException {
+	public JSONObject PostJson(String Record, Enum webhook_nm) throws ParseException {
 		webhook=webhook_nm;
 		
 		try {
@@ -55,9 +57,9 @@ public class HTTPConnection {
 		request.addHeader("content-type", "application/json");
 		request.addHeader("x-shopify-hmac-sha256", params1);
 		request.addHeader("x-shopify-shop-domain", "viome3-QA.Automation.com,PB");
-		if(webhook=="Customer")
+		if(webhook==WH.Customer)
 		request.addHeader("x-shopify-topic", "customers/create");
-		if(webhook=="Location")
+		if(webhook==WH.Location)
 			request.addHeader("x-shopify-topic", "locations/create");
 		request.addHeader("Host", "shopify-services.viome.com");
 		return request;
