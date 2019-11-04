@@ -61,15 +61,29 @@ public class Product {
 
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes", "static-access" })
 	@Test
-	public void VerifyLocationData() throws IOException, InterruptedException, SQLException, ParseException {
+	public void VerifyProductData() throws IOException, InterruptedException, SQLException, ParseException {
 
 		for (String record : JsonRecords)
 		{		
-         	@SuppressWarnings("unchecked")
-			Map<String, Long> map = mapper.readValue(record, Map.class);
-			map.put("id", new Date().getTime());
-			
+         	Map<String, Object> map = mapper.readValue(record, Map.class);
+			long id = new Date().getTime();
+			map.put("id", id);
+			if (null != map.get("variants")) {
+			List<Map> variants = (List<Map>) map.get("variants");
+		for (Map m : variants) {
+			m.put("product_id" ,id);
+			m.put("id",  new Date().getTime());
+		}
+			}
+			if (null != map.get("variants")) {
+				List<Map> options = (List<Map>) map.get("options");
+			for (Map m : options) {
+				m.put("product_id" ,id);
+				m.put("id",  new Date().getTime());
+			}
+				}			
 			@SuppressWarnings("static-access")
 			JSONObject ProductJsonData = HC.PostJson(mapper.writeValueAsString(map), WH.Product);
 			TimeUnit.SECONDS.sleep(30);

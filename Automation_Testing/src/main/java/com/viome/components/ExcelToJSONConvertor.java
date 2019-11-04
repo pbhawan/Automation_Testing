@@ -264,10 +264,10 @@ public class ExcelToJSONConvertor {
 			if (CurrentsheetName.equalsIgnoreCase(SheetName.toString()) && CurrentsheetName != null
 					&& CurrentsheetName.length() > 0) {
 				Row row1 = sheet.getRow(0);
-				Cell cell1 = row1.createCell(lastCellNum + 1);
+				Cell cell1 = row1.createCell(lastCellNum);
 				cell1.setCellValue("Results");
 				Row row = sheet.getRow(RowNumber);
-				Cell cell = row.createCell(lastCellNum + 1);
+				Cell cell = row.createCell(lastCellNum);
 				cell.setCellValue("Failed");
 				fsIP.close();
 				FileOutputStream outputStream = new FileOutputStream(Path);
@@ -299,10 +299,10 @@ public class ExcelToJSONConvertor {
 			if (CurrentsheetName.equalsIgnoreCase(SheetName.toString()) && CurrentsheetName != null
 					&& CurrentsheetName.length() > 0) {
 				Row row1 = sheet.getRow(0);
-				Cell cell1 = row1.createCell(lastCellNum + 1);
+				Cell cell1 = row1.createCell(lastCellNum);
 				cell1.setCellValue("Results");
 				Row row = sheet.getRow(RowNumber);
-				Cell cell = row.createCell(lastCellNum + 1);
+				Cell cell = row.createCell(lastCellNum);
 				cell.setCellValue("Passed");
 				fsIP.close();
 				FileOutputStream outputStream = new FileOutputStream(Path);

@@ -59,7 +59,7 @@ public class Theme {
 	}
 	
 	@Test
-	public void VerifyCustomerData() throws IOException, InterruptedException, SQLException, ParseException {
+	public void VerifyThemeData() throws IOException, InterruptedException, SQLException, ParseException {
 
 		for (String record : JsonRecords)
 		{		
