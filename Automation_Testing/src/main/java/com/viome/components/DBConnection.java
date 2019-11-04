@@ -32,6 +32,22 @@ public class DBConnection {
 			sql = "SELECT * FROM public.location where id=" + id + ";";
 			_CP.rs = _CP.stmt.executeQuery(sql);
 			}
+			if(webhook=="Theme")
+			{
+			sql = "SELECT * FROM public.theme where id=" + id + ";";
+			_CP.rs = _CP.stmt.executeQuery(sql);
+			}
+			if(webhook=="Product")
+			{
+				
+			sql = "SELECT * FROM public.product where id=" + id + ";";			
+			_CP.rs = _CP.stmt.executeQuery(sql);
+			}
+//			if(webhook=="Prodvarient")
+//			{
+//			sql = "SELECT * FROM public.variants where id=" + id + ";";
+//			_CP.rs = _CP.stmt.executeQuery(sql);
+//			}
 		} catch (Exception ex) {
 			// For convenience, handle all errors here.
 			ex.printStackTrace();

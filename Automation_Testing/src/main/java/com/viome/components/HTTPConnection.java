@@ -1,7 +1,7 @@
 package com.viome.components;
 
-import java.io.File;
-import java.io.FileReader;
+//import java.io.File;
+//import java.io.FileReader;
 import java.io.IOException;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -12,20 +12,21 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+//import com.fasterxml.jackson.databind.ObjectMapper;
 import com.viome.enums.webhooks;
 
 public class HTTPConnection {
 	PageFactory PF = new PageFactory();
 	JSONObject data;
 	HttpClient httpClient = HttpClientBuilder.create().build();
+	@SuppressWarnings("rawtypes")
 	Enum webhook;
 	webhooks WH;
 
 	public HTTPConnection() {
 	}
 
-	public JSONObject PostJson(String Record, Enum webhook_nm) throws ParseException {
+	public JSONObject PostJson(String Record, @SuppressWarnings("rawtypes") Enum webhook_nm) throws ParseException {
 		webhook=webhook_nm;
 		
 		try {
@@ -51,16 +52,21 @@ public class HTTPConnection {
 		return json;
 	}
 
+	@SuppressWarnings("static-access")
 	public HttpPost SetHeader(String params1 ) throws IOException {
 		//HttpPost request = new HttpPost(PF.getURLPropertiesValue().getProperty("HttpshopifyURL"));
 		HttpPost request = new HttpPost("https://shopify-services.viome.com/v1/viome/shopify/webhook");		
 		request.addHeader("content-type", "application/json");
 		request.addHeader("x-shopify-hmac-sha256", params1);
-		request.addHeader("x-shopify-shop-domain", "viome3-QA.Automation.com,PB");
+		request.addHeader("x-shopify-shop-domain", "viome3-QA.Automation.com,NJ");
 		if(webhook==WH.Customer)
 		request.addHeader("x-shopify-topic", "customers/create");
 		if(webhook==WH.Location)
 			request.addHeader("x-shopify-topic", "locations/create");
+		if(webhook==WH.Theme)
+		request.addHeader("x-shopify-topic", "themes/create");
+		if(webhook==WH.Product)
+		request.addHeader("x-shopify-topic", "products/create");
 		request.addHeader("Host", "shopify-services.viome.com");
 		return request;
 

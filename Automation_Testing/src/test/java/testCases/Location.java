@@ -1,6 +1,5 @@
 package testCases;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,17 +8,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import org.json.JSONArray;
+
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import com.viome.components.ConnectionProperties;
 import com.viome.components.DBConnection;
 
@@ -51,6 +48,7 @@ public class Location {
 		EJ = new ExcelToJSONConvertor();
 		//CJ = new CSVFileHandling();	
 		JsonRecords = EJ.CreteJSONFileFromExcel("./src/test/resources/DataSet.xls", WH.Location);
+		@SuppressWarnings("unused")
 		ConnectionProperties _CP = DB.DBConnection();
 	}
 
@@ -71,51 +69,43 @@ public class Location {
          	@SuppressWarnings("unchecked")
 			Map<String, Long> map = mapper.readValue(record, Map.class);
 			map.put("id", new Date().getTime());
+			@SuppressWarnings("static-access")
 			JSONObject LocationJsonData = HC.PostJson(mapper.writeValueAsString(map), WH.Location);
 			TimeUnit.SECONDS.sleep(30);
 			_CP = DB.GetRecordFromDB(LocationJsonData,"Location");
 			if (_CP.rs.next()) {
 				try {
-					Assert.assertEquals(LocationJsonData.get("first_name").toString(),
-							_CP.rs.getString("first_name").toString(), "First Name not Match in Row" + Iteration);
-					Assert.assertEquals(LocationJsonData.get("last_name").toString(),
-							_CP.rs.getString("last_name").toString(), "Last Name not Match in Row" + Iteration);
-					Assert.assertEquals(LocationJsonData.get("email").toString(), _CP.rs.getString("email").toString(),
-							"Email not Match in Row" + Iteration);
-					Assert.assertEquals(LocationJsonData.get("accepts_marketing").toString(),
-							_CP.rs.getString("accepts_marketing").toString(),
-							"accepts_marketing not Match in Row" + Iteration);
-					Assert.assertEquals(LocationJsonData.get("orders_count").toString(),
-							_CP.rs.getString("orders_count").toString(), "orders_count not Match in Row" + Iteration);
-					/*
-					 * Assert.assertEquals(CustomerJsonData.get("total_spent").toString(),
-					 * _CP.rs.getString("total_spent").toString(), "total_spent not Match in Row" +
-					 * Iteration);
-					 * Assert.assertEquals(CustomerJsonData.get("last_order_id").toString(),
-					 * _CP.rs.getString("last_order_id").toString(),
-					 * "last_order_id not Match in Row" + Iteration);
-					 */
-					Assert.assertEquals(LocationJsonData.get("note").toString(), _CP.rs.getString("note").toString(),
-							"note not Match in Row" + Iteration);
-					Assert.assertEquals(LocationJsonData.get("verified_email").toString(),
-							_CP.rs.getString("verified_email").toString(),
-							"verified_email not Match in Row" + Iteration);
-					// Assert.assertEquals(CustomerJsonData.get("multipass_identifier").toString(),_CP.rs.getString("multipass_identifier").toString(),
-					// "multipass_identifier not Match in Row"+Iteration);
-					// Assert.assertEquals(CustomerJsonData.get("tax_exempt").toString(),_CP.rs.getString("tax_exempt").toString(),
-					// "tax_exempt not Match in Row"+Iteration);
-					// Assert.assertEquals(CustomerJsonData.get("phone").toString(),
-					// _CP.rs.getString("phone").toString(), "phone not Match in Row"+Iteration);
-					Assert.assertEquals(LocationJsonData.get("tags").toString(), _CP.rs.getString("tags").toString(),
-							"tags not Match in Row" + Iteration);
-					// Assert.assertEquals(CustomerJsonData.get("last_order_name").toString(),_CP.rs.getString("last_order_name").toString(),"last_order_name
-					// not Match in Row"+Iteration);
-					Assert.assertEquals(LocationJsonData.get("currency").toString(),
-							_CP.rs.getString("currency").toString(), "currency not Match in Row" + Iteration);
-					// Assert.assertEquals(CustomerJsonData.get("accepts_marketing_updated_at").toString(),_CP.rs.getString("accepts_marketing_updated_at").toString(),
-					// "accepts_marketing_updated_at not Match in Row"+Iteration);
-					// Assert.assertEquals(CustomerJsonData.get("marketing_opt_in_level").toString(),_CP.rs.getString("marketing_opt_in_level").toString(),"marketing_opt_in_level
-					// not Match in Row"+Iteration);
+					Assert.assertEquals(LocationJsonData.get("name").toString(),
+							_CP.rs.getString("name").toString(), "Name not Match in Row" + Iteration);
+					Assert.assertEquals(LocationJsonData.get("address1").toString(),
+							_CP.rs.getString("address1").toString(), "Address1 not Match in Row" + Iteration);
+					Assert.assertEquals(LocationJsonData.get("address2").toString(), _CP.rs.getString("address2").toString(),
+							"Address2 not Match in Row" + Iteration);
+					Assert.assertEquals(LocationJsonData.get("city").toString(),
+							_CP.rs.getString("city").toString(),"city not Match in Row" + Iteration);
+					Assert.assertEquals(LocationJsonData.get("zip").toString(),
+							_CP.rs.getString("zip").toString(), "zip not Match in Row" + Iteration);
+					Assert.assertEquals(LocationJsonData.get("province").toString(),
+							_CP.rs.getString("province").toString(), "province not Match in Row" + Iteration);
+					Assert.assertEquals(LocationJsonData.get("country").toString(),
+							_CP.rs.getString("country").toString(), "country not Match in Row" + Iteration);
+					Assert.assertEquals(LocationJsonData.get("phone").toString(),
+							_CP.rs.getString("phone").toString(), "phone not Match in Row" + Iteration);
+					Assert.assertEquals(LocationJsonData.get("country_code").toString(),
+							_CP.rs.getString("country_code").toString(), "country_code not Match in Row" + Iteration);
+					Assert.assertEquals(LocationJsonData.get("country_name").toString(),
+							_CP.rs.getString("country_name").toString(), "country_name not Match in Row" + Iteration);
+					Assert.assertEquals(LocationJsonData.get("province_code").toString(), _CP.rs.getString("province_code").toString(),
+							"province_code not Match in Row" + Iteration);
+					Assert.assertEquals(LocationJsonData.get("legacy").toString(), _CP.rs.getString("legacy").toString(),
+							"legacy not Match in Row" + Iteration);
+					Assert.assertEquals(LocationJsonData.get("active").toString(),
+							_CP.rs.getString("active").toString(), "active not Match in Row" + Iteration);
+					Assert.assertEquals(LocationJsonData.get("admin_graphql_api_id").toString(),
+							_CP.rs.getString("admin_graphql_api_id").toString(), "admin_graphql_api_id not Match in Row" + Iteration);
+					
+//					Assert.IsEmpty(LocationJsonData.get("active").toString(),
+//							_CP.rs.getString("admin_graphql_api_id").toString());
 
 				} catch (Exception ex) {
 					System.err.println(ex.getMessage());
