@@ -94,7 +94,7 @@ public class Product {
 					
 //				Assert.assertEquals(ProductJsonData.get("template_suffix").toString(),
 //							_CP.rs.getString("template_suffix").toString(), "template_suffix not Match in Row" + Iteration);
-//					
+				
 					Assert.assertEquals(ProductJsonData.get("tags").toString(),
 							_CP.rs.getString("tags").toString(), "tags not Match in Row" + Iteration);
 					
