@@ -110,15 +110,15 @@ public class Product {
 				} catch (Exception ex) {
 					System.err.println(ex.getMessage());
 					Iteration = Iteration + 1;
-					EJ.SetFailureStatus(Iteration);
+					EJ.SetFailureStatus(Iteration, WH.Product);
 					break;
 				}
 				Iteration = Iteration + 1;
-				EJ.SetPassStatus(Iteration);
+				EJ.SetPassStatus(Iteration,WH.Product);
 
 			} else {
 				Iteration = Iteration + 1;
-				EJ.SetFailureStatus(Iteration);
+				EJ.SetFailureStatus(Iteration, WH.Product);
 			}
 
 		}

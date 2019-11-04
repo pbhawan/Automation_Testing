@@ -47,7 +47,8 @@ public class ExcelToJSONConvertor {
 	static int firstCellNum;
 	static int lastCellNum;
 	static Sheet sheet;
-
+	static String CurrentsheetName;
+	
 	@SuppressWarnings("unchecked")
 
 	public static List<String> CreteJSONFileFromExcel(String filePath, Enum SheetName)
@@ -250,40 +251,70 @@ public class ExcelToJSONConvertor {
 		}
 	}
 
-	public void SetFailureStatus(int RowNumber) throws IOException {
+	public void SetFailureStatus(int RowNumber, Enum SheetName) throws IOException {
 		FileInputStream fsIP = new FileInputStream(new File(Path));
 		@SuppressWarnings("resource")
 		HSSFWorkbook excelWorkBook = new HSSFWorkbook(fsIP);
-		Sheet sheet = excelWorkBook.getSheetAt(0);
-		Row row1 = sheet.getRow(0);
-		Cell cell1 = row1.createCell(lastCellNum + 1);
-		cell1.setCellValue("Results");
-		Row row = sheet.getRow(RowNumber);
-		Cell cell = row.createCell(lastCellNum + 1);
-		cell.setCellValue("Failed");
-		fsIP.close();
-		FileOutputStream outputStream = new FileOutputStream(Path);
-		excelWorkBook.write(outputStream);
-		outputStream.close();
-		System.out.println("Row Number" + RowNumber + "failed");
-	}
+		int totalSheetNumber = excelWorkBook.getNumberOfSheets();
+		
+		for(int i = 0;i<totalSheetNumber; i++) {
+			
+			sheet = excelWorkBook.getSheetAt(i);
+			String CurrentsheetName = sheet.getSheetName();
+			if (CurrentsheetName.equalsIgnoreCase(SheetName.toString()) && CurrentsheetName != null
+					&& CurrentsheetName.length() > 0) {
+				Row row1 = sheet.getRow(0);
+				Cell cell1 = row1.createCell(lastCellNum + 1);
+				cell1.setCellValue("Results");
+				Row row = sheet.getRow(RowNumber);
+				Cell cell = row.createCell(lastCellNum + 1);
+				cell.setCellValue("Failed");
+				fsIP.close();
+				FileOutputStream outputStream = new FileOutputStream(Path);
+				excelWorkBook.write(outputStream);
+				outputStream.close();
+				System.out.println("Row Number" + RowNumber + "failed");
 
-	public void SetPassStatus(int RowNumber) throws IOException {
+			} else {
+				continue;
+			}
+			i++;
+		}
+		
+		}
+		
+	
+	
+
+	public void SetPassStatus(int RowNumber, Enum SheetName) throws IOException {
 		FileInputStream fsIP = new FileInputStream(new File(Path));
 		@SuppressWarnings("resource")
 		HSSFWorkbook excelWorkBook = new HSSFWorkbook(fsIP);
-		Sheet sheet = excelWorkBook.getSheetAt(0);
-		Row row1 = sheet.getRow(0);
-		Cell cell1 = row1.createCell(lastCellNum + 1);
-		cell1.setCellValue("Results");
-		Row row = sheet.getRow(RowNumber);
-		Cell cell = row.createCell(lastCellNum + 1);
-		cell.setCellValue("Passed");
-		fsIP.close();
-		FileOutputStream outputStream = new FileOutputStream(Path);
-		excelWorkBook.write(outputStream);
-		outputStream.close();
-		System.out.println("Row Number" + RowNumber + "Passed");
+		int totalSheetNumber = excelWorkBook.getNumberOfSheets();
+		
+		for(int i = 0;i<totalSheetNumber; i++) {
+			
+			sheet = excelWorkBook.getSheetAt(i);
+			String CurrentsheetName = sheet.getSheetName();
+			if (CurrentsheetName.equalsIgnoreCase(SheetName.toString()) && CurrentsheetName != null
+					&& CurrentsheetName.length() > 0) {
+				Row row1 = sheet.getRow(0);
+				Cell cell1 = row1.createCell(lastCellNum + 1);
+				cell1.setCellValue("Results");
+				Row row = sheet.getRow(RowNumber);
+				Cell cell = row.createCell(lastCellNum + 1);
+				cell.setCellValue("Passed");
+				fsIP.close();
+				FileOutputStream outputStream = new FileOutputStream(Path);
+				excelWorkBook.write(outputStream);
+				outputStream.close();
+				System.out.println("Row Number" + RowNumber + "Passed");
+
+			} else {
+				continue;
+			}
+			i++;
+		}
 	}
 
 	/*

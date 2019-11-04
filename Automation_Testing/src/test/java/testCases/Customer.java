@@ -119,15 +119,15 @@ public class Customer {
 				} catch (Exception ex) {
 					System.err.println(ex.getMessage());
 					Iteration = Iteration + 1;
-					EJ.SetFailureStatus(Iteration);
+					EJ.SetFailureStatus(Iteration, WH.Customer);
 					break;
 				}
 				Iteration = Iteration + 1;
-				EJ.SetPassStatus(Iteration);
+				EJ.SetPassStatus(Iteration, WH.Customer);
 
 			} else {
 				Iteration = Iteration + 1;
-				EJ.SetFailureStatus(Iteration);
+				EJ.SetFailureStatus(Iteration, WH.Customer);
 			}
 
 		}
