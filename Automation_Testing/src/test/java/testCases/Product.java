@@ -73,6 +73,7 @@ public class Product {
 			@SuppressWarnings("static-access")
 			JSONObject ProductJsonData = HC.PostJson(mapper.writeValueAsString(map), WH.Product);
 			TimeUnit.SECONDS.sleep(30);
+			
 			_CP = DB.GetRecordFromDB(ProductJsonData,"Product");
 			if (_CP.rs.next()) {
 				try {
