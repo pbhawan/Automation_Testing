@@ -27,7 +27,7 @@ import com.viome.components.ExcelToJSONConvertor;
 import com.viome.components.HTTPConnection;
 import com.viome.enums.webhooks;
 
-
+/* git changes a*/
 
 public class Customer {
 	HTTPConnection HC;
@@ -86,6 +86,7 @@ public class Customer {
 							"accepts_marketing not Match in Row" + Iteration);
 					Assert.assertEquals(CustomerJsonData.get("orders_count").toString(),
 							_CP.rs.getString("orders_count").toString(), "orders_count not Match in Row" + Iteration);
+
 					/*
 					 * Assert.assertEquals(CustomerJsonData.get("total_spent").toString(),
 					 * _CP.rs.getString("total_spent").toString(), "total_spent not Match in Row" +
