@@ -19,7 +19,6 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import com.viome.components.ConnectionProperties;
 import com.viome.components.DBConnection;
 
