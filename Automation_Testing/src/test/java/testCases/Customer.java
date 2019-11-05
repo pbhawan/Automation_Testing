@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,7 @@ import com.viome.components.DBConnection;
 import com.viome.components.ExcelToJSONConvertor;
 import com.viome.components.HTTPConnection;
 import com.viome.enums.webhooks;
+import com.viome.utilites.DataProviderClass;
 
 /* git changes commit - PB*/
 
@@ -38,7 +40,7 @@ public class Customer {
 
 
 	private static ObjectMapper mapper = new ObjectMapper();
-	List<String> JsonRecords;
+	ArrayList<Object> JsonRecords;
 	int Iteration = 0;
 
 	@SuppressWarnings("static-access")
@@ -65,10 +67,10 @@ public class Customer {
 	@Test
 	public void VerifyCustomerData() throws IOException, InterruptedException, SQLException, ParseException {
 
-		for (String record : JsonRecords)
+		for (Object record : JsonRecords)
 		{		
          	@SuppressWarnings("unchecked")
-			Map<String, Long> map = mapper.readValue(record, Map.class);
+			Map<String, Long> map = mapper.readValue(record.toString(), Map.class);
 			map.put("id", new Date().getTime());
 			JSONObject CustomerJsonData = HC.PostJson(mapper.writeValueAsString(map), WH.Customer);
 			TimeUnit.SECONDS.sleep(30);
@@ -97,8 +99,8 @@ public class Customer {
 					 */
 					Assert.assertEquals(CustomerJsonData.get("note").toString(), _CP.rs.getString("note").toString(),
 							"note not Match in Row" + Iteration);
-					Assert.assertEquals(CustomerJsonData.get("verified_email").toString(),
-							_CP.rs.getString("verified_email").toString(),
+					Assert.assertEquals(CustomerJsonData.get("verified_email"),
+							_CP.rs.getString("verified_email"),
 							"verified_email not Match in Row" + Iteration);
 					// Assert.assertEquals(CustomerJsonData.get("multipass_identifier").toString(),_CP.rs.getString("multipass_identifier").toString(),
 					// "multipass_identifier not Match in Row"+Iteration);
@@ -121,7 +123,7 @@ public class Customer {
 					System.err.println(ex.getMessage());
 					Iteration = Iteration + 1;
 					EJ.SetFailureStatus(Iteration, WH.Customer);
-					break;
+					continue;
 				}
 				Iteration = Iteration + 1;
 				EJ.SetPassStatus(Iteration, WH.Customer);

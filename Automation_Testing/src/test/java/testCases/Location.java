@@ -36,7 +36,7 @@ public class Location {
 
 
 	private static ObjectMapper mapper = new ObjectMapper();
-	List<String> JsonRecords;
+	List<Object> JsonRecords;
 	int Iteration = 0;
 
 	@SuppressWarnings("static-access")
@@ -64,10 +64,10 @@ public class Location {
 	@Test
 	public void VerifyLocationData() throws IOException, InterruptedException, SQLException, ParseException {
 
-		for (String record : JsonRecords)
+		for (Object record : JsonRecords)
 		{		
          	@SuppressWarnings("unchecked")
-			Map<String, Long> map = mapper.readValue(record, Map.class);
+			Map<String, Long> map = mapper.readValue(record.toString(), Map.class);
 			map.put("id", new Date().getTime());
 			@SuppressWarnings("static-access")
 			JSONObject LocationJsonData = HC.PostJson(mapper.writeValueAsString(map), WH.Location);

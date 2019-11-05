@@ -16,6 +16,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.text.html.HTMLDocument.Iterator;
+
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -48,12 +50,13 @@ public class ExcelToJSONConvertor {
 	static int lastCellNum;
 	static Sheet sheet;
 	static String CurrentsheetName;
+	static Iterator itr;
 	
 	@SuppressWarnings("unchecked")
 
-	public static List<String> CreteJSONFileFromExcel(String filePath, Enum SheetName)
+	public static ArrayList<Object> CreteJSONFileFromExcel(String filePath, Enum SheetName)
 			throws FileNotFoundException, IOException {
-		List<String> jsonString = null;
+		ArrayList<Object> jsonString = null;
 		try {
 
 			InputStream fis = new FileInputStream(filePath.trim());
@@ -69,6 +72,7 @@ public class ExcelToJSONConvertor {
 						&& CurrentsheetName.length() > 0) {
 					List<List<Object>> sheetDataTable = getSheetDataList(sheet);
 					jsonString = getJSONStringFromList(sheetDataTable);
+					   //itr = (Iterator) jsonString.iterator();
 
 				} else {
 					continue;
@@ -165,9 +169,9 @@ public class ExcelToJSONConvertor {
 	}
 
 	/* Return a JSON string from the string list. */
-	private static List getJSONStringFromList(List<List<Object>> dataTable) {
+	private static ArrayList getJSONStringFromList(List<List<Object>> dataTable) {
 		String ret = "";
-		List<String> Data = new ArrayList<String>();
+		ArrayList<Object> Data = new ArrayList<Object>();
 		if (dataTable != null) {
 			int rowCount = dataTable.size();
 

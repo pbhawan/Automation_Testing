@@ -36,7 +36,7 @@ public class Product {
 
 
 	private static ObjectMapper mapper = new ObjectMapper();
-	List<String> JsonRecords;
+	List<Object> JsonRecords;
 	int Iteration = 0;
 
 	@SuppressWarnings("static-access")
@@ -65,9 +65,9 @@ public class Product {
 	@Test
 	public void VerifyProductData() throws IOException, InterruptedException, SQLException, ParseException {
 
-		for (String record : JsonRecords)
+		for (Object record : JsonRecords)
 		{		
-         	Map<String, Object> map = mapper.readValue(record, Map.class);
+         	Map<String, Object> map = mapper.readValue(record.toString(), Map.class);
 			long id = new Date().getTime();
 			map.put("id", id);
 			if (null != map.get("variants")) {
