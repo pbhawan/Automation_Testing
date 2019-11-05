@@ -2,24 +2,24 @@
 <testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="118333" started-at="2019-11-04T09:40:51Z" finished-at="2019-11-04T09:42:50Z">
+  <suite name="Default suite" duration-ms="378884" started-at="2019-11-04T10:57:55Z" finished-at="2019-11-04T11:04:14Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="118333" started-at="2019-11-04T09:40:51Z" finished-at="2019-11-04T09:42:50Z">
-      <class name="testCases.Location">
-        <test-method status="PASS" signature="Setup()[pri:0, instance:testCases.Location@4fb3ee4e]" name="Setup" is-config="true" duration-ms="39360" started-at="2019-11-04T09:40:51Z" finished-at="2019-11-04T09:41:31Z">
+    <test name="Default test" duration-ms="378884" started-at="2019-11-04T10:57:55Z" finished-at="2019-11-04T11:04:14Z">
+      <class name="testCases.Product">
+        <test-method status="PASS" signature="Setup()[pri:0, instance:testCases.Product@4fb3ee4e]" name="Setup" is-config="true" duration-ms="4106" started-at="2019-11-04T10:57:55Z" finished-at="2019-11-04T10:58:00Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Setup -->
-        <test-method status="PASS" signature="VerifyLocationData()[pri:0, instance:testCases.Location@4fb3ee4e]" name="VerifyLocationData" duration-ms="73244" started-at="2019-11-04T09:41:33Z" finished-at="2019-11-04T09:42:47Z">
+        <test-method status="PASS" signature="VerifyLocationData()[pri:0, instance:testCases.Product@4fb3ee4e]" name="VerifyLocationData" duration-ms="374705" started-at="2019-11-04T10:58:00Z" finished-at="2019-11-04T11:04:14Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- VerifyLocationData -->
-        <test-method status="PASS" signature="Teardown()[pri:0, instance:testCases.Location@4fb3ee4e]" name="Teardown" is-config="true" duration-ms="210" started-at="2019-11-04T09:42:49Z" finished-at="2019-11-04T09:42:50Z">
+        <test-method status="PASS" signature="Teardown()[pri:0, instance:testCases.Product@4fb3ee4e]" name="Teardown" is-config="true" duration-ms="13" started-at="2019-11-04T11:04:14Z" finished-at="2019-11-04T11:04:14Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Teardown -->
-      </class> <!-- testCases.Location -->
+      </class> <!-- testCases.Product -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>
