@@ -1,5 +1,5 @@
 package testCases;
 
-public class DraftOrder {
+public class Cart {
 
 }
