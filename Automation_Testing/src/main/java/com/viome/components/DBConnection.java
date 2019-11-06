@@ -14,32 +14,35 @@ public class DBConnection {
 	ResultSet rs;
 	ConnectionProperties _CP = new ConnectionProperties();
 
-	public ConnectionProperties GetRecordFromDB(JSONObject CustomerJsonData, String webhook) throws SQLException {
+	public ConnectionProperties GetRecordFromDB(JSONObject JsonData, String webhook) throws SQLException {
 
-		String id = CustomerJsonData.get("id").toString();
+		
 		try {
 			System.out.println("Listing system tables...");
 			_CP.stmt = _CP.conn.createStatement();
 			String sql;
 			if (webhook == "Customer") {
+				String id = JsonData.get("id").toString();
 				sql = "SELECT * FROM public.customer where id=" + id + ";";
 				_CP.rs = _CP.stmt.executeQuery(sql);
 			}
 			if (webhook == "Location") {
+				String id = JsonData.get("id").toString();
 				sql = "SELECT * FROM public.location where id=" + id + ";";
 				_CP.rs = _CP.stmt.executeQuery(sql);
 			}
 			if (webhook == "Theme") {
+				String id = JsonData.get("id").toString();
 				sql = "SELECT * FROM public.theme where id=" + id + ";";
 				_CP.rs = _CP.stmt.executeQuery(sql);
 			}
 			if (webhook == "Product") {
-
+				String id = JsonData.get("id").toString();
 				sql = "SELECT * FROM public.product where id=" + id + ";";
 				_CP.rs = _CP.stmt.executeQuery(sql);
 			}
 			if (webhook == "DraftOrder") {
-
+				String id = JsonData.get("external_id").toString();
 				sql = "SELECT * FROM public.orders where external_id=" + id + ";";
 				_CP.rs = _CP.stmt.executeQuery(sql);
 			}
