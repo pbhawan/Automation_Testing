@@ -270,7 +270,7 @@ public class ExcelToJSONConvertor {
 					&& CurrentsheetName.length() > 0) {
 				Row row1 = sheet.getRow(0);
 				Cell cell1 = row1.createCell(lastCellNum);
-				cell1.setCellValue("Results");
+				cell1.setCellValue("Test Results");
 				Row row = sheet.getRow(RowNumber);
 				Cell cell = row.createCell(lastCellNum);
 				cell.setCellValue("Failed");
@@ -305,7 +305,7 @@ public class ExcelToJSONConvertor {
 					&& CurrentsheetName.length() > 0) {
 				Row row1 = sheet.getRow(0);
 				Cell cell1 = row1.createCell(lastCellNum);
-				cell1.setCellValue("Results");
+				cell1.setCellValue("Test Results");
 				Row row = sheet.getRow(RowNumber);
 				Cell cell = row.createCell(lastCellNum);
 				cell.setCellValue("Passed");
