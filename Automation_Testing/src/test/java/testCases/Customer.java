@@ -70,55 +70,33 @@ public class Customer {
 		for (Object record : JsonRecords)
 		{		
          	@SuppressWarnings("unchecked")
-			Map<String, Long> map = mapper.readValue(record.toString(), Map.class);
-			map.put("id", new Date().getTime());
+			Map<String, Object> map = mapper.readValue(record.toString(), Map.class);
+			map.put("id", new Date().getTime());			
+			map.put("created_at", new Date());
+			map.put("updated_at", new Date());
+			map.put("accepts_marketing_updated_at", new Date());
 			JSONObject CustomerJsonData = HC.PostJson(mapper.writeValueAsString(map), WH.Customer);
 			TimeUnit.SECONDS.sleep(30);
 			_CP = DB.GetRecordFromDB(CustomerJsonData,"Customer");
 			if (_CP.rs.next()) {
 				try {
-					Assert.assertEquals(CustomerJsonData.get("first_name").toString(),
-							_CP.rs.getString("first_name").toString(), "First Name not Match in Row" + Iteration);
-					Assert.assertEquals(CustomerJsonData.get("last_name").toString(),
-							_CP.rs.getString("last_name").toString(), "Last Name not Match in Row" + Iteration);
-					Assert.assertEquals(CustomerJsonData.get("email").toString(), _CP.rs.getString("email").toString(),
-							"Email not Match in Row" + Iteration);
-					Assert.assertEquals(CustomerJsonData.get("accepts_marketing").toString(),
-							_CP.rs.getString("accepts_marketing").toString(),
-							"accepts_marketing not Match in Row" + Iteration);
-					Assert.assertEquals(CustomerJsonData.get("orders_count").toString(),
-							_CP.rs.getString("orders_count").toString(), "orders_count not Match in Row" + Iteration);
-
-					/*
-					 * Assert.assertEquals(CustomerJsonData.get("total_spent").toString(),
-					 * _CP.rs.getString("total_spent").toString(), "total_spent not Match in Row" +
-					 * Iteration);
-					 * Assert.assertEquals(CustomerJsonData.get("last_order_id").toString(),
-					 * _CP.rs.getString("last_order_id").toString(),
-					 * "last_order_id not Match in Row" + Iteration);
-					 */
-					Assert.assertEquals(CustomerJsonData.get("note").toString(), _CP.rs.getString("note").toString(),
-							"note not Match in Row" + Iteration);
-					Assert.assertEquals(CustomerJsonData.get("verified_email"),
-							_CP.rs.getString("verified_email"),
-							"verified_email not Match in Row" + Iteration);
-					// Assert.assertEquals(CustomerJsonData.get("multipass_identifier").toString(),_CP.rs.getString("multipass_identifier").toString(),
-					// "multipass_identifier not Match in Row"+Iteration);
-					// Assert.assertEquals(CustomerJsonData.get("tax_exempt").toString(),_CP.rs.getString("tax_exempt").toString(),
-					// "tax_exempt not Match in Row"+Iteration);
-					// Assert.assertEquals(CustomerJsonData.get("phone").toString(),
-					// _CP.rs.getString("phone").toString(), "phone not Match in Row"+Iteration);
-					Assert.assertEquals(CustomerJsonData.get("tags").toString(), _CP.rs.getString("tags").toString(),
-							"tags not Match in Row" + Iteration);
-					// Assert.assertEquals(CustomerJsonData.get("last_order_name").toString(),_CP.rs.getString("last_order_name").toString(),"last_order_name
-					// not Match in Row"+Iteration);
-					Assert.assertEquals(CustomerJsonData.get("currency").toString(),
-							_CP.rs.getString("currency").toString(), "currency not Match in Row" + Iteration);
-					// Assert.assertEquals(CustomerJsonData.get("accepts_marketing_updated_at").toString(),_CP.rs.getString("accepts_marketing_updated_at").toString(),
-					// "accepts_marketing_updated_at not Match in Row"+Iteration);
-					// Assert.assertEquals(CustomerJsonData.get("marketing_opt_in_level").toString(),_CP.rs.getString("marketing_opt_in_level").toString(),"marketing_opt_in_level
-					// not Match in Row"+Iteration);
-
+					Assert.assertEquals(CustomerJsonData.get("first_name").toString(),_CP.rs.getString("first_name").toString(), "First Name not Match in Row" + Iteration);
+					Assert.assertEquals(CustomerJsonData.get("last_name").toString(),_CP.rs.getString("last_name").toString(), "Last Name not Match in Row" + Iteration);
+					Assert.assertEquals(CustomerJsonData.get("email").toString(), _CP.rs.getString("email").toString(),	"Email not Match in Row" + Iteration);
+					Assert.assertEquals(CustomerJsonData.get("accepts_marketing").toString(),_CP.rs.getString("accepts_marketing").toString(),"accepts_marketing not Match in Row" + Iteration);
+					Assert.assertEquals(CustomerJsonData.get("orders_count").toString(),_CP.rs.getString("orders_count").toString(), "orders_count not Match in Row" + Iteration);			
+					Assert.assertEquals(CustomerJsonData.get("total_spent").toString(), _CP.rs.getString("total_spent").toString(), "total_spent not Match in Row" +  Iteration);
+					Assert.assertEquals(CustomerJsonData.get("last_order_id").toString(),  _CP.rs.getString("last_order_id").toString(), "last_order_id not Match in Row" + Iteration);					 
+					Assert.assertEquals(CustomerJsonData.get("note").toString(), _CP.rs.getString("note").toString(),"note not Match in Row" + Iteration);
+					Assert.assertEquals(CustomerJsonData.get("verified_email").toString(),_CP.rs.getString("verified_email").toString(),"verified_email not Match in Row" + Iteration);									
+					Assert.assertEquals(CustomerJsonData.get("multipass_identifier").toString(),_CP.rs.getString("multipass_identifier").toString(), "multipass_identifier not Match in Row"+Iteration);
+					Assert.assertEquals(CustomerJsonData.get("tax_exempt").toString(),_CP.rs.getString("tax_exempt").toString(),"tax_exempt not Match in Row"+Iteration);
+					 Assert.assertEquals(CustomerJsonData.get("phone").toString(), _CP.rs.getString("phone").toString(), "phone not Match in Row"+Iteration);
+					Assert.assertEquals(CustomerJsonData.get("tags").toString(), _CP.rs.getString("tags").toString(),"tags not Match in Row" + Iteration);
+					Assert.assertEquals(CustomerJsonData.get("last_order_name").toString(),_CP.rs.getString("last_order_name").toString(),"last_order_name not Match in Row"+Iteration);
+					Assert.assertEquals(CustomerJsonData.get("currency").toString(),_CP.rs.getString("currency").toString(), "currency not Match in Row" + Iteration);
+					Assert.assertEquals(CustomerJsonData.get("marketing_opt_in_level").toString(),_CP.rs.getString("marketing_opt_in_level").toString(),"marketing_opt_in_level not Match in Row"+Iteration);
+					Assert.assertEquals(CustomerJsonData.get("state").toString(),_CP.rs.getString("state").toString(),"state not Match in Row"+Iteration);
 				} catch (Exception ex) {
 					System.err.println(ex.getMessage());
 					Iteration = Iteration + 1;
