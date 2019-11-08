@@ -15,38 +15,39 @@ public class DBConnection {
 	ConnectionProperties _CP = new ConnectionProperties();
 
 	public ConnectionProperties GetRecordFromDB(JSONObject JsonData, String webhook) throws SQLException {
-
-		
+		System.out.println("Listing system tables...");
+		_CP.stmt = _CP.conn.createStatement();
+		String sql;
+		String id;
 		try {
-			System.out.println("Listing system tables...");
-			_CP.stmt = _CP.conn.createStatement();
-			String sql;
-			if (webhook == "Customer") {
-				String id = JsonData.get("id").toString();
+			switch (webhook) {
+			case "Customer":
+				id = JsonData.get("id").toString();
 				sql = "SELECT * FROM public.customer where id=" + id + ";";
 				_CP.rs = _CP.stmt.executeQuery(sql);
-			}
-			if (webhook == "Location") {
-				String id = JsonData.get("id").toString();
+				break;
+			case "Location":
+				id = JsonData.get("id").toString();
 				sql = "SELECT * FROM public.location where id=" + id + ";";
 				_CP.rs = _CP.stmt.executeQuery(sql);
-			}
-			if (webhook == "Theme") {
-				String id = JsonData.get("id").toString();
+				break;
+			case "Theme":
+				id = JsonData.get("id").toString();
 				sql = "SELECT * FROM public.theme where id=" + id + ";";
 				_CP.rs = _CP.stmt.executeQuery(sql);
-			}
-			if (webhook == "Product") {
-				String id = JsonData.get("id").toString();
+				break;
+			case "Product":
+				id = JsonData.get("id").toString();
 				sql = "SELECT * FROM public.product where id=" + id + ";";
 				_CP.rs = _CP.stmt.executeQuery(sql);
-			}
-			if (webhook == "DraftOrder") {
-				String id = JsonData.get("external_id").toString();
+				break;
+			case "DraftOrder":
+				id = JsonData.get("external_id").toString();
 				sql = "SELECT * FROM public.orders where external_id=" + id + ";";
+				System.out.println(sql);
 				_CP.rs = _CP.stmt.executeQuery(sql);
+				break;
 			}
-//		
 		} catch (Exception ex) {
 			// For convenience, handle all errors here.
 			ex.printStackTrace();
