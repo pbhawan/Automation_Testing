@@ -69,6 +69,7 @@ public class Location {
          	@SuppressWarnings("unchecked")
 			Map<String, Long> map = mapper.readValue(record.toString(), Map.class);
 			map.put("id", new Date().getTime());
+			
 			Map<String, Date> map1 = mapper.readValue(mapper.writeValueAsString(map), Map.class);
 			map1.put("updated_at", new Date());
 			map1.put("created_at", new Date());

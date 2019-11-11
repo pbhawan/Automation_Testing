@@ -70,23 +70,9 @@ public class Order {
          	Map<String, Long> map = mapper.readValue(record.toString(), Map.class);
 			//map.put("external_id", new Date().getTime());
 			map.put("id", new Date().getTime());
-//         	Map<String, Object> map = mapper.readValue(record, Map.class);
-//			long id = new Date().getTime();
-//			map.put("id", id);
-//			if (null != map.get("variants")) {
-//			List<Map> variants = (List<Map>) map.get("variants");
-//		for (Map m : variants) {
-//			m.put("product_id" ,id);
-//			m.put("id",  new Date().getTime());
-//		}
-//			}
-//			if (null != map.get("variants")) {
-//				List<Map> options = (List<Map>) map.get("options");
-//			for (Map m : options) {
-//				m.put("product_id" ,id);
-//				m.put("id",  new Date().getTime());
-//			}
-//				}			
+			Map<String, Date> map1 = mapper.readValue(mapper.writeValueAsString(map), Map.class);
+			map1.put("updated_at", new Date());
+			map1.put("created_at", new Date());
 			JSONObject OrderJsonData = HC.PostJson(mapper.writeValueAsString(map), WH.Order);
 			TimeUnit.SECONDS.sleep(10);
 			

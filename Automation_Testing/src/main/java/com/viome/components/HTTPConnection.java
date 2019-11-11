@@ -30,7 +30,7 @@ public class HTTPConnection {
 		webhook=webhook_nm;
 		
 		try {
-					
+			System.out.println("Response API is---->" +Record);		
 			StringEntity params = new StringEntity(Record);
 			String params1=HmacUtil.calculateHMAC(Record, "07ac5dfed552350b42c51225ea89e87f17f5b91d069c1d8fe8a96b8124e6ecfb");
 			HttpPost request = SetHeader(params1);
@@ -67,6 +67,8 @@ public class HTTPConnection {
 		request.addHeader("x-shopify-topic", "themes/create");
 		if(webhook==WH.Product)
 		request.addHeader("x-shopify-topic", "products/create");
+		if(webhook==WH.Cart)
+		request.addHeader("x-shopify-topic", "carts/create");
 		request.addHeader("Host", "shopify-services.viome.com");
 		return request;
 
