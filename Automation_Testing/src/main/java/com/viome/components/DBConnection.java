@@ -59,6 +59,12 @@ public class DBConnection {
 				System.out.println(sql);
 				_CP.rs = _CP.stmt.executeQuery(sql);
 				break;
+			case "Checkout":
+				id = JsonData.get("id").toString();
+				sql = "SELECT * FROM public.orders where external_id=" + id + ";";
+				System.out.println(sql);
+				_CP.rs = _CP.stmt.executeQuery(sql);
+				break;
 			}
 		} catch (Exception ex) {
 			// For convenience, handle all errors here.

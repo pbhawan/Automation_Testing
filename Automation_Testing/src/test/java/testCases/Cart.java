@@ -92,15 +92,15 @@ public class Cart {
 				} catch (Exception ex) {
 					System.err.println(ex.getMessage());
 					Iteration = Iteration + 1;
-					EJ.SetFailureStatus(Iteration, WH.Order);
+					EJ.SetFailureStatus(Iteration, WH.Cart);
 					break;
 				}
 				Iteration = Iteration + 1;
-				EJ.SetPassStatus(Iteration,WH.Order);
+				EJ.SetPassStatus(Iteration,WH.Cart);
 
 			} else {
 				Iteration = Iteration + 1;
-				EJ.SetFailureStatus(Iteration, WH.Order);
+				EJ.SetFailureStatus(Iteration, WH.Cart);
 			}
 
 		}

@@ -59,16 +59,30 @@ public class HTTPConnection {
 		request.addHeader("content-type", "application/json");
 		request.addHeader("x-shopify-hmac-sha256", params1);
 		request.addHeader("x-shopify-shop-domain", "viome3-QA.Automation.com,NJ");
-		if(webhook==WH.Customer)
-		request.addHeader("x-shopify-topic", "customers/create");
-		if(webhook==WH.Location)
-			request.addHeader("x-shopify-topic", "locations/create");
-		if(webhook==WH.Theme)
-		request.addHeader("x-shopify-topic", "themes/create");
-		if(webhook==WH.Product)
-		request.addHeader("x-shopify-topic", "products/create");
 		if(webhook==WH.Cart)
-		request.addHeader("x-shopify-topic", "carts/create");
+		request.addHeader("x-shopify-topic","carts/create");
+		
+		if(webhook==WH.Checkout)
+		request.addHeader("x-shopify-topic","checkouts/create");
+		
+		if(webhook==WH.Customer)
+		request.addHeader("x-shopify-topic","customers/create");
+		
+		if(webhook==WH.DraftOrder)
+			request.addHeader("x-shopify-topic","draft_orders/create");
+		
+		if(webhook==WH.Location)
+			request.addHeader("x-shopify-topic","locations/create");
+		
+		if(webhook==WH.Order)
+			request.addHeader("x-shopify-topic","orders/create");
+		
+		if(webhook==WH.Product)
+		request.addHeader("x-shopify-topic","products/create");
+		
+		if(webhook==WH.Theme)
+		request.addHeader("x-shopify-topic","themes/create");
+		
 		request.addHeader("Host", "shopify-services.viome.com");
 		return request;
 
