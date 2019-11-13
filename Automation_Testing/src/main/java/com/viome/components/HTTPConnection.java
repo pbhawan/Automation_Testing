@@ -71,14 +71,23 @@ public class HTTPConnection {
 		if(webhook==WH.DraftOrder)
 			request.addHeader("x-shopify-topic","draft_orders/create");
 		
+		if(webhook==WH.Fulfillment)
+			request.addHeader("x-shopify-topic","fulfillments/create");
+		
 		if(webhook==WH.Location)
 			request.addHeader("x-shopify-topic","locations/create");
 		
 		if(webhook==WH.Order)
 			request.addHeader("x-shopify-topic","orders/create");
 		
+		if(webhook==WH.Order_Transaction)
+			request.addHeader("x-shopify-topic","order_transactions/create");
+		
 		if(webhook==WH.Product)
 		request.addHeader("x-shopify-topic","products/create");
+
+		if(webhook==WH.Tender_Transaction)
+		request.addHeader("x-shopify-topic","tender_transactions/create");
 		
 		if(webhook==WH.Theme)
 		request.addHeader("x-shopify-topic","themes/create");
