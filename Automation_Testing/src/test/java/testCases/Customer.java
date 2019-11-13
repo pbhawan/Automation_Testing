@@ -89,7 +89,7 @@ public class Customer {
 					Assert.assertEquals(CustomerJsonData.get("verified_email").toString(),_CP.rs.getString("verified_email").toString(),"verified_email not Match in Row" + Iteration);									
 					Assert.assertEquals(CustomerJsonData.get("multipass_identifier").toString(),_CP.rs.getString("multipass_identifier").toString(), "multipass_identifier not Match in Row"+Iteration);
 					Assert.assertEquals(CustomerJsonData.get("tax_exempt").toString(),_CP.rs.getString("tax_exempt").toString(),"tax_exempt not Match in Row"+Iteration);
-					 Assert.assertEquals(CustomerJsonData.get("phone").toString(), _CP.rs.getString("phone").toString(), "phone not Match in Row"+Iteration);
+					Assert.assertEquals(CustomerJsonData.get("phone").toString(), _CP.rs.getString("phone").toString(), "phone not Match in Row"+Iteration);
 					Assert.assertEquals(CustomerJsonData.get("tags").toString(), _CP.rs.getString("tags").toString(),"tags not Match in Row" + Iteration);
 					Assert.assertEquals(CustomerJsonData.get("last_order_name").toString(),_CP.rs.getString("last_order_name").toString(),"last_order_name not Match in Row"+Iteration);
 					Assert.assertEquals(CustomerJsonData.get("currency").toString(),_CP.rs.getString("currency").toString(), "currency not Match in Row" + Iteration);
@@ -101,7 +101,6 @@ public class Customer {
 					Assert.assertEquals(default_address.get("address1"),_CP.rs.getString("default_address_address1"),"default_address_address1 not Match in Row"+Iteration);
 					Assert.assertEquals(default_address.get("address2"),_CP.rs.getString("default_address_address2"),"default_address_address2 not Match in Row"+Iteration);
 					Assert.assertEquals(default_address.get("city"),_CP.rs.getString("default_address_city"),"default_address_city not Match in Row"+Iteration);
-					
 					Assert.assertEquals(default_address.get("company"),_CP.rs.getString("default_address_company"),"default_address_company not Match in Row"+Iteration);
 					Assert.assertEquals(default_address.get("country"),_CP.rs.getString("default_address_country"),"default_address_country not Match in Row"+Iteration);
 					Assert.assertEquals(default_address.get("first_name"),_CP.rs.getString("default_address_first_name"),"default_address_first_name not Match in Row"+Iteration);

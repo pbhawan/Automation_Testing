@@ -53,6 +53,12 @@ public class DBConnection {
 				System.out.println(sql);
 				_CP.rs = _CP.stmt.executeQuery(sql);
 				break;
+			case "Order_Transaction":
+				id = JsonData.get("id").toString();
+				sql = "SELECT * FROM public.order_transaction where id=" + id + ";";
+				System.out.println(sql);
+				_CP.rs = _CP.stmt.executeQuery(sql);
+				break;
 			case "Cart":
 				id = JsonData.get("id").toString();
 				sql = "SELECT * FROM public.orders where external_id=" + id + ";";
@@ -65,6 +71,21 @@ public class DBConnection {
 				System.out.println(sql);
 				_CP.rs = _CP.stmt.executeQuery(sql);
 				break;
+			case "Fulfillment":
+				id = JsonData.get("id").toString();
+				sql = "SELECT * FROM public.fulfillment where external_id=" + id + ";";
+				System.out.println(sql);
+				_CP.rs = _CP.stmt.executeQuery(sql);
+				break;
+				
+			case "Tender_Transaction":
+				id = JsonData.get("id").toString();
+				sql = "SELECT * FROM public.tender_transaction where id=" + id + ";";
+				System.out.println(sql);
+				_CP.rs = _CP.stmt.executeQuery(sql);
+				break;
+				
+				
 			}
 		} catch (Exception ex) {
 			// For convenience, handle all errors here.
