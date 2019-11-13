@@ -6,11 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import org.json.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.testng.Assert;
@@ -97,6 +95,8 @@ public class Customer {
 					Assert.assertEquals(CustomerJsonData.get("currency").toString(),_CP.rs.getString("currency").toString(), "currency not Match in Row" + Iteration);
 					Assert.assertEquals(CustomerJsonData.get("marketing_opt_in_level").toString(),_CP.rs.getString("marketing_opt_in_level").toString(),"marketing_opt_in_level not Match in Row"+Iteration);
 					Assert.assertEquals(CustomerJsonData.get("state").toString(),_CP.rs.getString("state").toString(),"state not Match in Row"+Iteration);
+					Assert.assertEquals(CustomerJsonData.get("addresses").toString(),_CP.rs.getString("addresses").toString(),"addresses not Match in Row"+Iteration);
+					//Object under object handling
 					JSONObject default_address = (JSONObject) CustomerJsonData.get("default_address");
 					Assert.assertEquals(default_address.get("address1"),_CP.rs.getString("default_address_address1"),"default_address_address1 not Match in Row"+Iteration);
 					Assert.assertEquals(default_address.get("address2"),_CP.rs.getString("default_address_address2"),"default_address_address2 not Match in Row"+Iteration);
