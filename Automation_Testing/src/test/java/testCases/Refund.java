@@ -74,48 +74,40 @@ public class Refund {
 			_CP = DB.GetRecordFromDB(RefundJsonData,"Refund");
 			if (_CP.rs.next()) {
 				try {
-					Assert.assertEquals(RefundJsonData.get("name").toString(),
-							_CP.rs.getString("name").toString(), "Name not Match in Row" + Iteration);
+					Assert.assertEquals(RefundJsonData.get("note").toString(),
+							_CP.rs.getString("note").toString(), "note not Match in Row" + Iteration);
 					
-					Assert.assertEquals(RefundJsonData.get("role").toString(),
-							_CP.rs.getString("role").toString(), "role not Match in Row" + Iteration);
+					Assert.assertEquals(RefundJsonData.get("order_adjustments").toString(),
+							_CP.rs.getString("order_adjustments").toString(), "order_adjustments not Match in Row" + Iteration);
 					
-					Assert.assertEquals(RefundJsonData.get("theme_store_id").toString(),
-							_CP.rs.getString("theme_store_id").toString(),"theme_store_id not Match in Row" + Iteration);
+					Assert.assertEquals(RefundJsonData.get("order_id").toString(),
+							_CP.rs.getString("order_id").toString(),"order_id not Match in Row" + Iteration);
 					
-					Assert.assertEquals(RefundJsonData.get("previewable").toString(),
-							_CP.rs.getString("previewable").toString(),"previewable not Match in Row" + Iteration);
+//					Assert.assertEquals(RefundJsonData.get("refund_line_items").toString(),
+//jsonarray							_CP.rs.getString("refund_line_items").toString(),"refund_line_items not Match in Row" + Iteration);
 					
-					Assert.assertEquals(RefundJsonData.get("processing").toString(),
-							_CP.rs.getString("processing").toString(),"processing not Match in Row" + Iteration);
+					Assert.assertEquals(RefundJsonData.get("restock ").toString(),
+							_CP.rs.getString("restock ").toString(),"restock  not Match in Row" + Iteration);
 					
-					Assert.assertEquals(RefundJsonData.get("updated_by").toString(),
-							_CP.rs.getString("updated_by").toString(),"created_at not Match in Row" + Iteration);
+//					Assert.assertEquals(RefundJsonData.get("transactions ").toString(),
+//							_CP.rs.getString("transactions ").toString(),"transactions  not Match in Row" + Iteration);
 					
-// 				    Assert.assertEquals(ThemeJsonData.get("created_at").toString(),
-//							_CP.rs.getString("created_at").toString(),"created_at not Match in Row" + Iteration);
+// 				    Assert.assertEquals(ThemeJsonData.get("user_id ").toString(),
+//							_CP.rs.getString("user_id ").toString(),"user_id  not Match in Row" + Iteration);
 					
-					Assert.assertEquals(RefundJsonData.get("version").toString(),
-							_CP.rs.getString("version").toString(),"version not Match in Row" + Iteration);
-					
-//					Assert.assertEquals(ThemeJsonData.get("isdeleted").toString(),_CP.rs.getString("isdeleted").toString(),
-//							"isdeleted not Match in Row" + Iteration);
-										
-					Assert.assertEquals(RefundJsonData.get("admin_graphql_api_id").toString(),_CP.rs.getString("admin_graphql_api_id").toString(),
-							"admin_graphql_api_id not Match in Row" + Iteration);
 					
 				} catch (Exception ex) {
 					System.err.println(ex.getMessage());
 					Iteration = Iteration + 1;
-					EJ.SetFailureStatus(Iteration, WH.Theme);
+					EJ.SetFailureStatus(Iteration, WH.Refund);
 					break;
 				}
 				Iteration = Iteration + 1;
-				EJ.SetPassStatus(Iteration,  WH.Theme);
+				EJ.SetPassStatus(Iteration,  WH.Refund);
 
 			} else {
 				Iteration = Iteration + 1;
-				EJ.SetFailureStatus(Iteration,  WH.Theme);
+				EJ.SetFailureStatus(Iteration,  WH.Refund);
 			}
 
 		}

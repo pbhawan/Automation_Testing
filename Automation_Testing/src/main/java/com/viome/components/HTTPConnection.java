@@ -85,6 +85,9 @@ public class HTTPConnection {
 		if(webhook==WH.Product)
 		request.addHeader("x-shopify-topic","products/create");
 		
+		if(webhook==WH.Refund)
+		request.addHeader("x-shopify-topic","refunds/create");
+		
 		if(webhook==WH.Shop)
 		request.addHeader("x-shopify-topic","shop/update");
 
