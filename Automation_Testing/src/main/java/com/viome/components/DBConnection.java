@@ -29,7 +29,7 @@ public class DBConnection {
 				
 			case "Cart":
 				id = JsonData.get("id").toString();
-				sql = "SELECT * FROM public.orders where external_id=" + id + ";";
+				sql="SELECT  o.external_id,   o.token,   o.note,l.*	FROM  public.orders as o INNER JOIN public.line_items as l ON o.external_id = l.mapping_id WHERE o.type='Cart' and o.external_id=" + id + ";";
 				System.out.println(sql);
 				_CP.rs = _CP.stmt.executeQuery(sql);
 				break;
