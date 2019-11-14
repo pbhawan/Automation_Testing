@@ -69,8 +69,12 @@ public class DraftOrders {
 
 		for (Object record : JsonRecords)
 		{		
-         	Map<String, Long> map = mapper.readValue(record.toString(), Map.class);
-			map.put("external_id", new Date().getTime());
+         	Map<String, Object> map = mapper.readValue(record.toString(), Map.class);
+			map.put("id", new Date().getTime());
+			map.put("created_at", new Date());
+			map.put("completed_at", new Date());
+			map.put("updated_at", new Date());
+				
 			JSONObject DraftOrderJsonData = HC.PostJson(mapper.writeValueAsString(map), WH.DraftOrder);
 			TimeUnit.SECONDS.sleep(30);
 			

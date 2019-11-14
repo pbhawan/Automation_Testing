@@ -67,12 +67,10 @@ public class Order {
 
 		for (Object record : JsonRecords)
 		{		
-         	Map<String, Long> map = mapper.readValue(record.toString(), Map.class);
-			//map.put("external_id", new Date().getTime());
+         	Map<String, Object> map = mapper.readValue(record.toString(), Map.class);
 			map.put("id", new Date().getTime());
-			Map<String, Date> map1 = mapper.readValue(mapper.writeValueAsString(map), Map.class);
-			map1.put("updated_at", new Date());
-			map1.put("created_at", new Date());
+			map.put("updated_at", new Date());
+			map.put("created_at", new Date());
 			JSONObject OrderJsonData = HC.PostJson(mapper.writeValueAsString(map), WH.Order);
 			TimeUnit.SECONDS.sleep(10);
 			

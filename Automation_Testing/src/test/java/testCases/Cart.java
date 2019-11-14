@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
-//import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -68,7 +67,6 @@ public class Cart {
 		for (Object record : JsonRecords)
 		{		
          	Map<String, Object> map = mapper.readValue(record.toString(), Map.class);
-			//map.put("external_id", new Date().getTime());
 			map.put("id", new Date().getTime());
 			map.put("updated_at", new Date());
 			map.put("created_at", new Date());

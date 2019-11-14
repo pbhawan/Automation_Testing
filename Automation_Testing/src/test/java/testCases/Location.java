@@ -67,14 +67,12 @@ public class Location {
 		for (Object record : JsonRecords)
 		{		
          	@SuppressWarnings("unchecked")
-			Map<String, Long> map = mapper.readValue(record.toString(), Map.class);
+			Map<String, Object> map = mapper.readValue(record.toString(), Map.class);
 			map.put("id", new Date().getTime());
-			
-			Map<String, Date> map1 = mapper.readValue(mapper.writeValueAsString(map), Map.class);
-			map1.put("updated_at", new Date());
-			map1.put("created_at", new Date());
+			map.put("updated_at", new Date());
+			map.put("created_at", new Date());
 			@SuppressWarnings("static-access")
-			JSONObject LocationJsonData = HC.PostJson(mapper.writeValueAsString(map1), WH.Location);
+			JSONObject LocationJsonData = HC.PostJson(mapper.writeValueAsString(map), WH.Location);
 			TimeUnit.SECONDS.sleep(30);
 			_CP = DB.GetRecordFromDB(LocationJsonData,"Location");
 			if (_CP.rs.next()) {
