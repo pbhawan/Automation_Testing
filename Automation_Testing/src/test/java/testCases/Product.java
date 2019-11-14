@@ -70,6 +70,8 @@ public class Product {
          	Map<String, Object> map = mapper.readValue(record.toString(), Map.class);
 			long id = new Date().getTime();
 			map.put("id", id);
+			map.put("updated_at", new Date());
+			map.put("created_at", new Date());
 			if (null != map.get("variants")) {
 			List<Map> variants = (List<Map>) map.get("variants");
 		for (Map m : variants) {
@@ -83,7 +85,15 @@ public class Product {
 				m.put("product_id" ,id);
 				m.put("id",  new Date().getTime());
 			}
-				}			
+				}
+			
+			if (null != map.get("variants")) {
+				List<Map> images = (List<Map>) map.get("images");
+			for (Map m : images) {
+				m.put("product_id" ,id);
+				m.put("id",  new Date().getTime());
+			}
+				}	
 			@SuppressWarnings("static-access")
 			JSONObject ProductJsonData = HC.PostJson(mapper.writeValueAsString(map), WH.Product);
 			TimeUnit.SECONDS.sleep(30);
@@ -91,36 +101,40 @@ public class Product {
 			_CP = DB.GetRecordFromDB(ProductJsonData,"Product");
 			if (_CP.rs.next()) {
 				try {
-					Assert.assertEquals(ProductJsonData.get("title").toString(),
-							_CP.rs.getString("title").toString(), "title not Match in Row" + Iteration);
-					
 					Assert.assertEquals(ProductJsonData.get("body_html").toString(),
 							_CP.rs.getString("body_html").toString(), "body_html not Match in Row" + Iteration);
-					
-					Assert.assertEquals(ProductJsonData.get("vendor").toString(), 
-							_CP.rs.getString("vendor").toString(),"vendor not Match in Row" + Iteration);
-					
-					Assert.assertEquals(ProductJsonData.get("product_type").toString(),
-							_CP.rs.getString("product_type").toString(),"product_type not Match in Row" + Iteration);
 					
 					Assert.assertEquals(ProductJsonData.get("handle").toString(),
 							_CP.rs.getString("handle").toString(), "handle not Match in Row" + Iteration);
 					
-//				Assert.assertEquals(ProductJsonData.get("template_suffix").toString(),
-//							_CP.rs.getString("template_suffix").toString(), "template_suffix not Match in Row" + Iteration);
+//					Assert.assertEquals(ProductJsonData.get("images").toString(), 
+//jsonobj							_CP.rs.getString("images").toString(),"images not Match in Row" + Iteration);
+					
+//jsonobj					Assert.assertEquals(ProductJsonData.get("options").toString(),
+//							_CP.rs.getString("options").toString(),"options not Match in Row" + Iteration);
+					
+					Assert.assertEquals(ProductJsonData.get("product_type").toString(),
+							_CP.rs.getString("product_type").toString(), "product_type not Match in Row" + Iteration);
+					
+				    Assert.assertEquals(ProductJsonData.get("published_scope").toString(),
+							_CP.rs.getString("published_scope").toString(), "published_scope not Match in Row" + Iteration);
 				
 					Assert.assertEquals(ProductJsonData.get("tags").toString(),
 							_CP.rs.getString("tags").toString(), "tags not Match in Row" + Iteration);
 					
-					Assert.assertEquals(ProductJsonData.get("published_scope").toString(),
-							_CP.rs.getString("published_scope").toString(), "published_scope not Match in Row" + Iteration);
+					Assert.assertEquals(ProductJsonData.get("template_suffix").toString(),
+							_CP.rs.getString("template_suffix").toString(), "template_suffix not Match in Row" + Iteration);
 					
-					Assert.assertEquals(ProductJsonData.get("created_by").toString(),
-							_CP.rs.getString("created_by").toString(), "created_by not Match in Row" + Iteration);
+					Assert.assertEquals(ProductJsonData.get("title").toString(),
+							_CP.rs.getString("title").toString(), "title not Match in Row" + Iteration);
+					
+//					Assert.assertEquals(ProductJsonData.get("variants").toString(),
+//jsonobj							_CP.rs.getString("variants").toString(), "variants not Match in Row" + Iteration);
+					
+					Assert.assertEquals(ProductJsonData.get("vendor").toString(),
+							_CP.rs.getString("vendor").toString(), "vendor not Match in Row" + Iteration);
+					
 										
-					Assert.assertEquals(ProductJsonData.get("admin_graphql_api_id").toString(),
-							_CP.rs.getString("admin_graphql_api_id").toString(), "admin_graphql_api_id not Match in Row" + Iteration);
-
 				} catch (Exception ex) {
 					System.err.println(ex.getMessage());
 					Iteration = Iteration + 1;
