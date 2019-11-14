@@ -54,7 +54,6 @@ public class HTTPConnection {
 
 	@SuppressWarnings("static-access")
 	public HttpPost SetHeader(String params1 ) throws IOException {
-		//HttpPost request = new HttpPost(PF.getURLPropertiesValue().getProperty("HttpshopifyURL"));
 		HttpPost request = new HttpPost("https://shopify-services.viome.com/v1/viome/shopify/webhook");		
 		request.addHeader("content-type", "application/json");
 		request.addHeader("x-shopify-hmac-sha256", params1);
@@ -85,6 +84,9 @@ public class HTTPConnection {
 		
 		if(webhook==WH.Product)
 		request.addHeader("x-shopify-topic","products/create");
+		
+		if(webhook==WH.Shop)
+		request.addHeader("x-shopify-topic","shop/update");
 
 		if(webhook==WH.Tender_Transaction)
 		request.addHeader("x-shopify-topic","tender_transactions/create");

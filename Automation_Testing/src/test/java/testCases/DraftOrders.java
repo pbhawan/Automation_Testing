@@ -65,7 +65,7 @@ public class DraftOrders {
 	
 	@SuppressWarnings({ "unchecked", "static-access" })
 	@Test
-	public void VerifyProductData() throws IOException, InterruptedException, SQLException, ParseException {
+	public void VerifyDraftOrderData() throws IOException, InterruptedException, SQLException, ParseException {
 
 		for (Object record : JsonRecords)
 		{		

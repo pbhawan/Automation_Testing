@@ -62,7 +62,7 @@ public class Cart {
 	
 	@SuppressWarnings({ "unchecked", "static-access" })
 	@Test
-	public void VerifyProductData() throws IOException, InterruptedException, SQLException, ParseException {
+	public void VerifyCartData() throws IOException, InterruptedException, SQLException, ParseException {
 
 		for (Object record : JsonRecords)
 		{		

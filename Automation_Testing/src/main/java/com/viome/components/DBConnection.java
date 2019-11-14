@@ -26,51 +26,28 @@ public class DBConnection {
 				sql = "SELECT * FROM public.customer where id=" + id + ";";
 				_CP.rs = _CP.stmt.executeQuery(sql);
 				break;
-			case "Location":
-				id = JsonData.get("id").toString();
-				sql = "SELECT * FROM public.location where id=" + id + ";";
-				_CP.rs = _CP.stmt.executeQuery(sql);
-				break;
-			case "Theme":
-				id = JsonData.get("id").toString();
-				sql = "SELECT * FROM public.theme where id=" + id + ";";
-				_CP.rs = _CP.stmt.executeQuery(sql);
-				break;
-			case "Product":
-				id = JsonData.get("id").toString();
-				sql = "SELECT * FROM public.product where id=" + id + ";";
-				_CP.rs = _CP.stmt.executeQuery(sql);
-				break;
-			case "DraftOrder":
-				id = JsonData.get("id").toString();
-				sql = "SELECT * FROM public.orders where id=" + id + ";";
-				System.out.println(sql);
-				_CP.rs = _CP.stmt.executeQuery(sql);
-				break;
-			case "Order":
-				id = JsonData.get("id").toString();
-				sql = "SELECT * FROM public.orders where external_id=" + id + ";";
-				System.out.println(sql);
-				_CP.rs = _CP.stmt.executeQuery(sql);
-				break;
-			case "Order_Transaction":
-				id = JsonData.get("id").toString();
-				sql = "SELECT * FROM public.order_transaction where id=" + id + ";";
-				System.out.println(sql);
-				_CP.rs = _CP.stmt.executeQuery(sql);
-				break;
+				
 			case "Cart":
 				id = JsonData.get("id").toString();
 				sql = "SELECT * FROM public.orders where external_id=" + id + ";";
 				System.out.println(sql);
 				_CP.rs = _CP.stmt.executeQuery(sql);
 				break;
+				
 			case "Checkout":
 				id = JsonData.get("id").toString();
 				sql = "SELECT * FROM public.orders where external_id=" + id + ";";
 				System.out.println(sql);
 				_CP.rs = _CP.stmt.executeQuery(sql);
 				break;
+				
+			case "DraftOrder":
+				id = JsonData.get("id").toString();
+				sql = "SELECT * FROM public.orders where id=" + id + ";";
+				System.out.println(sql);
+				_CP.rs = _CP.stmt.executeQuery(sql);
+				break;
+				
 			case "Fulfillment":
 				id = JsonData.get("id").toString();
 				sql = "SELECT * FROM public.fulfillment where external_id=" + id + ";";
@@ -78,6 +55,48 @@ public class DBConnection {
 				_CP.rs = _CP.stmt.executeQuery(sql);
 				break;
 				
+			case "Location":
+				id = JsonData.get("id").toString();
+				sql = "SELECT * FROM public.location where id=" + id + ";";
+				System.out.println(sql);
+				_CP.rs = _CP.stmt.executeQuery(sql);
+				break;
+				
+			case "Theme":
+				id = JsonData.get("id").toString();
+				sql = "SELECT * FROM public.theme where id=" + id + ";";
+				System.out.println(sql);
+				_CP.rs = _CP.stmt.executeQuery(sql);
+				break;
+				
+			case "Order":
+				id = JsonData.get("id").toString();
+				sql = "SELECT * FROM public.orders where external_id=" + id + ";";
+				System.out.println(sql);
+				_CP.rs = _CP.stmt.executeQuery(sql);
+				break;
+				
+			case "Order_Transaction":
+				id = JsonData.get("id").toString();
+				sql = "SELECT * FROM public.order_transaction where id=" + id + ";";
+				System.out.println(sql);
+				_CP.rs = _CP.stmt.executeQuery(sql);
+				break;
+				
+			case "Product":
+				id = JsonData.get("id").toString();
+				sql = "SELECT * FROM public.product where id=" + id + ";";
+				System.out.println(sql);
+				_CP.rs = _CP.stmt.executeQuery(sql);
+				break;
+				
+			case "Shop":
+				id = JsonData.get("id").toString();
+				sql = "SELECT * FROM public.shop where id=" + id + ";";
+				System.out.println(sql);
+				_CP.rs = _CP.stmt.executeQuery(sql);
+				break;
+
 			case "Tender_Transaction":
 				id = JsonData.get("id").toString();
 				sql = "SELECT * FROM public.tender_transaction where id=" + id + ";";

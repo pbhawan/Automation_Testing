@@ -63,7 +63,7 @@ public class Checkout {
 	
 	@SuppressWarnings({ "unchecked", "static-access" })
 	@Test
-	public void VerifyProductData() throws IOException, InterruptedException, SQLException, ParseException {
+	public void VerifyCheckoutData() throws IOException, InterruptedException, SQLException, ParseException {
 
 		for (Object record : JsonRecords)
 		{		
