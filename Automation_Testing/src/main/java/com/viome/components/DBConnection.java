@@ -43,7 +43,7 @@ public class DBConnection {
 				
 			case "DraftOrder":
 				id = JsonData.get("id").toString();
-				sql = "SELECT * FROM public.orders where id=" + id + ";";
+				sql = "SELECT * FROM public.orders where external_id=" + id + ";";
 				System.out.println(sql);
 				_CP.rs = _CP.stmt.executeQuery(sql);
 				break;
