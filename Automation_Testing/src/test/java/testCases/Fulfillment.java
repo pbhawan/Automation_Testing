@@ -73,118 +73,40 @@ public class Fulfillment {
 			map.put("created_at", new Date());
 			JSONObject FufillmentJsonData = HC.PostJson(mapper.writeValueAsString(map), WH.Fulfillment);
 			TimeUnit.SECONDS.sleep(10);
-			
 			_CP = DB.GetRecordFromDB(FufillmentJsonData,"Fulfillment");
 			if (_CP.rs.next()) {
 				try {					
-					Assert.assertEquals(FufillmentJsonData.get("abandoned_checkout_url").toString(),
-							_CP.rs.getString("abandoned_checkout_url").toString(), "abandoned_checkout_url not Match in Row" + Iteration);
-					
-//					Assert.assertEquals(FufillmentJsonData.get("billing_address").toString(),
-//jsonarray							_CP.rs.getString("billing_address").toString(), "billing_address not Match in Row" + Iteration);
-					
-					Assert.assertEquals(FufillmentJsonData.get("buyer_accepts_marketing").toString(),
-							_CP.rs.getString("buyer_accepts_marketing").toString(), "buyer_accepts_marketing not Match in Row" + Iteration);
-					
-					Assert.assertEquals(FufillmentJsonData.get("cart_token").toString(),
-							_CP.rs.getString("cart_token").toString(), "cart_token not Match in Row" + Iteration);
-					
-//					Assert.assertEquals(FufillmentJsonData.get("closed_at").toString(),
-//null							_CP.rs.getString("closed_at").toString(), "closed_at not Match in Row" + Iteration);
-					
-//					Assert.assertEquals(FufillmentJsonData.get("completed_at").toString(),
-//null							_CP.rs.getString("completed_at").toString(), "completed_at not Match in Row" + Iteration);
-										
-//					Assert.assertEquals(FufillmentJsonData.get("customer").toString(),
-//jsonarray							_CP.rs.getString("customer").toString(), "customer not Match in Row" + Iteration);
-					
-//					Assert.assertEquals(FufillmentJsonData.get("discount_codes").toString(),
-//jsonarray							_CP.rs.getString("discount_codes").toString(), "discount_codes not Match in Row" + Iteration);
-
-					Assert.assertEquals(FufillmentJsonData.get("email").toString(),
-							_CP.rs.getString("email").toString(), "email not Match in Row" + Iteration);
-					
-					Assert.assertEquals(FufillmentJsonData.get("gateway").toString(),
-							_CP.rs.getString("gateway").toString(), "gateway not Match in Row" + Iteration);
-					
-					Assert.assertEquals(FufillmentJsonData.get("landing_site").toString(),
-							_CP.rs.getString("landing_site").toString(), "landing_site not Match in Row" + Iteration);
-					
-//					Assert.assertEquals(FufillmentJsonData.get("line_items").toString(),
-//jsonarray							_CP.rs.getString("line_items").toString(), "line_items not Match in Row" + Iteration);
-
-			        Assert.assertEquals(FufillmentJsonData.get("location_id").toString(),
-						    _CP.rs.getString("location_id").toString(), "location_id not Match in Row" + Iteration);
-
-			        Assert.assertEquals(FufillmentJsonData.get("name").toString(),
-						    _CP.rs.getString("name").toString(), "name not Match in Row" + Iteration);
-
-			        Assert.assertEquals(FufillmentJsonData.get("note").toString(),
-						    _CP.rs.getString("note").toString(), "note not Match in Row" + Iteration);
-			        
-			        Assert.assertEquals(FufillmentJsonData.get("presentment_currency").toString(),
-						    _CP.rs.getString("presentment_currency").toString(), "presentment_currency not Match in Row" + Iteration);
-			        
-//jsonarray			        Assert.assertEquals(FufillmentJsonData.get("note_attributes").toString(),
-//						    _CP.rs.getString("note_attributes").toString(), "note_attributes not Match in Row" + Iteration);
-
-//			      Assert.assertEquals(FufillmentJsonData.get("phone").toString(),
-//null			    		  _CP.rs.getString("phone").toString(), "phone not Match in Row" + Iteration);
-
-			     Assert.assertEquals(FufillmentJsonData.get("presentment_currency").toString(),
-			    		   _CP.rs.getString("presentment_currency").toString(), "presentment_currency not Match in Row" + Iteration);
-
-			     Assert.assertEquals(FufillmentJsonData.get("referring_site").toString(),
-			        		_CP.rs.getString("referring_site").toString(), "referring_site not Match in Row" + Iteration);
-			     
-//			     Assert.assertEquals(FufillmentJsonData.get("shipping_address").toString(),
-//json array			        		_CP.rs.getString("shipping_address").toString(), "shipping_address not Match in Row" + Iteration);
-
-//			     Assert.assertEquals(FufillmentJsonData.get("shipping_lines").toString(),
-//json array			        		_CP.rs.getString("shipping_lines").toString(), "shipping_lines not Match in Row" + Iteration);
-
-			     Assert.assertEquals(FufillmentJsonData.get("source").toString(),
-			        		_CP.rs.getString("source").toString(), "source not Match in Row" + Iteration);
-
-			     Assert.assertEquals(FufillmentJsonData.get("source_identifier").toString(),
-			        		_CP.rs.getString("source_identifier").toString(), "source_identifier not Match in Row" + Iteration);
-
-			     Assert.assertEquals(FufillmentJsonData.get("source_name").toString(),
-			        		_CP.rs.getString("source_name").toString(), "source_name not Match in Row" + Iteration);
-
-			     Assert.assertEquals(FufillmentJsonData.get("source_url").toString(),
-			        		_CP.rs.getString("source_url").toString(), "source_url not Match in Row" + Iteration);
-
-			     Assert.assertEquals(FufillmentJsonData.get("subtotal_price").toString(),
-			        		_CP.rs.getString("subtotal_price").toString(), "subtotal_price not Match in Row" + Iteration);
-			     
-//			     Assert.assertEquals(FufillmentJsonData.get("tax_lines").toString(),
-//json array			        		_CP.rs.getString("tax_lines").toString(), "tax_lines not Match in Row" + Iteration);
-
-			     Assert.assertEquals(FufillmentJsonData.get("taxes_included").toString(),
-			        		_CP.rs.getString("taxes_included").toString(), "taxes_included not Match in Row" + Iteration);
-
-			     Assert.assertEquals(FufillmentJsonData.get("token").toString(),
-			        		_CP.rs.getString("token").toString(), "token not Match in Row" + Iteration);
-
-			     Assert.assertEquals(FufillmentJsonData.get("total_discounts").toString(),
-			        		_CP.rs.getString("total_discounts").toString(), "total_discounts not Match in Row" + Iteration);
-
-			     Assert.assertEquals(FufillmentJsonData.get("total_line_items_price").toString(),
-			        		_CP.rs.getString("total_line_items_price").toString(), "total_line_items_price not Match in Row" + Iteration);
-
-			     Assert.assertEquals(FufillmentJsonData.get("total_price").toString(),
-			        		_CP.rs.getString("total_price").toString(), "total_price not Match in Row" + Iteration);
-
-			     Assert.assertEquals(FufillmentJsonData.get("total_tax").toString(),
-			        		_CP.rs.getString("total_tax").toString(), "total_tax not Match in Row" + Iteration);
-
-			     Assert.assertEquals(FufillmentJsonData.get("total_weight").toString(),
-			        		_CP.rs.getString("total_weight").toString(), "total_weight not Match in Row" + Iteration);
-
-			     Assert.assertEquals(FufillmentJsonData.get("user_id").toString(),
-			        		_CP.rs.getString("user_id").toString(), "user_id not Match in Row" + Iteration);
-
+					Assert.assertEquals(FufillmentJsonData.get("admin_graphql_api_id").toString(),_CP.rs.getString("admin_graphql_api_id").toString(), "admin_graphql_api_id not Match in Row" + Iteration);
+					//Object under object handling
+					JSONObject destination = (JSONObject) FufillmentJsonData.get("destination");
+					Assert.assertEquals(destination.get("address1"),_CP.rs.getString("destination_address1"),"destination_address1 not Match in Row"+Iteration);
+					Assert.assertEquals(destination.get("address2"),_CP.rs.getString("destination_address2"),"destination_address2 not Match in Row"+Iteration);
+					Assert.assertEquals(destination.get("city"),_CP.rs.getString("destination_city"),"destination_city not Match in Row"+Iteration);
+					Assert.assertEquals(destination.get("company"),_CP.rs.getString("destination_company"),"destination_company not Match in Row"+Iteration);
+					Assert.assertEquals(destination.get("country"),_CP.rs.getString("destination_country"),"destination_country not Match in Row"+Iteration);
+					Assert.assertEquals(destination.get("country_code"),_CP.rs.getString("destination_country_code"),"destination_country_code not Match in Row"+Iteration);
+					Assert.assertEquals(destination.get("first_name"),_CP.rs.getString("destination_first_name"),"destination_first_name not Match in Row"+Iteration);
+					Assert.assertEquals(destination.get("last_name"),_CP.rs.getString("destination_last_name"),"destination_last_name not Match in Row"+Iteration);
+					Assert.assertEquals(destination.get("latitude").toString(),_CP.rs.getString("destination_latitude"),"destination_latitude not Match in Row"+Iteration);
+					Assert.assertEquals(destination.get("longitude").toString(),_CP.rs.getString("destination_longitude"),"destination_longitude not Match in Row"+Iteration);
+					Assert.assertEquals(destination.get("name"),_CP.rs.getString("destination_name"),"destination_name not Match in Row"+Iteration);
+					Assert.assertEquals(destination.get("phone"),_CP.rs.getString("destination_phone"),"destination_phone not Match in Row"+Iteration);
+					Assert.assertEquals(destination.get("province"),_CP.rs.getString("destination_province"),"destination_province not Match in Row"+Iteration);
+					Assert.assertEquals(destination.get("province_code"),_CP.rs.getString("destination_province_code"),"destination_province_code not Match in Row"+Iteration);
+					Assert.assertEquals(destination.get("zip"),_CP.rs.getString("destination_zip"),"destination_zip not Match in Row"+Iteration);
+					Assert.assertEquals(FufillmentJsonData.get("email").toString(),_CP.rs.getString("email").toString(),"email not Match in Row" + Iteration);
+//json array	 	Assert.assertEquals(FufillmentJsonData.get("line_items").toString(),_CP.rs.getString("line_items").toString(),"line_items not Match in Row" + Iteration);
+//					Assert.assertEquals(FufillmentJsonData.get("location_id").toString(),_CP.rs.getString("location_id").toString(),"location_id not Match in Row" + Iteration);
+					Assert.assertEquals(FufillmentJsonData.get("name").toString(),_CP.rs.getString("name").toString(),"name not Match in Row" + Iteration);
+//					Assert.assertEquals(FufillmentJsonData.get("order_id").toString(),_CP.rs.getString("order_id").toString(),"order_id not Match in Row" + Iteration);
+					Assert.assertEquals(FufillmentJsonData.get("receipt").toString(),_CP.rs.getString("receipt").toString(),"receipt not Match in Row" + Iteration);
+					Assert.assertEquals(FufillmentJsonData.get("service").toString(),_CP.rs.getString("service").toString(),"service not Match in Row" + Iteration);
+					Assert.assertEquals(FufillmentJsonData.get("shipment_status").toString(),_CP.rs.getString("shipment_status").toString(),"shipment_status not Match in Row" + Iteration);
+					Assert.assertEquals(FufillmentJsonData.get("tracking_company").toString(),_CP.rs.getString("tracking_company").toString(),"tracking_company not Match in Row" + Iteration);
+					Assert.assertEquals(FufillmentJsonData.get("tracking_number").toString(),_CP.rs.getString("tracking_number").toString(),"tracking_number not Match in Row" + Iteration);
+//json array		Assert.assertEquals(FufillmentJsonData.get("tracking_numbers").toString(),_CP.rs.getString("tracking_numbers").toString(),"tracking_numbers not Match in Row" + Iteration);
+					Assert.assertEquals(FufillmentJsonData.get("tracking_url").toString(),_CP.rs.getString("tracking_url").toString(),"tracking_url not Match in Row" + Iteration);
+//json array		Assert.assertEquals(FufillmentJsonData.get("tracking_urls").toString(),_CP.rs.getString("tracking_urls").toString(),"tracking_urls not Match in Row" + Iteration);
 					
 				} catch (Exception ex) {
 					System.err.println(ex.getMessage());

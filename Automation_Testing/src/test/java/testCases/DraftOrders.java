@@ -73,16 +73,13 @@ public class DraftOrders {
 			map.put("id", new Date().getTime());
 			map.put("created_at", new Date());
 			map.put("completed_at", new Date());
-			map.put("updated_at", new Date());
-				
+			map.put("updated_at", new Date());	
 			JSONObject DraftOrderJsonData = HC.PostJson(mapper.writeValueAsString(map), WH.DraftOrder);
 			TimeUnit.SECONDS.sleep(10);
-			
 			_CP = DB.GetRecordFromDB(DraftOrderJsonData,"DraftOrder");
 			if (_CP.rs.next()) {
 				try {
-					Assert.assertEquals(DraftOrderJsonData.get("admin_graphql_api_id").toString(),
-							_CP.rs.getString("admin_graphql_api_id").toString(), "admin_graphql_api_id not Match in Row" + Iteration);					
+					Assert.assertEquals(DraftOrderJsonData.get("admin_graphql_api_id").toString(),_CP.rs.getString("admin_graphql_api_id").toString(), "admin_graphql_api_id not Match in Row" + Iteration);					
 
 					//Object under object handling
 					JSONObject applied_discount = (JSONObject) DraftOrderJsonData.get("applied_discount");
@@ -102,18 +99,16 @@ public class DraftOrders {
 					Assert.assertEquals(billing_address.get("country_code"),_CP.rs.getString("billing_address_country_code"),"billing_address_country_code not Match in Row"+Iteration);
 					Assert.assertEquals(billing_address.get("first_name"),_CP.rs.getString("billing_address_first_name"),"billing_address_first_name not Match in Row"+Iteration);
 					Assert.assertEquals(billing_address.get("last_name"),_CP.rs.getString("billing_address_last_name"),"billing_address_last_name not Match in Row"+Iteration);
-//null					Assert.assertEquals(billing_address.get("latitude"),_CP.rs.getString("billing_address_latitude"),"billing_address_latitude not Match in Row"+Iteration);
-//handl					Assert.assertEquals(billing_address.get("longitude"),_CP.rs.getString("billing_address_longitude"),"billing_address_longitude not Match in Row"+Iteration);
+//null				Assert.assertEquals(billing_address.get("latitude"),_CP.rs.getString("billing_address_latitude"),"billing_address_latitude not Match in Row"+Iteration);
+//handl				Assert.assertEquals(billing_address.get("longitude"),_CP.rs.getString("billing_address_longitude"),"billing_address_longitude not Match in Row"+Iteration);
 					Assert.assertEquals(billing_address.get("name"),_CP.rs.getString("billing_address_name"),"billing_address_name not Match in Row"+Iteration);
 					Assert.assertEquals(billing_address.get("phone"),_CP.rs.getString("billing_address_phone"),"billing_address_phone not Match in Row"+Iteration);
 					Assert.assertEquals(billing_address.get("province"),_CP.rs.getString("billing_address_province"),"billing_address_province not Match in Row"+Iteration);
 					Assert.assertEquals(billing_address.get("province_code"),_CP.rs.getString("billing_address_province_code"),"billing_address_province_code not Match in Row"+Iteration);
-					Assert.assertEquals(billing_address.get("zip"),_CP.rs.getString("billing_address_zip"),"billing_address_zip not Match in Row"+Iteration);
-					
-					Assert.assertEquals(DraftOrderJsonData.get("currency").toString(),
-							_CP.rs.getString("currency").toString(),"currency not Match in Row" + Iteration);
+					Assert.assertEquals(billing_address.get("zip"),_CP.rs.getString("billing_address_zip"),"billing_address_zip not Match in Row"+Iteration);	
+					Assert.assertEquals(DraftOrderJsonData.get("currency").toString(),_CP.rs.getString("currency").toString(),"currency not Match in Row" + Iteration);
 
-					//Object under object handling
+					//Object under object handling	  
 					JSONObject customer = (JSONObject) DraftOrderJsonData.get("customer");
 					Assert.assertEquals(customer.get("accepts_marketing").toString(),_CP.rs.getString("customer_accepts_marketing"),"customer_accepts_marketing not Match in Row"+Iteration);
 					Assert.assertEquals(customer.get("currency"),_CP.rs.getString("customer_currency"),"customer_currency not Match in Row"+Iteration);
@@ -135,42 +130,31 @@ public class DraftOrders {
 					Assert.assertEquals(customer.get("verified_email").toString(),_CP.rs.getString("customer_verified_email"),"customer_verified_email not Match in Row"+Iteration);														
 																			
 					//Object under object handling
-					JSONObject customer_default_address = (JSONObject) DraftOrderJsonData.get("customer_default_address");
-					Assert.assertEquals(customer_default_address.get("address1"),_CP.rs.getString("customer_default_address_address1"),"customer_default_address_address1 not Match in Row"+Iteration);
+					JSONObject default_address = (JSONObject) customer.get("default_address");
+					Assert.assertEquals(default_address.get("address1"),_CP.rs.getString("customer_default_address_address1"),"customer_default_address_address1 not Match in Row"+Iteration);
 //null				Assert.assertEquals(default_address.get("address2"),_CP.rs.getString("customer_default_address_address2"),"customer_default_address_address2 not Match in Row"+Iteration);
-//					Assert.assertEquals(default_address.get("city"),_CP.rs.getString("customer_default_address_city"),"customer_default_address_city not Match in Row"+Iteration);
-//					Assert.assertEquals(default_address.get("company"),_CP.rs.getString("customer_default_address_company"),"customer_default_address_company not Match in Row"+Iteration);
-//					Assert.assertEquals(default_address.get("country"),_CP.rs.getString("customer_default_address_country"),"customer_default_address_country not Match in Row"+Iteration);
-//					Assert.assertEquals(default_address.get("country_code"),_CP.rs.getString("customer_default_address_country_code"),"customer_default_address_country_code not Match in Row"+Iteration);
-//					Assert.assertEquals(default_address.get("country_name"),_CP.rs.getString("customer_default_address_country_name"),"customer_default_address_country_name not Match in Row"+Iteration);
+					Assert.assertEquals(default_address.get("city"),_CP.rs.getString("customer_default_address_city"),"customer_default_address_city not Match in Row"+Iteration);
+					Assert.assertEquals(default_address.get("company"),_CP.rs.getString("customer_default_address_company"),"customer_default_address_company not Match in Row"+Iteration);
+					Assert.assertEquals(default_address.get("country"),_CP.rs.getString("customer_default_address_country"),"customer_default_address_country not Match in Row"+Iteration);
+					Assert.assertEquals(default_address.get("country_code"),_CP.rs.getString("customer_default_address_country_code"),"customer_default_address_country_code not Match in Row"+Iteration);
+					Assert.assertEquals(default_address.get("country_name"),_CP.rs.getString("customer_default_address_country_name"),"customer_default_address_country_name not Match in Row"+Iteration);
 //					Assert.assertEquals(default_address.get("customer_id"),_CP.rs.getString("customer_default_address_customer_id"),"customer_default_address_customer_id not Match in Row"+Iteration);
-//					Assert.assertEquals(default_address.get("default"),_CP.rs.getString("customer_default_address_default"),"customer_default_address_default not Match in Row"+Iteration);
-//					Assert.assertEquals(default_address.get("first_name"),_CP.rs.getString("customer_default_address_first_name"),"customer_default_address_first_name not Match in Row"+Iteration);
+					Assert.assertEquals(default_address.get("default").toString(),_CP.rs.getString("customer_default_address_default"),"customer_default_address_default not Match in Row"+Iteration);
+					Assert.assertEquals(default_address.get("first_name"),_CP.rs.getString("customer_default_address_first_name"),"customer_default_address_first_name not Match in Row"+Iteration);
 //					Assert.assertEquals(default_address.get("id"),_CP.rs.getString("customer_default_address_id"),"customer_default_address_id not Match in Row"+Iteration);
-//					Assert.assertEquals(default_address.get("last_name"),_CP.rs.getString("customer_default_address_last_name"),"customer_default_address_last_name not Match in Row"+Iteration);
-////null				Assert.assertEquals(default_address.get("name"),_CP.rs.getString("customer_default_address_name"),"customer_default_address_name not Match in Row"+Iteration);
-//					Assert.assertEquals(default_address.get("phone"),_CP.rs.getString("customer_default_address_phone"),"customer_default_address_phone not Match in Row"+Iteration);
-//					Assert.assertEquals(default_address.get("address_province"),_CP.rs.getString("customer_default_address_province"),"customer_default_address_province not Match in Row"+Iteration);
-//					Assert.assertEquals(default_address.get("province_code"),_CP.rs.getString("customer_default_address_province_code"),"customer_default_address_province_code not Match in Row"+Iteration);
-//					Assert.assertEquals(default_address.get("zip"),_CP.rs.getString("customer_default_address_zip"),"customer_default_address_zip not Match in Row"+Iteration);
-
-					Assert.assertEquals(DraftOrderJsonData.get("email").toString(),
-							_CP.rs.getString("email").toString(), "email not Match in Row" + Iteration);
+					Assert.assertEquals(default_address.get("last_name"),_CP.rs.getString("customer_default_address_last_name"),"customer_default_address_last_name not Match in Row"+Iteration);
+////null			Assert.assertEquals(default_address.get("name"),_CP.rs.getString("customer_default_address_name"),"customer_default_address_name not Match in Row"+Iteration);
+					Assert.assertEquals(default_address.get("phone"),_CP.rs.getString("customer_default_address_phone"),"customer_default_address_phone not Match in Row"+Iteration);
+					Assert.assertEquals(default_address.get("address_province"),_CP.rs.getString("customer_default_address_province"),"customer_default_address_province not Match in Row"+Iteration);
+					Assert.assertEquals(default_address.get("province_code"),_CP.rs.getString("customer_default_address_province_code"),"customer_default_address_province_code not Match in Row"+Iteration);
+					Assert.assertEquals(default_address.get("zip"),_CP.rs.getString("customer_default_address_zip"),"customer_default_address_zip not Match in Row"+Iteration);
 					
-					Assert.assertEquals(DraftOrderJsonData.get("invoice_url").toString(),
-							_CP.rs.getString("invoice_url").toString(), "invoice_url not Match in Row" + Iteration);
-					
-//					Assert.assertEquals(DraftOrderJsonData.get("line_items").toString(),
-//json array							_CP.rs.getString("line_items").toString(), "line_items not Match in Row" + Iteration);
-					
-					Assert.assertEquals(DraftOrderJsonData.get("name").toString(),
-							_CP.rs.getString("name").toString(), "name not Match in Row" + Iteration);
-					
-					Assert.assertEquals(DraftOrderJsonData.get("note").toString(),
-							_CP.rs.getString("note").toString(), "note not Match in Row" + Iteration);
-					
-					Assert.assertEquals(DraftOrderJsonData.get("note_attributes").toString(),
-							_CP.rs.getString("note_attributes").toString(), "note_attributes not Match in Row" + Iteration);
+					Assert.assertEquals(DraftOrderJsonData.get("email").toString(),_CP.rs.getString("email").toString(), "email not Match in Row" + Iteration);
+    				Assert.assertEquals(DraftOrderJsonData.get("invoice_url").toString(),_CP.rs.getString("invoice_url").toString(), "invoice_url not Match in Row" + Iteration);
+//					Assert.assertEquals(DraftOrderJsonData.get("line_items").toString(),_CP.rs.getString("line_items").toString(), "line_items not Match in Row" + Iteration);	
+					Assert.assertEquals(DraftOrderJsonData.get("name").toString(),_CP.rs.getString("name").toString(), "name not Match in Row" + Iteration);
+					Assert.assertEquals(DraftOrderJsonData.get("note").toString(),_CP.rs.getString("note").toString(), "note not Match in Row" + Iteration);
+					Assert.assertEquals(DraftOrderJsonData.get("note_attributes").toString(),_CP.rs.getString("note_attributes").toString(), "note_attributes not Match in Row" + Iteration);
 					
 					//Object under object handling
 					JSONObject shipping_address = (JSONObject) DraftOrderJsonData.get("shipping_address");
@@ -196,34 +180,17 @@ public class DraftOrders {
 					Assert.assertEquals(shipping_line.get("price"),_CP.rs.getString("shipping_line_price"),"shipping_line_price not Match in Row"+Iteration);
 					Assert.assertEquals(shipping_line.get("title"),_CP.rs.getString("shipping_line_title"),"shipping_line_title not Match in Row"+Iteration);
 
-					Assert.assertEquals(DraftOrderJsonData.get("status").toString(), 
-							_CP.rs.getString("status").toString(),"status not Match in Row" + Iteration);
-					
-					Assert.assertEquals(DraftOrderJsonData.get("subtotal_price").toString(), 
-							_CP.rs.getString("subtotal_price").toString(),"subtotal_price not Match in Row" + Iteration);
-					
-					Assert.assertEquals(DraftOrderJsonData.get("taxes_included").toString(), 
-							_CP.rs.getString("taxes_included").toString(),"taxes_included not Match in Row" + Iteration);
-					
-					Assert.assertEquals(DraftOrderJsonData.get("tags").toString(),
-							_CP.rs.getString("tags").toString(), "tags not Match in Row" + Iteration);
-					
-					Assert.assertEquals(DraftOrderJsonData.get("tax_exempt").toString(),
-							_CP.rs.getString("tax_exempt").toString(), "tax_exempt not Match in Row" + Iteration);
+					Assert.assertEquals(DraftOrderJsonData.get("status").toString(),_CP.rs.getString("status").toString(),"status not Match in Row" + Iteration);
+					Assert.assertEquals(DraftOrderJsonData.get("subtotal_price").toString(),_CP.rs.getString("subtotal_price").toString(),"subtotal_price not Match in Row" + Iteration);
+					Assert.assertEquals(DraftOrderJsonData.get("taxes_included").toString(),_CP.rs.getString("taxes_included").toString(),"taxes_included not Match in Row" + Iteration);
+					Assert.assertEquals(DraftOrderJsonData.get("tags").toString(),_CP.rs.getString("tags").toString(), "tags not Match in Row" + Iteration);
+					Assert.assertEquals(DraftOrderJsonData.get("tax_exempt").toString(),_CP.rs.getString("tax_exempt").toString(), "tax_exempt not Match in Row" + Iteration);
 
-//					Assert.assertEquals(DraftOrderJsonData.get("tax_lines").toString(),
-//jsonarray							_CP.rs.getString("tax_lines").toString(), "tax_lines not Match in Row" + Iteration);
-					
-					Assert.assertEquals(DraftOrderJsonData.get("taxes_included").toString(),
-							_CP.rs.getString("taxes_included").toString(), "taxes_included not Match in Row" + Iteration);
-					
-					Assert.assertEquals(DraftOrderJsonData.get("total_price").toString(),
-							_CP.rs.getString("total_price").toString(), "total_price not Match in Row" + Iteration);
+//jsonarray			Assert.assertEquals(DraftOrderJsonData.get("tax_lines").toString(),_CP.rs.getString("tax_lines").toString(), "tax_lines not Match in Row" + Iteration);
+					Assert.assertEquals(DraftOrderJsonData.get("taxes_included").toString(),_CP.rs.getString("taxes_included").toString(), "taxes_included not Match in Row" + Iteration);				
+					Assert.assertEquals(DraftOrderJsonData.get("total_price").toString(),_CP.rs.getString("total_price").toString(), "total_price not Match in Row" + Iteration);
+					Assert.assertEquals(DraftOrderJsonData.get("total_tax").toString(),_CP.rs.getString("total_tax").toString(), "total_tax not Match in Row" + Iteration);
 
-					Assert.assertEquals(DraftOrderJsonData.get("total_tax").toString(),
-							_CP.rs.getString("total_tax").toString(), "total_tax not Match in Row" + Iteration);
-										
-					
 				} catch (Exception ex) {
 					System.err.println(ex.getMessage());
 					Iteration = Iteration + 1;
