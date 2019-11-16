@@ -58,6 +58,7 @@ public class Theme {
 
 	}
 	
+	@SuppressWarnings("static-access")
 	@Test
 	public void VerifyThemeData() throws IOException, InterruptedException, SQLException, ParseException {
 
@@ -74,35 +75,14 @@ public class Theme {
 			_CP = DB.GetRecordFromDB(ThemeJsonData,"Theme");
 			if (_CP.rs.next()) {
 				try {
-					Assert.assertEquals(ThemeJsonData.get("name").toString(),
-							_CP.rs.getString("name").toString(), "Name not Match in Row" + Iteration);
-					
-					Assert.assertEquals(ThemeJsonData.get("role").toString(),
-							_CP.rs.getString("role").toString(), "role not Match in Row" + Iteration);
-					
-					Assert.assertEquals(ThemeJsonData.get("theme_store_id").toString(),
-							_CP.rs.getString("theme_store_id").toString(),"theme_store_id not Match in Row" + Iteration);
-					
-					Assert.assertEquals(ThemeJsonData.get("previewable").toString(),
-							_CP.rs.getString("previewable").toString(),"previewable not Match in Row" + Iteration);
-					
-					Assert.assertEquals(ThemeJsonData.get("processing").toString(),
-							_CP.rs.getString("processing").toString(),"processing not Match in Row" + Iteration);
-					
-					Assert.assertEquals(ThemeJsonData.get("updated_by").toString(),
-							_CP.rs.getString("updated_by").toString(),"created_at not Match in Row" + Iteration);
-					
-// 				    Assert.assertEquals(ThemeJsonData.get("created_at").toString(),
-//							_CP.rs.getString("created_at").toString(),"created_at not Match in Row" + Iteration);
-					
-					Assert.assertEquals(ThemeJsonData.get("version").toString(),
-							_CP.rs.getString("version").toString(),"version not Match in Row" + Iteration);
-					
-//					Assert.assertEquals(ThemeJsonData.get("isdeleted").toString(),_CP.rs.getString("isdeleted").toString(),
-//							"isdeleted not Match in Row" + Iteration);
-										
-					Assert.assertEquals(ThemeJsonData.get("admin_graphql_api_id").toString(),_CP.rs.getString("admin_graphql_api_id").toString(),
-							"admin_graphql_api_id not Match in Row" + Iteration);
+					Assert.assertEquals(ThemeJsonData.get("name").toString(),_CP.rs.getString("name").toString(), "Name not Match in Row" + Iteration);					
+					Assert.assertEquals(ThemeJsonData.get("role").toString(),_CP.rs.getString("role").toString(), "role not Match in Row" + Iteration);
+					Assert.assertEquals(ThemeJsonData.get("theme_store_id").toString(),_CP.rs.getString("theme_store_id").toString(),"theme_store_id not Match in Row" + Iteration);
+					Assert.assertEquals(ThemeJsonData.get("previewable").toString(),_CP.rs.getString("previewable").toString(),"previewable not Match in Row" + Iteration);
+					Assert.assertEquals(ThemeJsonData.get("processing").toString(),_CP.rs.getString("processing").toString(),"processing not Match in Row" + Iteration);
+					Assert.assertEquals(ThemeJsonData.get("updated_by").toString(),_CP.rs.getString("updated_by").toString(),"created_at not Match in Row" + Iteration);
+					Assert.assertEquals(ThemeJsonData.get("version").toString(),_CP.rs.getString("version").toString(),"version not Match in Row" + Iteration);
+					Assert.assertEquals(ThemeJsonData.get("admin_graphql_api_id").toString(),_CP.rs.getString("admin_graphql_api_id").toString(),"admin_graphql_api_id not Match in Row" + Iteration);
 					
 				} catch (Exception ex) {
 					System.err.println(ex.getMessage());

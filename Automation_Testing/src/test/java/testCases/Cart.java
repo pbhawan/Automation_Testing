@@ -83,38 +83,36 @@ public class Cart {
 			JsonArrayObject = (JSONObject) JsonArray.get(i);
 			Assert.assertEquals(JsonArrayObject.get("quantity").toString(),_CP.rs.getString("quantity").toString(), "quantity not Match in Row" + Iteration);
 
-						// Assert.assertEquals(JsonArrayObject.get("line_price").toString(),_CP.rs.getString("line_price").toString(),
-						// "line_price not Match in Row" + Iteration);
-						// Assert.assertEquals(JsonArrayObject.get("original_price").toString(),_CP.rs.getString("original_price").toString(),
-						// "original_price not Match in Row" + Iteration);
+			// Assert.assertEquals(JsonArrayObject.get("line_price").toString(),_CP.rs.getString("line_price").toString(),
+			// "line_price not Match in Row" + Iteration);
+			// Assert.assertEquals(JsonArrayObject.get("original_price").toString(),_CP.rs.getString("original_price").toString(),
+			// "original_price not Match in Row" + Iteration);
 			Assert.assertEquals(JsonArrayObject.get("total_discount").toString(),_CP.rs.getString("total_discount").toString(),	"total_discount not Match in Row" + Iteration);
 			Assert.assertEquals(JsonArrayObject.get("gift_card").toString(),_CP.rs.getString("gift_card").toString(), "gift_card not Match in Row" + Iteration);
 			Assert.assertEquals(JsonArrayObject.get("taxable").toString(),_CP.rs.getString("taxable").toString(), "taxable not Match in Row" + Iteration);
 			Assert.assertEquals(JsonArrayObject.get("total_discount_set").toString(),_CP.rs.getString("total_discount_set").toString(),	"total_discount_set not Match in Row" + Iteration);
-						/*
-						 * JSONObject total_discount_set = (JSONObject)
-						 * JsonArrayObject.get("total_discount_set"); JSONObject
-						 * total_shop_money=(JSONObject) total_discount_set.get("shop_money");
-						 * Assert.assertEquals(total_shop_money.get("amount").toString(),
-						 * _CP.rs.getString("amount").toString(), "amount not Match in Row" +
-						 * Iteration);
-						 * Assert.assertEquals(total_shop_money.get("currency_code").toString(),
-						 * _CP.rs.getString("currency_code").toString(),
-						 * "currency_code not Match in Row" + Iteration); JSONObject
-						 * total_presentment_money=(JSONObject)
-						 * total_discount_set.get("presentment_money");
-						 * Assert.assertEquals(total_presentment_money.get("amount").toString(),
-						 * _CP.rs.getString("amount").toString(), "amount not Match in Row" +
-						 * Iteration);
-						 * Assert.assertEquals(JsonArrayObject.get("title").toString(),_CP.rs.getString(
-						 * "title").toString(), "title not Match in Row" + Iteration);
-						 */
-
+			/*
+			 * JSONObject total_discount_set = (JSONObject)
+			 * JsonArrayObject.get("total_discount_set"); JSONObject
+			 * total_shop_money=(JSONObject) total_discount_set.get("shop_money");
+			 * Assert.assertEquals(total_shop_money.get("amount").toString(),
+			 * _CP.rs.getString("amount").toString(), "amount not Match in Row" +
+			 * Iteration);
+			 * Assert.assertEquals(total_shop_money.get("currency_code").toString(),
+			 * _CP.rs.getString("currency_code").toString(),
+			 * "currency_code not Match in Row" + Iteration); JSONObject
+			 * total_presentment_money=(JSONObject)
+			 * total_discount_set.get("presentment_money");
+			 * Assert.assertEquals(total_presentment_money.get("amount").toString(),
+			 * _CP.rs.getString("amount").toString(), "amount not Match in Row" +
+			 * Iteration);
+			 * Assert.assertEquals(JsonArrayObject.get("title").toString(),_CP.rs.getString(
+			 * "title").toString(), "title not Match in Row" + Iteration);
+			*/
 			Assert.assertEquals(CartJsonData.get("note").toString(), _CP.rs.getString("note").toString(),"note not Match in Row" + Iteration);
-
-						// Assert.assertEquals(OrderJsonData.get("line_items").toString(),
-						// datevalue _CP.rs.getString("line_items").toString(), "line_items not Match in
-						// Row" + Iteration);
+		// Assert.assertEquals(OrderJsonData.get("line_items").toString(),
+		// datevalue _CP.rs.getString("line_items").toString(), "line_items not Match in
+		// Row" + Iteration);
 
 						// Assert.assertEquals(JsonArrayObject.get("discounted_price_set").toString(),_CP.rs.getString("discounted_price_set").toString(),
 						// "discounted_price_set not Match in Row" + Iteration);
@@ -183,7 +181,6 @@ public class Cart {
 						 * ), _CP.rs.getString("currency_code").toString(),
 						 * "currency_code not Match in Row" + Iteration);
 						 */
-
 			Assert.assertEquals(JsonArrayObject.get("variant_id").toString(),_CP.rs.getString("variant_id").toString(), "variant_id not Match in Row" + Iteration);
 						// Assert.assertEquals(JsonArrayObject.get("discounts").toString(),
 						// _CP.rs.getString("discounts").toString(), "discounts not Match in Row" +

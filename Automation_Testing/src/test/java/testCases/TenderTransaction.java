@@ -73,46 +73,23 @@ public class TenderTransaction {
 			_CP = DB.GetRecordFromDB(TenderTransactionJsonData,"Tender_Transaction");
 			if (_CP.rs.next()) {
 				try {					
-					Assert.assertEquals(TenderTransactionJsonData.get("amount").toString(),
-							_CP.rs.getString("amount").toString(), "amount not Match in Row" + Iteration);
-					
-					Assert.assertEquals(TenderTransactionJsonData.get("currency").toString(),
-							_CP.rs.getString("currency").toString(),"currency not Match in Row" + Iteration);
-					
-//					Assert.assertEquals(TenderTransactionJsonData.get("order_id").toString(),
-//							_CP.rs.getString("order_id").toString(),"order_id not Match in Row" + Iteration);
+					Assert.assertEquals(TenderTransactionJsonData.get("amount").toString(),_CP.rs.getString("amount").toString(), "amount not Match in Row" + Iteration);
+					Assert.assertEquals(TenderTransactionJsonData.get("currency").toString(),_CP.rs.getString("currency").toString(),"currency not Match in Row" + Iteration);					
+//					Assert.assertEquals(TenderTransactionJsonData.get("order_id").toString(),_CP.rs.getString("order_id").toString(),"order_id not Match in Row" + Iteration);
 				
 					//JSON Object Handling of type {} splitting in different columns in db.
 					JSONObject payment_details = (JSONObject) TenderTransactionJsonData.get("payment_details");
-//					Assert.assertEquals(payment_details.get("avs_result_code"),
-//							_CP.rs.getString("payment_details_avs_result_code"),"avs_result_code not Match in Row"+Iteration);
-//					Assert.assertEquals(payment_details.get("credit_card_bin"),
-//							_CP.rs.getString("payment_details_credit_card_bin"),"credit_card_bin not Match in Row"+Iteration);
+//null				Assert.assertEquals(payment_details.get("avs_result_code"),_CP.rs.getString("payment_details_avs_result_code"),"avs_result_code not Match in Row"+Iteration);
+//null				Assert.assertEquals(payment_details.get("credit_card_bin"),_CP.rs.getString("payment_details_credit_card_bin"),"credit_card_bin not Match in Row"+Iteration);					
+					Assert.assertEquals(payment_details.get("credit_card_company"),_CP.rs.getString("payment_details_credit_card_company"),"credit_card_company not Match in Row"+Iteration);					
+					Assert.assertEquals(payment_details.get("credit_card_number"),_CP.rs.getString("payment_details_credit_card_number"),"credit_card_number not Match in Row"+Iteration);					
+//null				Assert.assertEquals(payment_details.get("cvv_result_code"),_CP.rs.getString("payment_details_cvv_result_code"),"cvv_result_code not Match in Row"+Iteration);					
 					
-					Assert.assertEquals(payment_details.get("credit_card_company"),
-							_CP.rs.getString("payment_details_credit_card_company"),"credit_card_company not Match in Row"+Iteration);
-					
-					Assert.assertEquals(payment_details.get("credit_card_number"),
-							_CP.rs.getString("payment_details_credit_card_number"),"credit_card_number not Match in Row"+Iteration);
-					
-//					Assert.assertEquals(payment_details.get("cvv_result_code"),
-//							_CP.rs.getString("payment_details_cvv_result_code"),"cvv_result_code not Match in Row"+Iteration);
-					
-					/*------JSON Object Handling end here---------*/
-					
-					Assert.assertEquals(TenderTransactionJsonData.get("payment_method").toString(),
-						   _CP.rs.getString("payment_method").toString(),"payment_method not Match in Row" + Iteration);
-					
-					Assert.assertEquals(TenderTransactionJsonData.get("remote_reference").toString(),
-							_CP.rs.getString("remote_reference").toString(),"remote_reference not Match in Row" + Iteration);
-					
-					Assert.assertEquals(TenderTransactionJsonData.get("test").toString(),
-							_CP.rs.getString("test").toString(),"test not Match in Row" + Iteration);
-										
-//					Assert.assertEquals(OrderTransactionJsonData.get("user_id").toString(),
-//null handle							_CP.rs.getString("user_id").toString(),"user_id not Match in Row" + Iteration);
-					
-					
+					Assert.assertEquals(TenderTransactionJsonData.get("payment_method").toString(), _CP.rs.getString("payment_method").toString(),"payment_method not Match in Row" + Iteration);
+					Assert.assertEquals(TenderTransactionJsonData.get("remote_reference").toString(),_CP.rs.getString("remote_reference").toString(),"remote_reference not Match in Row" + Iteration);
+					Assert.assertEquals(TenderTransactionJsonData.get("test").toString(),_CP.rs.getString("test").toString(),"test not Match in Row" + Iteration);
+//null				Assert.assertEquals(OrderTransactionJsonData.get("user_id").toString(),_CP.rs.getString("user_id").toString(),"user_id not Match in Row" + Iteration);
+				
 				} catch (Exception ex) {
 					System.err.println(ex.getMessage());
 					Iteration = Iteration + 1;

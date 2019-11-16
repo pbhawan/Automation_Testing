@@ -36,14 +36,14 @@ public class DBConnection {
 				
 			case "Checkout":
 				id = JsonData.get("id").toString();
-				sql = "SELECT * FROM public.orders where external_id=" + id + ";";
+				sql="SELECT  o.*,l.* FROM public.orders as o INNER JOIN public.line_items as l ON o.external_id = l.mapping_id WHERE o.type='Checkout' and o.external_id=" + id + ";";
 				System.out.println(sql);
 				_CP.rs = _CP.stmt.executeQuery(sql);
 				break;
 				
 			case "DraftOrder":
 				id = JsonData.get("id").toString();
-				sql = "SELECT * FROM public.orders where external_id=" + id + ";";
+				sql="SELECT  o.*,l.* FROM public.orders as o INNER JOIN public.line_items as l ON o.external_id = l.mapping_id WHERE o.type='Draft_Order' and o.external_id=" + id + ";";
 				System.out.println(sql);
 				_CP.rs = _CP.stmt.executeQuery(sql);
 				break;
