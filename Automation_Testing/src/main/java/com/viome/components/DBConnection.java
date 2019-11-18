@@ -71,7 +71,7 @@ public class DBConnection {
 				
 			case "Order":
 				id = JsonData.get("id").toString();
-				sql = "SELECT * FROM public.orders where external_id=" + id + ";";
+				sql="SELECT  o.*,l.* FROM public.orders as o INNER JOIN public.line_items as l ON o.external_id = l.mapping_id WHERE o.type='Order' and o.external_id=" + id + ";";
 				System.out.println(sql);
 				_CP.rs = _CP.stmt.executeQuery(sql);
 				break;
@@ -85,7 +85,7 @@ public class DBConnection {
 				
 			case "Product":
 				id = JsonData.get("id").toString();
-				sql = "SELECT * FROM public.product where id=" + id + ";";
+				sql="SELECT var.*, img.*, pro.admin_graphql_api_id,pro.body_html,pro.handle,pro.product_type,pro.published_scope,pro.tags,pro.template_suffix,pro.template_suffix,pro.title as product_title,pro.vendor FROM public.product as pro JOIN public.options as op ON pro.id = op.product_id JOIN public.images as img ON img.id = op.product_id JOIN public.variants as var ON var.id = op.product_id where pro.id="+ id +";";;
 				System.out.println(sql);
 				_CP.rs = _CP.stmt.executeQuery(sql);
 				break;
