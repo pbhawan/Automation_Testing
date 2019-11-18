@@ -50,7 +50,7 @@ public class DBConnection {
 				
 			case "Fulfillment":
 				id = JsonData.get("id").toString();
-				sql = "SELECT * FROM public.fulfillment where external_id=" + id + ";";
+				sql="SELECT  f.*,l.* FROM public.fulfillment as f INNER JOIN public.line_items as l ON f.external_id = l.mapping_id WHERE f.external_id=" + id + ";";
 				System.out.println(sql);
 				_CP.rs = _CP.stmt.executeQuery(sql);
 				break;

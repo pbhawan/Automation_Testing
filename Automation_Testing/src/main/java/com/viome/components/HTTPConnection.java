@@ -54,10 +54,12 @@ public class HTTPConnection {
 
 	@SuppressWarnings("static-access")
 	public HttpPost SetHeader(String params1 ) throws IOException {
-		HttpPost request = new HttpPost("https://shopify-services.viome.com/v1/viome/shopify/webhook");		
+		HttpPost request = new HttpPost("https://shopify-services.viome.com/v1/viome/shopify/webhook");
+		//HttpPost request = new HttpPost("https://shopify-int-services.viome.com/v1/viome/shopify/webhook");	
 		request.addHeader("content-type", "application/json");
 		request.addHeader("x-shopify-hmac-sha256", params1);
 		request.addHeader("x-shopify-shop-domain", "viome3-QA.Automation.com,NJ");
+
 		if(webhook==WH.Cart)
 		request.addHeader("x-shopify-topic","carts/create");
 		
