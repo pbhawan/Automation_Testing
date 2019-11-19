@@ -93,7 +93,7 @@ public class DBConnection {
 				
 			case "Refund":
 				id = JsonData.get("id").toString();
-				sql="SELECT * FROM public.orders where external_id=" + id + ";";
+				sql="SELECT ord.*, rli.*FROM public.orders ord INNER JOIN public.line_items li on ord.external_id = li.mapping_id INNER JOIN public.refund_line_items rli on li.mapping_id = rli.refund_line_item_id where type='Refund_Order' and ord.external_id=" + id +";";;
 				System.out.println(sql);
 				_CP.rs = _CP.stmt.executeQuery(sql);
 				break;
