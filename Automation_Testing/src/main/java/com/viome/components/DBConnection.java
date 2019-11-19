@@ -50,7 +50,8 @@ public class DBConnection {
 				
 			case "Fulfillment":
 				id = JsonData.get("id").toString();
-				sql="SELECT  f.*,l.* FROM public.fulfillment as f INNER JOIN public.line_items as l ON f.external_id = l.mapping_id WHERE f.external_id=" + id + ";";
+				//sql="SELECT  f.*,l.* FROM public.fulfillment as f INNER JOIN public.line_items as l ON f.external_id = l.mapping_id WHERE f.external_id=" + id + ";";
+				sql="SELECT  f.*,l.admin_graphql_api_id,l.applied_discount_amount,l.applied_discount_description,l.applied_discount_title,l.applied_discount_value,l.applied_discount_value_type,l.discount_allocations,l.external_id,l.fulfillable_quantity,l.fulfillment_service,l.fulfillment_status,l.gift_card,l.grams,l.id,l.id,l.mapping_id,l.name as line_name,l.order_id,l.price,l.price_set,l.product_exists,l.product_id,l.properties,l.properties,l.quantity,l.refund_line_item_id,l.requires_shipping,l.sku,l.tax_lines,l.taxable,l.title,l.total_discount,l.variant_id,l.variant_inventory_management,l.variant_title,l.vendor FROM public.fulfillment as f INNER JOIN public.line_items as l ON f.external_id = l.mapping_id WHERE f.external_id=" + id + ";";
 				System.out.println(sql);
 				_CP.rs = _CP.stmt.executeQuery(sql);
 				break;
