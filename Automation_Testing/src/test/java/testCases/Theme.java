@@ -69,7 +69,6 @@ public class Theme {
 			map.put("id", new Date().getTime());
 			map.put("updated_at", new Date());
 			map.put("created_at", new Date());
-			@SuppressWarnings("static-access")
 			JSONObject ThemeJsonData = HC.PostJson(mapper.writeValueAsString(map), WH.Theme);
 			TimeUnit.SECONDS.sleep(10);
 			_CP = DB.GetRecordFromDB(ThemeJsonData,"Theme");

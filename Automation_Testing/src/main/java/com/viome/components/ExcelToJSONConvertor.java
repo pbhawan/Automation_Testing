@@ -52,7 +52,7 @@ public class ExcelToJSONConvertor {
 	static String CurrentsheetName;
 	static Iterator itr;
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 
 	public static ArrayList<Object> CreteJSONFileFromExcel(String filePath, Enum SheetName)
 			throws FileNotFoundException, IOException {

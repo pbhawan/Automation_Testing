@@ -1,6 +1,5 @@
 package testCases;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,17 +13,14 @@ import org.json.simple.parser.ParseException;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.viome.components.ConnectionProperties;
 import com.viome.components.DBConnection;
-
 import com.viome.components.ExcelToJSONConvertor;
 import com.viome.components.HTTPConnection;
 import com.viome.enums.webhooks;
-import com.viome.utilites.DataProviderClass;
 
 /* git changes commit - PB1*/
 
@@ -41,7 +37,7 @@ public class Customer {
 	ArrayList<Object> JsonRecords;
 	int Iteration = 0;
 
-	@SuppressWarnings("static-access")
+	@SuppressWarnings({ "static-access", "unused" })
 	@BeforeTest
 	public void Setup() throws Exception {
 			
@@ -62,6 +58,7 @@ public class Customer {
 
 	}
 	
+	@SuppressWarnings("static-access")
 	@Test
 	public void VerifyCustomerData() throws IOException, InterruptedException, SQLException, ParseException {
 
