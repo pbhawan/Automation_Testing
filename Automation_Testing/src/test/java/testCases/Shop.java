@@ -69,7 +69,6 @@ public class Shop {
 			map.put("id", new Date().getTime());
 			map.put("updated_at", new Date());
 			map.put("created_at", new Date());
-			@SuppressWarnings("static-access")
 			JSONObject ShopJsonData = HC.PostJson(mapper.writeValueAsString(map), WH.Shop);
 			TimeUnit.SECONDS.sleep(10);
 			_CP = DB.GetRecordFromDB(ShopJsonData,"Shop");

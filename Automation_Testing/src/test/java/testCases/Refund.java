@@ -58,14 +58,13 @@ public class Refund {
 
 	}
 	
-	@SuppressWarnings({ "unchecked", "unused", "rawtypes", "static-access" })
+	@SuppressWarnings({ "unchecked", "rawtypes", "static-access" })
 	@Test
 	public void VerifyRefundData() throws IOException, InterruptedException, SQLException, ParseException {
 
 		for (Object record : JsonRecords)
 		{		
-         	@SuppressWarnings("unchecked")
-			Map<String, Object> map = mapper.readValue(record.toString(), Map.class);
+         	Map<String, Object> map = mapper.readValue(record.toString(), Map.class);
 			JSONObject JsonArrayObject;
 			JSONArray JsonArray;
 			
@@ -88,7 +87,6 @@ public class Refund {
 
 			}
 			
-			@SuppressWarnings("static-access")
 			JSONObject RefundJsonData = HC.PostJson(mapper.writeValueAsString(map), WH.Refund);
 			TimeUnit.SECONDS.sleep(10);
 			_CP = DB.GetRecordFromDB(RefundJsonData,"Refund");

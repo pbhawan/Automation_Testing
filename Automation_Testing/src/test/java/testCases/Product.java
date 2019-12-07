@@ -96,7 +96,6 @@ public class Product {
 				m.put("id",  new Date().getTime());
 			}
 				}	
-			@SuppressWarnings("static-access")
 			JSONObject ProductJsonData = HC.PostJson(mapper.writeValueAsString(map), WH.Product);
 			TimeUnit.SECONDS.sleep(10);
 			_CP = DB.GetRecordFromDB(ProductJsonData,"Product");

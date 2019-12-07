@@ -162,7 +162,7 @@ public class Checkout {
     				Assert.assertEquals(JsonArrayObject.get("grams").toString(),_CP.rs.getString("grams").toString(),"grams" + Iteration);
 //k    				Assert.assertEquals(JsonArrayObject.get("harmonized_system_code").toString(),_CP.rs.getString("harmonized_system_code").toString(),"harmonized_system_code" + Iteration);
 //k    				Assert.assertEquals(JsonArrayObject.get("key").toString(),_CP.rs.getString("key").toString(),"key" + Iteration);
-//k    				Assert.assertEquals(JsonArrayObject.get("line_price").toString(),_CP.rs.getString("line_price").toString(),"line_price" + Iteration);
+    				Assert.assertEquals(JsonArrayObject.get("line_price").toString(),_CP.rs.getString("line_price").toString(),"line_price" + Iteration);
 //    				Assert.assertEquals(JsonArrayObject.get("name").toString(),_CP.rs.getString("name").toString(),"name not Match in Row" + Iteration);
     				Assert.assertEquals(JsonArrayObject.get("price").toString(),_CP.rs.getString("price").toString(),"price not Match in Row" + Iteration);
 //    				Assert.assertEquals(JsonArrayObject.get("product_id").toString(),_CP.rs.getString("product_id").toString(),"product_id not Match in Row" + Iteration);

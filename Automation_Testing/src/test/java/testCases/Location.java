@@ -61,6 +61,7 @@ public class Location {
 
 	}
 	
+	@SuppressWarnings("static-access")
 	@Test
 	public void VerifyLocationData() throws IOException, InterruptedException, SQLException, ParseException {
 
@@ -71,9 +72,8 @@ public class Location {
 			map.put("id", new Date().getTime());
 			map.put("updated_at", new Date());
 			map.put("created_at", new Date());
-			@SuppressWarnings("static-access")
 			JSONObject LocationJsonData = HC.PostJson(mapper.writeValueAsString(map), WH.Location);
-			TimeUnit.SECONDS.sleep(30);
+			TimeUnit.SECONDS.sleep(10);
 			_CP = DB.GetRecordFromDB(LocationJsonData,"Location");
 			if (_CP.rs.next()) {
 				try {
@@ -92,8 +92,6 @@ public class Location {
 					Assert.assertEquals(LocationJsonData.get("active").toString(),	_CP.rs.getString("active").toString(), "active not Match in Row" + Iteration);
 					Assert.assertEquals(LocationJsonData.get("legacy").toString(),	_CP.rs.getString("legacy").toString(),"legacy not Match in Row" + Iteration);
 					Assert.assertEquals(LocationJsonData.get("admin_graphql_api_id").toString(),_CP.rs.getString("admin_graphql_api_id").toString(), "admin_graphql_api_id not Match in Row" + Iteration);
-					
-
 				} catch (Exception ex) {
 					System.err.println(ex.getMessage());
 					Iteration = Iteration + 1;
