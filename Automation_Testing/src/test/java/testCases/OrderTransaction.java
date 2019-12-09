@@ -61,7 +61,7 @@ public class OrderTransaction {
 	@SuppressWarnings("static-access")
 	@Test
 	public void VerifyOrderTransactionData() throws IOException, InterruptedException, SQLException, ParseException {
-
+		System.out.println("<------------- Order Transaction Verification Started ------------->");
 		for (Object record : JsonRecords)
 		{		
          	@SuppressWarnings("unchecked")
@@ -70,7 +70,7 @@ public class OrderTransaction {
 			map.put("created_at", new Date());
 			map.put("processed_at", new Date());
 			JSONObject OrderTransactionJsonData = HC.PostJson(mapper.writeValueAsString(map), WH.Order_Transaction);
-			TimeUnit.SECONDS.sleep(10);
+			TimeUnit.SECONDS.sleep(30);
 			_CP = DB.GetRecordFromDB(OrderTransactionJsonData,"Order_Transaction");
 			if (_CP.rs.next()) {
 				try {
@@ -113,6 +113,8 @@ public class OrderTransaction {
 			}
 
 		}
+		System.out.println("<------------- Order Transaction Verification Ended ------------->");
+
 	}
 
 }

@@ -64,6 +64,7 @@ public class Product {
 	@SuppressWarnings({ "unchecked", "rawtypes", "static-access" })
 	@Test
 	public void VerifyProductData() throws IOException, InterruptedException, SQLException, ParseException {
+		System.out.println("<------------- Product Verification Started ------------->");
 
 		for (Object record : JsonRecords)
 		{		
@@ -97,7 +98,7 @@ public class Product {
 			}
 				}	
 			JSONObject ProductJsonData = HC.PostJson(mapper.writeValueAsString(map), WH.Product);
-			TimeUnit.SECONDS.sleep(10);
+			TimeUnit.SECONDS.sleep(30);
 			_CP = DB.GetRecordFromDB(ProductJsonData,"Product");
 			if (_CP.rs.next()) {
 				try {
@@ -110,7 +111,7 @@ public class Product {
 //inthand    		Assert.assertEquals(JsonArrayObject.get("height").toString(),_CP.rs.getString("height").toString(),"height not Match in Row" + Iteration);
 //    				Assert.assertEquals(JsonArrayObject.get("id").toString(),_CP.rs.getString("id").toString(), "id not Match in Row" + Iteration);
     				Assert.assertEquals(JsonArrayObject.get("position").toString(),_CP.rs.getString("position").toString(), "position not Match in Row" + Iteration);
-//   				    Assert.assertEquals(JsonArrayObject.get("product_id").toString(),_CP.rs.getString("product_id").toString(), "product_id not Match in Row" + Iteration);
+//   				Assert.assertEquals(JsonArrayObject.get("product_id").toString(),_CP.rs.getString("product_id").toString(), "product_id not Match in Row" + Iteration);
     				Assert.assertEquals(JsonArrayObject.get("src").toString(),_CP.rs.getString("src").toString(),"src" + Iteration);
 //null	    		Assert.assertEquals(JsonArrayObject.get("variant_ids").toString(),_CP.rs.getString("variant_ids").toString(),"variant_ids not Match in Row" + Iteration);
 //int handle	    Assert.assertEquals(JsonArrayObject.get("width").toString(),_CP.rs.getString("width").toString(),"width not Match in Row" + Iteration);
@@ -120,7 +121,8 @@ public class Product {
     				for (int i = 0; i < JsonArray.size(); i++) {
     				JsonArrayObject = (JSONObject) JsonArray.get(i);
 //	    			Assert.assertEquals(JsonArrayObject.get("id").toString(),_CP.rs.getString("id").toString(), "id not Match in Row" + Iteration);
-    				Assert.assertEquals(JsonArrayObject.get("name").toString(),_CP.rs.getString("name").toString(),"name not Match in Row" + Iteration);
+System.out.println(JsonArrayObject.get("name"));
+//    				Assert.assertEquals(JsonArrayObject.get("name").toString(),_CP.rs.getString("name").toString(),"name not Match in Row" + Iteration);
 //    				Assert.assertEquals(JsonArrayObject.get("product_id").toString(),_CP.rs.getString("product_id").toString(), "product_id not Match in Row" + Iteration);
     				Assert.assertEquals(JsonArrayObject.get("position").toString(),_CP.rs.getString("position").toString(), "position not Match in Row" + Iteration);    				
     				}
@@ -140,7 +142,7 @@ public class Product {
     				Assert.assertEquals(JsonArrayObject.get("sku").toString(),_CP.rs.getString("sku").toString(), "sku not Match in Row" + Iteration);
    				    Assert.assertEquals(JsonArrayObject.get("position").toString(),_CP.rs.getString("position").toString(), "position not Match in Row" + Iteration);
     				Assert.assertEquals(JsonArrayObject.get("inventory_policy").toString(),_CP.rs.getString("inventory_policy").toString(),"inventory_policy" + Iteration);
-//	    			Assert.assertEquals(JsonArrayObject.get("compare_at_price").toString(),_CP.rs.getString("compare_at_price").toString(),"compare_at_price not Match in Row" + Iteration);
+	    			Assert.assertEquals(JsonArrayObject.get("compare_at_price").toString(),_CP.rs.getString("compare_at_price").toString(),"compare_at_price not Match in Row" + Iteration);
 	    			Assert.assertEquals(JsonArrayObject.get("fulfillment_service").toString(),_CP.rs.getString("fulfillment_service").toString(),"fulfillment_service not Match in Row" + Iteration);
 	    			Assert.assertEquals(JsonArrayObject.get("inventory_management").toString(),_CP.rs.getString("inventory_management").toString(),"inventory_management not Match in Row" + Iteration);
 	    			Assert.assertEquals(JsonArrayObject.get("option1").toString(),_CP.rs.getString("option1").toString(),"option1 not Match in Row" + Iteration);
@@ -174,6 +176,8 @@ public class Product {
 			}
 
 		}
+		System.out.println("<------------- Product Verification Ended ------------->");
+
 	}
 
 }

@@ -61,6 +61,7 @@ public class Cart {
 	@SuppressWarnings({ "unchecked", "static-access" })
 	@Test
 	public void VerifyCartData() throws IOException, InterruptedException, SQLException, ParseException {
+		System.out.println("<------------- Cart  Verification Started ------------->");
 
 		for (Object record : JsonRecords) {
 			JSONObject JsonArrayObject;
@@ -70,12 +71,12 @@ public class Cart {
 			map.put("updated_at", new Date());
 			map.put("created_at", new Date());
 			JSONObject CartJsonData = HC.PostJson(mapper.writeValueAsString(map), WH.Cart);
-			TimeUnit.SECONDS.sleep(10);
+			TimeUnit.SECONDS.sleep(40);
 			_CP = DB.GetRecordFromDB(CartJsonData, "Cart");
 			if (_CP.rs.next()) {
 				try {
 		    Assert.assertEquals(CartJsonData.get("token").toString(), _CP.rs.getString("token").toString(),	"token not Match in Row" + Iteration);
-		     Assert.assertEquals(CartJsonData.get("note").toString(), _CP.rs.getString("note").toString(), 	"note not Match in Row" + Iteration);
+		    Assert.assertEquals(CartJsonData.get("note").toString(), _CP.rs.getString("note").toString(), 	"note not Match in Row" + Iteration);
 		    JsonArray = (JSONArray) CartJsonData.get("line_items");
 			for (int i = 0; i < JsonArray.size(); i++) {
 			JsonArrayObject = (JSONObject) JsonArray.get(i);
@@ -120,6 +121,8 @@ public class Cart {
 			}
 
 		}
+		System.out.println("<------------- Cart  Verification Ended ------------->");
+
 	}
 
 }

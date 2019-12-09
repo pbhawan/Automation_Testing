@@ -61,6 +61,7 @@ public class Shop {
 	@SuppressWarnings("static-access")
 	@Test
 	public void VerifyShopData() throws IOException, InterruptedException, SQLException, ParseException {
+		System.out.println("<------------- Shop Verification Started ------------->");
 
 		for (Object record : JsonRecords)
 		{		
@@ -88,7 +89,7 @@ public class Shop {
 					Assert.assertEquals(ShopJsonData.get("eligible_for_card_reader_giveaway").toString(),_CP.rs.getString("eligible_for_card_reader_giveaway").toString(),"eligible_for_card_reader_giveaway not Match in Row" + Iteration);
 					Assert.assertEquals(ShopJsonData.get("eligible_for_payments").toString(),_CP.rs.getString("eligible_for_payments").toString(),"eligible_for_payments not Match in Row" + Iteration);
 					Assert.assertEquals(ShopJsonData.get("email").toString(),_CP.rs.getString("email").toString(),"email not Match in Row" + Iteration);
-					Assert.assertEquals(ShopJsonData.get("enabled_presentment_currencies").toString(),_CP.rs.getString("enabled_presentment_currencies").toString(),"enabled_presentment_currencies not Match in Row" + Iteration);
+//p					Assert.assertEquals(ShopJsonData.get("enabled_presentment_currencies").toString(),_CP.rs.getString("enabled_presentment_currencies").toString(),"enabled_presentment_currencies not Match in Row" + Iteration);
 					Assert.assertEquals(ShopJsonData.get("finances").toString(),_CP.rs.getString("finances").toString(),"finances not Match in Row" + Iteration);
 					Assert.assertEquals(ShopJsonData.get("force_ssl").toString(),_CP.rs.getString("force_ssl").toString(),"force_ssl not Match in Row" + Iteration);
 //null				Assert.assertEquals(ShopJsonData.get("google_apps_domain").toString(),_CP.rs.getString("google_apps_domain").toString(),"google_apps_domain not Match in Row" + Iteration);
@@ -138,8 +139,9 @@ public class Shop {
 				Iteration = Iteration + 1;
 				EJ.SetFailureStatus(Iteration,  WH.Shop);
 			}
-
 		}
+		System.out.println("<------------- Shop Verification Ended ------------->");
+
 	}
 
 }

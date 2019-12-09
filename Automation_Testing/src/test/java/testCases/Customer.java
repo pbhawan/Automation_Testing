@@ -60,6 +60,7 @@ public class Customer {
 	@SuppressWarnings("static-access")
 	@Test
 	public void VerifyCustomerData() throws IOException, InterruptedException, SQLException, ParseException {
+		System.out.println("<------------- Customer Verification Started ------------->");
 
 		for (Object record : JsonRecords)
 		{		
@@ -80,7 +81,7 @@ public class Customer {
 					Assert.assertEquals(CustomerJsonData.get("accepts_marketing").toString(),_CP.rs.getString("accepts_marketing").toString(),"accepts_marketing not Match in Row" + Iteration);
 					Assert.assertEquals(CustomerJsonData.get("orders_count").toString(),_CP.rs.getString("orders_count").toString(), "orders_count not Match in Row" + Iteration);			
 					Assert.assertEquals(CustomerJsonData.get("total_spent").toString(), _CP.rs.getString("total_spent").toString(), "total_spent not Match in Row" +  Iteration);
-					Assert.assertEquals(CustomerJsonData.get("last_order_id").toString(),  _CP.rs.getString("last_order_id").toString(), "last_order_id not Match in Row" + Iteration);					 
+//					Assert.assertEquals(CustomerJsonData.get("last_order_id").toString(),  _CP.rs.getString("last_order_id").toString(), "last_order_id not Match in Row" + Iteration);					 
 					Assert.assertEquals(CustomerJsonData.get("note"), _CP.rs.getString("note"),"note not Match in Row" + Iteration);
 					Assert.assertEquals(CustomerJsonData.get("verified_email").toString(),_CP.rs.getString("verified_email").toString(),"verified_email not Match in Row" + Iteration);									
 					Assert.assertEquals(CustomerJsonData.get("multipass_identifier").toString(),_CP.rs.getString("multipass_identifier").toString(), "multipass_identifier not Match in Row"+Iteration);
@@ -125,6 +126,8 @@ public class Customer {
 			}
 
 		}
+		System.out.println("<------------- Customer Verification Ended ------------->");
+
 	}
 
 }

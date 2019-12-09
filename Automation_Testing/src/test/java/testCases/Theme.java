@@ -69,7 +69,7 @@ public class Theme {
 			map.put("updated_at", new Date());
 			map.put("created_at", new Date());
 			JSONObject ThemeJsonData = HC.PostJson(mapper.writeValueAsString(map), WH.Theme);
-			TimeUnit.SECONDS.sleep(10);
+			TimeUnit.SECONDS.sleep(30);
 			_CP = DB.GetRecordFromDB(ThemeJsonData,"Theme");
 			if (_CP.rs.next()) {
 				try {

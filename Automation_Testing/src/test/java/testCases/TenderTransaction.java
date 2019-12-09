@@ -61,6 +61,7 @@ public class TenderTransaction {
 	@SuppressWarnings("static-access")
 	@Test
 	public void VerifyTenderTransactionData() throws IOException, InterruptedException, SQLException, ParseException {
+		System.out.println("<------------- Tender Transaction Verification Started ------------->");
 
 		for (Object record : JsonRecords)
 		{		
@@ -69,7 +70,7 @@ public class TenderTransaction {
 			map.put("id", new Date().getTime());			
 			map.put("processed_at", new Date());
 			JSONObject TenderTransactionJsonData = HC.PostJson(mapper.writeValueAsString(map), WH.Tender_Transaction);
-			TimeUnit.SECONDS.sleep(10);
+			TimeUnit.SECONDS.sleep(30);
 			_CP = DB.GetRecordFromDB(TenderTransactionJsonData,"Tender_Transaction");
 			if (_CP.rs.next()) {
 				try {					
@@ -105,6 +106,8 @@ public class TenderTransaction {
 			}
 
 		}
+		System.out.println("<------------- Tender Transaction Verification Ended ------------->");
+
 	}
 
 }

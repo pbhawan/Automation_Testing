@@ -61,7 +61,7 @@ public class Refund {
 	@SuppressWarnings({ "unchecked", "rawtypes", "static-access" })
 	@Test
 	public void VerifyRefundData() throws IOException, InterruptedException, SQLException, ParseException {
-
+		System.out.println("<------------- Refund Verification Started ------------->");
 		for (Object record : JsonRecords)
 		{		
          	Map<String, Object> map = mapper.readValue(record.toString(), Map.class);
@@ -88,7 +88,7 @@ public class Refund {
 			}
 			
 			JSONObject RefundJsonData = HC.PostJson(mapper.writeValueAsString(map), WH.Refund);
-			TimeUnit.SECONDS.sleep(10);
+			TimeUnit.SECONDS.sleep(30);
 			_CP = DB.GetRecordFromDB(RefundJsonData,"Refund");
 			if (_CP.rs.next()) {
 				try {
@@ -108,9 +108,9 @@ public class Refund {
 
 						JSONObject line_item = (JSONObject) JsonArrayObject.get("line_item");
 						Assert.assertEquals(line_item.get("discount_allocations").toString(),_CP.rs.getString("discount_allocations"),"discount_allocations not Match in Row"+Iteration);
-//						Assert.assertEquals(line_item.get("fulfillable_quantity"),_CP.rs.getString("fulfillable_quantity"),"fulfillable_quantity not Match in Row"+Iteration);
+//						Assert.assertEquals(line_item.get("fulfillable_quantity").toString(),_CP.rs.getString("fulfillable_quantity"),"fulfillable_quantity not Match in Row"+Iteration);
 						Assert.assertEquals(line_item.get("fulfillment_service"),_CP.rs.getString("fulfillment_service"),"fulfillment_service not Match in Row"+Iteration);
-//						Assert.assertEquals(line_item.get("fulfillment_status"),_CP.rs.getString("fulfillment_status"),"fulfillment_status not Match in Row"+Iteration);
+//null					Assert.assertEquals(line_item.get("fulfillment_status"),_CP.rs.getString("fulfillment_status"),"fulfillment_status not Match in Row"+Iteration);
 						Assert.assertEquals(line_item.get("gift_card").toString(),_CP.rs.getString("gift_card"),"gift_card not Match in Row"+Iteration);
 //						Assert.assertEquals(line_item.get("id"),_CP.rs.getString("id"),"id not Match in Row"+Iteration);
 						Assert.assertEquals(line_item.get("name").toString(),_CP.rs.getString("name"),"name not Match in Row"+Iteration);
@@ -119,7 +119,7 @@ public class Refund {
 						Assert.assertEquals(line_item.get("product_exists").toString(),_CP.rs.getString("product_exists"),"product_exists not Match in Row"+Iteration);
 //						Assert.assertEquals(line_item.get("product_id"),_CP.rs.getString("product_id"),"product_id not Match in Row"+Iteration);
 						Assert.assertEquals(line_item.get("properties").toString(),_CP.rs.getString("properties"),"properties not Match in Row"+Iteration);
-//						Assert.assertEquals(line_item.get("quantity"),_CP.rs.getString("quantity"),"quantity not Match in Row"+Iteration);
+						Assert.assertEquals(line_item.get("quantity").toString(),_CP.rs.getString("quantity"),"quantity not Match in Row"+Iteration);
 						Assert.assertEquals(line_item.get("requires_shipping").toString(),_CP.rs.getString("requires_shipping"),"requires_shipping not Match in Row"+Iteration);
 						Assert.assertEquals(line_item.get("sku").toString(),_CP.rs.getString("sku"),"sku not Match in Row"+Iteration);
 //						Assert.assertEquals(line_item.get("tax_lines"),_CP.rs.getString("tax_lines"),"tax_lines not Match in Row"+Iteration);
@@ -128,8 +128,8 @@ public class Refund {
 						Assert.assertEquals(line_item.get("total_discount").toString(),_CP.rs.getString("total_discount"),"total_discount not Match in Row"+Iteration);
 						Assert.assertEquals(line_item.get("total_discount_set").toString(),_CP.rs.getString("total_discount_set"),"total_discount_set not Match in Row"+Iteration);
 //						Assert.assertEquals(line_item.get("variant_id"),_CP.rs.getString("variant_id"),"variant_id not Match in Row"+Iteration);
-//						Assert.assertEquals(line_item.get("variant_title").toString(),_CP.rs.getString("variant_title"),"variant_title not Match in Row"+Iteration);
-//						Assert.assertEquals(line_item.get("vendor").toString(),_CP.rs.getString("vendor"),"vendor not Match in Row"+Iteration);
+						Assert.assertEquals(line_item.get("variant_title").toString(),_CP.rs.getString("variant_title"),"variant_title not Match in Row"+Iteration);
+						Assert.assertEquals(line_item.get("vendor").toString(),_CP.rs.getString("vendor"),"vendor not Match in Row"+Iteration);
 						Assert.assertEquals(line_item.get("variant_inventory_management").toString(),_CP.rs.getString("variant_inventory_management"),"variant_inventory_management not Match in Row"+Iteration);
 
 						Assert.assertEquals(JsonArrayObject.get("quantity").toString(),_CP.rs.getString("quantity").toString(), "quantity not Match in Row" + Iteration);
@@ -165,6 +165,8 @@ public class Refund {
 			}
 
 		}
+		System.out.println("<------------- Refund Verification Ended ------------->");
+
 	}
 
 }
