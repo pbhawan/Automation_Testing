@@ -32,14 +32,14 @@ public class HTTPConnection {
 		try {
 			System.out.println("Response API is---->" +Record);		
 			StringEntity params = new StringEntity(Record);
-			String params1=HmacUtil.calculateHMAC(Record, "07ac5dfed552350b42c51225ea89e87f17f5b91d069c1d8fe8a96b8124e6ecfb");
-//			String params1=HmacUtil.calculateHMAC(Record, "8a6996dbb81013706671cbb514f21096e70b4ede62910a12170bd79fc48ec493");
+			/*staging HMAC*/
+//			String params1=HmacUtil.calculateHMAC(Record, "07ac5dfed552350b42c51225ea89e87f17f5b91d069c1d8fe8a96b8124e6ecfb");
+			/*prod HMAC*/
+			String params1=HmacUtil.calculateHMAC(Record, "8a6996dbb81013706671cbb514f21096e70b4ede62910a12170bd79fc48ec493");
 			HttpPost request = SetHeader(params1);
 			request.setEntity(params);
 			HttpResponse response = httpClient.execute(request);
 			System.out.println("Response is" + "=" + response);
-
-		
 
 		} catch (Exception ex) {
 			System.out.println(ex);
@@ -55,8 +55,10 @@ public class HTTPConnection {
 
 	@SuppressWarnings("static-access")
 	public HttpPost SetHeader(String params1 ) throws IOException {
-		HttpPost request = new HttpPost("https://shopify-services.viome.com/v1/viome/shopify/webhook");
-//		HttpPost request = new HttpPost("https://shopify-int-services.viome.com/v1/viome/shopify/webhook");	
+		/* staging URL */
+//		HttpPost request = new HttpPost("https://shopify-services.viome.com/v1/viome/shopify/webhook");
+		/* production URL */
+		HttpPost request = new HttpPost("https://shopify-int-services.viome.com/v1/viome/shopify/webhook");	
 		request.addHeader("content-type", "application/json");
 		request.addHeader("x-shopify-hmac-sha256", params1);
 		request.addHeader("x-shopify-shop-domain", "viome3-QA.Automation.com,NJ");
@@ -100,7 +102,7 @@ public class HTTPConnection {
 		if(webhook==WH.Theme)
 		request.addHeader("x-shopify-topic","themes/create");
 		
-		request.addHeader("Host", "shopify-services.viome.com");
+		request.addHeader("Host", "shopify-int-services.viome.com");
 		return request;
 
 	}

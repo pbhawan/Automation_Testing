@@ -7,13 +7,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DBConnection {
-
-	static final String dbURL = "jdbc:redshift://viome-metacube-cluster.cmcvkrhcw0ac.us-east-2.redshift.amazonaws.com:5439/viomedev";
+	/*staging DB credential*/
+//	static final String dbURL = "jdbc:redshift://viome-metacube-cluster.cmcvkrhcw0ac.us-east-2.redshift.amazonaws.com:5439/viomedev";
+//	static final String MasterUsername = "viome";
+//	static final String MasterUserPassword = "METAViomecube3";
+	/*prod DB credential*/
+	static final String dbURL = "jdbc:redshift://viome-integration-cluster.cmcvkrhcw0ac.us-east-2.redshift.amazonaws.com:5439/webhooks";
 	static final String MasterUsername = "viome";
-	static final String MasterUserPassword = "METAViomecube3";
+	static final String MasterUserPassword = "ViomeMetacube1";
 	ResultSet rs;
 	ConnectionProperties _CP = new ConnectionProperties();
-
 	public ConnectionProperties GetRecordFromDB(JSONObject JsonData, String webhook) throws SQLException {
 		System.out.println("Listing system tables...");
 		_CP.stmt = _CP.conn.createStatement();
@@ -43,15 +46,14 @@ public class DBConnection {
 				
 			case "DraftOrder":
 				id = JsonData.get("id").toString();
-				sql="SELECT  o.*,l.* FROM public.orders as o INNER JOIN public.line_items as l ON o.external_id = l.mapping_id WHERE o.type='Draft_Order' and o.external_id=" + id + ";";
+				sql="SELECT  o.*,l.applied_discount,l.admin_graphql_api_id,l.total_discount_set,l.tax_lines,l.applied_discount_amount,l.applied_discount_description,l.applied_discount_title,l.applied_discount_value,l.applied_discount_value_type,l.discount_allocations,l.external_id,l.fulfillable_quantity,l.fulfillment_service,l.fulfillment_status,l.gift_card,l.grams,l.id,l.id,l.mapping_id,l.name as line_name,l.order_id,l.price,l.price_set,l.product_exists,l.product_id,l.properties,l.properties,l.quantity,l.refund_line_item_id,l.requires_shipping,l.sku,l.tax_lines,l.taxable,l.title,l.total_discount,l.variant_id,l.variant_inventory_management,l.variant_title,l.vendor FROM public.orders as o INNER JOIN public.line_items as l ON o.external_id = l.mapping_id WHERE o.type='Draft_Order' and o.external_id=" + id + ";";
 				System.out.println(sql);
 				_CP.rs = _CP.stmt.executeQuery(sql);
 				break;
 				
 			case "Fulfillment":
 				id = JsonData.get("id").toString();
-				//sql="SELECT  f.*,l.* FROM public.fulfillment as f INNER JOIN public.line_items as l ON f.external_id = l.mapping_id WHERE f.external_id=" + id + ";";
-				sql="SELECT  f.*,l.admin_graphql_api_id,l.applied_discount_amount,l.applied_discount_description,l.applied_discount_title,l.applied_discount_value,l.applied_discount_value_type,l.discount_allocations,l.external_id,l.fulfillable_quantity,l.fulfillment_service,l.fulfillment_status,l.gift_card,l.grams,l.id,l.id,l.mapping_id,l.name as line_name,l.order_id,l.price,l.price_set,l.product_exists,l.product_id,l.properties,l.properties,l.quantity,l.refund_line_item_id,l.requires_shipping,l.sku,l.tax_lines,l.taxable,l.title,l.total_discount,l.variant_id,l.variant_inventory_management,l.variant_title,l.vendor FROM public.fulfillment as f INNER JOIN public.line_items as l ON f.external_id = l.mapping_id WHERE f.external_id=" + id + ";";
+				sql="SELECT  f.*,l.pre_tax_price_set,l.pre_tax_price,l.admin_graphql_api_id,l.total_discount_set,l.tax_lines,l.applied_discount_amount,l.applied_discount_description,l.applied_discount_title,l.applied_discount_value,l.applied_discount_value_type,l.discount_allocations,l.external_id,l.fulfillable_quantity,l.fulfillment_service,l.fulfillment_status,l.gift_card,l.grams,l.id,l.id,l.mapping_id,l.name as line_name,l.order_id,l.price,l.price_set,l.product_exists,l.product_id,l.properties,l.properties,l.quantity,l.refund_line_item_id,l.requires_shipping,l.sku,l.tax_lines,l.taxable,l.title,l.total_discount,l.variant_id,l.variant_inventory_management,l.variant_title,l.vendor FROM public.fulfillment as f INNER JOIN public.line_items as l ON f.external_id = l.mapping_id WHERE f.external_id=" + id + ";";
 				System.out.println(sql);
 				_CP.rs = _CP.stmt.executeQuery(sql);
 				break;
@@ -72,7 +74,7 @@ public class DBConnection {
 				
 			case "Order":
 				id = JsonData.get("id").toString();
-				sql="SELECT  o.*,l.* FROM public.orders as o INNER JOIN public.line_items as l ON o.external_id = l.mapping_id WHERE o.type='Order' and o.external_id=" + id + ";";
+				sql="SELECT  o.*,l.admin_graphql_api_id,l.total_discount_set,l.tax_lines,l.applied_discount_amount,l.applied_discount_description,l.applied_discount_title,l.applied_discount_value,l.applied_discount_value_type,l.discount_allocations,l.external_id,l.fulfillable_quantity,l.fulfillment_service,l.fulfillment_status,l.gift_card,l.grams,l.id,l.id,l.mapping_id,l.name as line_name,l.order_id,l.price,l.price_set,l.product_exists,l.product_id,l.properties,l.properties,l.quantity,l.refund_line_item_id,l.requires_shipping,l.sku,l.tax_lines,l.taxable,l.title,l.total_discount,l.variant_id,l.variant_inventory_management,l.variant_title,l.vendor FROM public.orders as o INNER JOIN public.line_items as l ON o.external_id = l.mapping_id WHERE o.type='Order' and o.external_id=" + id + ";";
 				System.out.println(sql);
 				_CP.rs = _CP.stmt.executeQuery(sql);
 				break;
