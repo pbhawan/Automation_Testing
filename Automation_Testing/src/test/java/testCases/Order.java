@@ -74,7 +74,7 @@ public class Order {
 			map.put("updated_at", new Date());
 			map.put("created_at", new Date());
 			JSONObject OrderJsonData = HC.PostJson(mapper.writeValueAsString(map), WH.Order);
-			TimeUnit.SECONDS.sleep(20);
+			TimeUnit.SECONDS.sleep(30);
 			_CP = DB.GetRecordFromDB(OrderJsonData,"Order");
 			if (_CP.rs.next()) {
 				try {				
@@ -250,9 +250,9 @@ public class Order {
 
 					System.out.println(OrderJsonData.get("source_url"));
 					System.out.println(_CP.rs.getString("source_url"));
-//askv	Viome,null	Assert.assertEquals(OrderJsonData.get("source_identifier").toString(),_CP.rs.getString("source_identifier").toString(), "source_identifier not Match in Row" + Iteration);
+					Assert.assertEquals(OrderJsonData.get("source_identifier").toString(),_CP.rs.getString("source_identifier").toString(), "source_identifier not Match in Row" + Iteration);
 					Assert.assertEquals(OrderJsonData.get("source_name").toString(),_CP.rs.getString("source_name").toString(), "source_name not Match in Row" + Iteration);
-//askv	Viome,null	Assert.assertEquals(OrderJsonData.get("source_url").toString(),_CP.rs.getString("source_url").toString(), "source_url not Match in Row" + Iteration);
+					Assert.assertEquals(OrderJsonData.get("source_url").toString(),_CP.rs.getString("source_url").toString(), "source_url not Match in Row" + Iteration);
 				    Assert.assertEquals(OrderJsonData.get("subtotal_price").toString(),_CP.rs.getString("subtotal_price").toString(), "subtotal_price not Match in Row" + Iteration);
 				    Assert.assertEquals(OrderJsonData.get("subtotal_price_set").toString(),_CP.rs.getString("subtotal_price_set").toString(), "subtotal_price not Match in Row" + Iteration);
 					Assert.assertEquals(OrderJsonData.get("tags").toString(),_CP.rs.getString("tags").toString(), "tags not Match in Row" + Iteration);
