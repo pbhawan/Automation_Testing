@@ -114,7 +114,7 @@ public class Customer {
 				} catch (Exception ex) {
 					System.err.println(ex.getMessage());
 					Iteration = Iteration + 1;
-					EJ.SetFailureStatus(Iteration, WH.Customer);
+					EJ.SetFailureStatus(Iteration, WH.Customer ,ex.getMessage());
 					continue;
 				}
 				Iteration = Iteration + 1;
@@ -122,7 +122,7 @@ public class Customer {
 
 			} else {
 				Iteration = Iteration + 1;
-				EJ.SetFailureStatus(Iteration, WH.Customer);
+				EJ.SetFailureStatus(Iteration, WH.Customer ,null);
 			}
 
 		}

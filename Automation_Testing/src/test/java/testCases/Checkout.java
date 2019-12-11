@@ -244,15 +244,15 @@ public class Checkout {
 				} catch (Exception ex) {
 					System.err.println(ex.getMessage());
 					Iteration = Iteration + 1;
-					EJ.SetFailureStatus(Iteration, WH.Checkout);
-					break;
+					EJ.SetFailureStatus(Iteration, WH.Checkout ,ex.getMessage());
+					continue;
 				}
 				Iteration = Iteration + 1;
 				EJ.SetPassStatus(Iteration,WH.Checkout);
 
 			} else {
 				Iteration = Iteration + 1;
-				EJ.SetFailureStatus(Iteration, WH.Checkout);
+				EJ.SetFailureStatus(Iteration, WH.Checkout,null);
 			}
 		}
 		System.out.println("<------------- Checkout Verification Ended ------------->");

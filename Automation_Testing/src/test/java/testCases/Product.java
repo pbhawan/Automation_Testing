@@ -157,7 +157,7 @@ public class Product {
 //int	    		Assert.assertEquals(JsonArrayObject.get("old_inventory_quantity").toString(),_CP.rs.getString("old_inventory_quantity").toString(),"old_inventory_quantity not Match in Row" + Iteration);
 	    			Assert.assertEquals(JsonArrayObject.get("requires_shipping").toString(),_CP.rs.getString("requires_shipping").toString(),"requires_shipping not Match in Row" + Iteration);
 	    			Assert.assertEquals(JsonArrayObject.get("inventory_quantity").toString(),_CP.rs.getString("inventory_quantity").toString(),"inventory_quantity not Match in Row" + Iteration);
-	    			Assert.assertEquals(JsonArrayObject.get("presentment_prices").toString(),_CP.rs.getString("presentment_prices").toString(),"presentment_prices not Match in Row" + Iteration); 			
+//askvncpindb	    Assert.assertEquals(JsonArrayObject.get("presentment_prices").toString(),_CP.rs.getString("presentment_prices").toString(),"presentment_prices not Match in Row" + Iteration); 			
     				}
 					Assert.assertEquals(ProductJsonData.get("vendor").toString(),_CP.rs.getString("vendor").toString(), "vendor not Match in Row" + Iteration);
 					
@@ -165,15 +165,15 @@ public class Product {
 				} catch (Exception ex) {
 					System.err.println(ex.getMessage());
 					Iteration = Iteration + 1;
-					EJ.SetFailureStatus(Iteration, WH.Product);
-					break;
+					EJ.SetFailureStatus(Iteration, WH.Product,ex.getMessage());
+					continue;
 				}
 				Iteration = Iteration + 1;
 				EJ.SetPassStatus(Iteration,WH.Product);
 
 			} else {
 				Iteration = Iteration + 1;
-				EJ.SetFailureStatus(Iteration, WH.Product);
+				EJ.SetFailureStatus(Iteration, WH.Product,null);
 			}
 
 		}

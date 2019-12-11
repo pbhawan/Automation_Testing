@@ -94,15 +94,15 @@ public class TenderTransaction {
 				} catch (Exception ex) {
 					System.err.println(ex.getMessage());
 					Iteration = Iteration + 1;
-					EJ.SetFailureStatus(Iteration, WH.Tender_Transaction);
-					break;
+					EJ.SetFailureStatus(Iteration, WH.Tender_Transaction,ex.getMessage());
+					continue;
 				}
 				Iteration = Iteration + 1;
 				EJ.SetPassStatus(Iteration,  WH.Tender_Transaction);
 
 			} else {
 				Iteration = Iteration + 1;
-				EJ.SetFailureStatus(Iteration,  WH.Tender_Transaction);
+				EJ.SetFailureStatus(Iteration,  WH.Tender_Transaction,null);
 			}
 
 		}

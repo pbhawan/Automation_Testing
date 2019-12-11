@@ -153,15 +153,15 @@ public class Refund {
 				} catch (Exception ex) {
 					System.err.println(ex.getMessage());
 					Iteration = Iteration + 1;
-					EJ.SetFailureStatus(Iteration, WH.Refund);
-					break;
+					EJ.SetFailureStatus(Iteration, WH.Refund,ex.getMessage());
+					continue;
 				}
 				Iteration = Iteration + 1;
 				EJ.SetPassStatus(Iteration,  WH.Refund);
 
 			} else {
 				Iteration = Iteration + 1;
-				EJ.SetFailureStatus(Iteration,  WH.Refund);
+				EJ.SetFailureStatus(Iteration,  WH.Refund,null);
 			}
 
 		}

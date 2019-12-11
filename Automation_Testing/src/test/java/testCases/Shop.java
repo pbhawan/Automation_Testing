@@ -92,7 +92,7 @@ public class Shop {
 //p					Assert.assertEquals(ShopJsonData.get("enabled_presentment_currencies").toString(),_CP.rs.getString("enabled_presentment_currencies").toString(),"enabled_presentment_currencies not Match in Row" + Iteration);
 					Assert.assertEquals(ShopJsonData.get("finances").toString(),_CP.rs.getString("finances").toString(),"finances not Match in Row" + Iteration);
 					Assert.assertEquals(ShopJsonData.get("force_ssl").toString(),_CP.rs.getString("force_ssl").toString(),"force_ssl not Match in Row" + Iteration);
-//null				Assert.assertEquals(ShopJsonData.get("google_apps_domain").toString(),_CP.rs.getString("google_apps_domain").toString(),"google_apps_domain not Match in Row" + Iteration);
+					Assert.assertEquals(ShopJsonData.get("google_apps_domain").toString(),_CP.rs.getString("google_apps_domain").toString(),"google_apps_domain not Match in Row" + Iteration);
 //null				Assert.assertEquals(ShopJsonData.get("google_apps_login_enabled").toString(),_CP.rs.getString("google_apps_login_enabled").toString(),"google_apps_login_enabled not Match in Row" + Iteration);
 					Assert.assertEquals(ShopJsonData.get("has_discounts").toString(),_CP.rs.getString("has_discounts").toString(),"has_discounts not Match in Row" + Iteration);
 					Assert.assertEquals(ShopJsonData.get("has_gift_cards").toString(),_CP.rs.getString("has_gift_cards").toString(),"has_gift_cards not Match in Row" + Iteration);
@@ -129,15 +129,15 @@ public class Shop {
 				} catch (Exception ex) {
 					System.err.println(ex.getMessage());
 					Iteration = Iteration + 1;
-					EJ.SetFailureStatus(Iteration, WH.Shop);
-					break;
+					EJ.SetFailureStatus(Iteration, WH.Shop ,ex.getMessage());
+					continue;
 				}
 				Iteration = Iteration + 1;
 				EJ.SetPassStatus(Iteration,  WH.Shop);
 
 			} else {
 				Iteration = Iteration + 1;
-				EJ.SetFailureStatus(Iteration,  WH.Shop);
+				EJ.SetFailureStatus(Iteration, WH.Shop,null);
 			}
 		}
 		System.out.println("<------------- Shop Verification Ended ------------->");

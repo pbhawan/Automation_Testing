@@ -60,6 +60,11 @@ public class Fulfillment {
 
 	}
 	
+	
+//	public void main(String[] args) throws IOException, InterruptedException, SQLException, ParseException{
+//		VerifyFullfillmentData();
+//	   }
+	
 	@SuppressWarnings({ "unchecked", "static-access" })
 	@Test
 	public void VerifyFullfillmentData() throws IOException, InterruptedException, SQLException, ParseException {
@@ -113,8 +118,8 @@ public class Fulfillment {
 //int    			Assert.assertEquals(JsonArrayObject.get("grams").toString(),_CP.rs.getString("grams").toString(),"grams" + Iteration);
     				Assert.assertEquals(JsonArrayObject.get("name").toString(),_CP.rs.getString("line_name").toString(),"name not Match in Row" + Iteration);
  
-//askv     			Assert.assertEquals(JsonArrayObject.get("pre_tax_price").toString(),_CP.rs.getString("pre_tax_price").toString(),"pre_tax_price not Match in Row" + Iteration);
-//askv    			Assert.assertEquals(JsonArrayObject.get("pre_tax_price_set").toString(),_CP.rs.getString("pre_tax_price_set").toString(),"pre_tax_price_set not Match in Row" + Iteration);
+    				Assert.assertEquals(JsonArrayObject.get("pre_tax_price").toString(),_CP.rs.getString("pre_tax_price").toString(),"pre_tax_price not Match in Row" + Iteration);
+    				Assert.assertEquals(JsonArrayObject.get("pre_tax_price_set").toString(),_CP.rs.getString("pre_tax_price_set").toString(),"pre_tax_price_set not Match in Row" + Iteration);
     				Assert.assertEquals(JsonArrayObject.get("price").toString(),_CP.rs.getString("price").toString(),"price not Match in Row" + Iteration);
     				Assert.assertEquals(JsonArrayObject.get("price_set").toString(),_CP.rs.getString("price_set").toString(), "price_set not Match in Row" + Iteration);
     				Assert.assertEquals(JsonArrayObject.get("product_exists").toString(),_CP.rs.getString("product_exists").toString(),"product_exists not Match in Row" + Iteration);
@@ -152,15 +157,15 @@ public class Fulfillment {
 				} catch (Exception ex) {
 					System.err.println(ex.getMessage());
 					Iteration = Iteration + 1;
-					EJ.SetFailureStatus(Iteration, WH.Fulfillment);
-					break;
+					EJ.SetFailureStatus(Iteration, WH.Fulfillment,null);
+					continue;
 				}
-				Iteration = Iteration + 1;
-				EJ.SetPassStatus(Iteration,WH.Fulfillment);
+					Iteration = Iteration + 1;
+					EJ.SetPassStatus(Iteration,WH.Fulfillment);
 
 			} else {
-				Iteration = Iteration + 1;
-				EJ.SetFailureStatus(Iteration, WH.Fulfillment);
+					Iteration = Iteration + 1;
+					EJ.SetFailureStatus(Iteration, WH.Fulfillment,null);
 			}
 
 		}

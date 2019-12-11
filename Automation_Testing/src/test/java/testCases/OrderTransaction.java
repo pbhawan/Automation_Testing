@@ -101,15 +101,15 @@ public class OrderTransaction {
 				} catch (Exception ex) {
 					System.err.println(ex.getMessage());
 					Iteration = Iteration + 1;
-					EJ.SetFailureStatus(Iteration, WH.Order_Transaction);
-					break;
+					EJ.SetFailureStatus(Iteration, WH.Order_Transaction,ex.getMessage());
+					continue;
 				}
 				Iteration = Iteration + 1;
 				EJ.SetPassStatus(Iteration,  WH.Order_Transaction);
 
 			} else {
 				Iteration = Iteration + 1;
-				EJ.SetFailureStatus(Iteration,  WH.Order_Transaction);
+				EJ.SetFailureStatus(Iteration,  WH.Order_Transaction,null);
 			}
 
 		}

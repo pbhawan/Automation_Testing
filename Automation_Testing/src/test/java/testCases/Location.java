@@ -96,15 +96,15 @@ public class Location {
 				} catch (Exception ex) {
 					System.err.println(ex.getMessage());
 					Iteration = Iteration + 1;
-					EJ.SetFailureStatus(Iteration, WH.Location);
-					break;
+					EJ.SetFailureStatus(Iteration, WH.Location,ex.getMessage());
+					continue;
 				}
 				Iteration = Iteration + 1;
 				EJ.SetPassStatus(Iteration,  WH.Location);
 
 			} else {
 				Iteration = Iteration + 1;
-				EJ.SetFailureStatus(Iteration,  WH.Location);
+				EJ.SetFailureStatus(Iteration,  WH.Location,null);
 			}
 		}
 		System.out.println("<------------- Location Verification Ended ------------->");

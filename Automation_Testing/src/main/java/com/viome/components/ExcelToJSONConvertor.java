@@ -1,7 +1,8 @@
 package com.viome.components;
 
+
 import java.io.BufferedWriter;
-import java.io.Closeable;
+//import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -11,7 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
+//import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +37,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.cfg.MapperBuilder;
+import com.viome.enums.webhooks;
 
 public class ExcelToJSONConvertor {
 
@@ -260,7 +262,8 @@ public class ExcelToJSONConvertor {
 	}
 
 	@SuppressWarnings("rawtypes")
-	public void SetFailureStatus(int RowNumber, Enum SheetName) throws IOException {
+	public void SetFailureStatus(int RowNumber, Enum SheetName,String message) throws IOException {
+		
 		FileInputStream fsIP = new FileInputStream(new File(Path));
 		@SuppressWarnings("resource")
 		HSSFWorkbook excelWorkBook = new HSSFWorkbook(fsIP);
@@ -274,10 +277,19 @@ public class ExcelToJSONConvertor {
 					&& CurrentsheetName.length() > 0) {
 				Row row1 = sheet.getRow(0);
 				Cell cell1 = row1.createCell(lastCellNum);
-				cell1.setCellValue("Test Results");
+				cell1.setCellValue("Status Pass/Fail");
 				Row row = sheet.getRow(RowNumber);
 				Cell cell = row.createCell(lastCellNum);
 				cell.setCellValue("Failed");
+
+				Cell cell11 = row1.createCell(lastCellNum + 1);
+				cell11.setCellValue("Exception Message/Failed Due To");
+				Row row11 = sheet.getRow(RowNumber);
+				Cell cell111 = row11.createCell(lastCellNum + 1);
+				if(message!=null)
+				cell111.setCellValue(message);
+				else
+				{cell111.setCellValue("java.lang.AssertionError");}
 				fsIP.close();
 				FileOutputStream outputStream = new FileOutputStream(Path);
 				excelWorkBook.write(outputStream);
@@ -292,8 +304,6 @@ public class ExcelToJSONConvertor {
 		
 		}
 		
-	
-	
 
 	@SuppressWarnings("rawtypes")
 	public void SetPassStatus(int RowNumber, Enum SheetName) throws IOException {
@@ -326,5 +336,8 @@ public class ExcelToJSONConvertor {
 			i++;
 		}
 	}
+
+
+
 
 }

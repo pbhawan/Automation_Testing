@@ -248,8 +248,6 @@ public class Order {
 //k					Assert.assertEquals(shipping_line.get("source"),_CP.rs.getString("shipping_line_source"),"shipping_line_delivery_category not Match in Row"+Iteration);
 //k					Assert.assertEquals(shipping_line.get("tax_lines"),_CP.rs.getString("shipping_line_tax_lines"),"shipping_line_delivery_category not Match in Row"+Iteration);
 
-					System.out.println(OrderJsonData.get("source_url"));
-					System.out.println(_CP.rs.getString("source_url"));
 					Assert.assertEquals(OrderJsonData.get("source_identifier").toString(),_CP.rs.getString("source_identifier").toString(), "source_identifier not Match in Row" + Iteration);
 					Assert.assertEquals(OrderJsonData.get("source_name").toString(),_CP.rs.getString("source_name").toString(), "source_name not Match in Row" + Iteration);
 					Assert.assertEquals(OrderJsonData.get("source_url").toString(),_CP.rs.getString("source_url").toString(), "source_url not Match in Row" + Iteration);
@@ -275,15 +273,15 @@ public class Order {
 				} catch (Exception ex) {
 					System.err.println(ex.getMessage());
 					Iteration = Iteration + 1;
-					EJ.SetFailureStatus(Iteration, WH.Order);
-					break;
+					EJ.SetFailureStatus(Iteration, WH.Order, null);
+					continue;
 				}
 				Iteration = Iteration + 1;
 				EJ.SetPassStatus(Iteration,WH.Order);
 
 			} else {
 				Iteration = Iteration + 1;
-				EJ.SetFailureStatus(Iteration, WH.Order);
+				EJ.SetFailureStatus(Iteration, WH.Order, null);
 			}
 
 		}

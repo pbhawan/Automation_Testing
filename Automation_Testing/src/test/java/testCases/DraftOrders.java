@@ -216,15 +216,15 @@ public class DraftOrders {
 				} catch (Exception ex) {
 					System.err.println(ex.getMessage());
 					Iteration = Iteration + 1;
-					EJ.SetFailureStatus(Iteration, WH.DraftOrder);
-					break;
+					EJ.SetFailureStatus(Iteration, WH.DraftOrder,ex.getMessage());
+					continue;
 				}
 				Iteration = Iteration + 1;
 				EJ.SetPassStatus(Iteration,WH.DraftOrder);
 
 			} else {
 				Iteration = Iteration + 1;
-				EJ.SetFailureStatus(Iteration, WH.DraftOrder);
+				EJ.SetFailureStatus(Iteration, WH.DraftOrder,null);
 			}
 
 		}
