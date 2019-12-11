@@ -27,6 +27,7 @@ public class DBConnection {
 			case "Customer":
 				id = JsonData.get("id").toString();
 				sql = "SELECT * FROM public.customer where id=" + id + ";";
+				System.out.println(sql);
 				_CP.rs = _CP.stmt.executeQuery(sql);
 				break;
 				

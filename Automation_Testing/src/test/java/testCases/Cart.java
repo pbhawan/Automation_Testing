@@ -31,6 +31,7 @@ public class Cart {
 	ConnectionProperties _CP;
 	ExcelToJSONConvertor EJ;
 	webhooks WH;
+	GenerateReport GR;
 
 	private static ObjectMapper mapper = new ObjectMapper();
 	ArrayList<Object> JsonRecords;
@@ -60,9 +61,8 @@ public class Cart {
 
 	@SuppressWarnings({ "unchecked", "static-access" })
 	@Test
-	public void VerifyCartData() throws IOException, InterruptedException, SQLException, ParseException {
+	public void VerifyCartData() throws Exception {
 		System.out.println("<------------- Cart  Verification Started ------------->");
-
 		for (Object record : JsonRecords) {
 			JSONObject JsonArrayObject;
 			JSONArray JsonArray;
@@ -71,10 +71,10 @@ public class Cart {
 			map.put("updated_at", new Date());
 			map.put("created_at", new Date());
 			JSONObject CartJsonData = HC.PostJson(mapper.writeValueAsString(map), WH.Cart);
-			TimeUnit.SECONDS.sleep(40);
+			TimeUnit.SECONDS.sleep(30);
 			_CP = DB.GetRecordFromDB(CartJsonData, "Cart");
 			if (_CP.rs.next()) {
-				try {
+			try {
 		    Assert.assertEquals(CartJsonData.get("token").toString(), _CP.rs.getString("token").toString(),	"token not Match in Row" + Iteration);
 		    Assert.assertEquals(CartJsonData.get("note").toString(), _CP.rs.getString("note").toString(), 	"note not Match in Row" + Iteration);
 		    JsonArray = (JSONArray) CartJsonData.get("line_items");

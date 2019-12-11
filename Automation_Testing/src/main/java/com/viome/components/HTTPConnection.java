@@ -30,7 +30,7 @@ public class HTTPConnection {
 		webhook=webhook_nm;
 		
 		try {
-			System.out.println("Response API is---->" +Record);		
+			System.out.println(webhook_nm + " " + "JSON---->" +Record);		
 			StringEntity params = new StringEntity(Record);
 			/*staging HMAC*/
 //			String params1=HmacUtil.calculateHMAC(Record, "07ac5dfed552350b42c51225ea89e87f17f5b91d069c1d8fe8a96b8124e6ecfb");

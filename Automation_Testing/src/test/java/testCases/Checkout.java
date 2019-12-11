@@ -75,7 +75,7 @@ public class Checkout {
 			map.put("updated_at", new Date());
 			map.put("created_at", new Date());
 			JSONObject CheckoutJsonData = HC.PostJson(mapper.writeValueAsString(map), WH.Checkout);
-			TimeUnit.SECONDS.sleep(40);
+			TimeUnit.SECONDS.sleep(30);
 			
 			_CP = DB.GetRecordFromDB(CheckoutJsonData,"Checkout");
 			if (_CP.rs.next()) {

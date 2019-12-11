@@ -71,7 +71,7 @@ public class Shop {
 			map.put("updated_at", new Date());
 			map.put("created_at", new Date());
 			JSONObject ShopJsonData = HC.PostJson(mapper.writeValueAsString(map), WH.Shop);
-			TimeUnit.SECONDS.sleep(10);
+			TimeUnit.SECONDS.sleep(30);
 			_CP = DB.GetRecordFromDB(ShopJsonData,"Shop");
 			if (_CP.rs.next()) {
 				try {

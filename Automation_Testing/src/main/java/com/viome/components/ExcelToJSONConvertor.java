@@ -42,6 +42,7 @@ public class ExcelToJSONConvertor {
 	// static XSSFWorkbook excelWorkBook;
 	static String Path;
 
+	@SuppressWarnings("unused")
 	private static ObjectMapper mapper = new ObjectMapper();
 
 	static int firstRowNum;
@@ -170,6 +171,7 @@ public class ExcelToJSONConvertor {
 	}
 
 	/* Return a JSON string from the string list. */
+	@SuppressWarnings({ "rawtypes", "unused", "unchecked" })
 	private static ArrayList getJSONStringFromList(List<List<Object>> dataTable) {
 		String ret = "";
 		ArrayList<Object> Data = new ArrayList<Object>();
@@ -223,6 +225,7 @@ public class ExcelToJSONConvertor {
 	}
 
 	/* Write string data to a file. */
+	@SuppressWarnings("unused")
 	private static void writeStringToFile(String data, String fileName) {
 		try {
 			// Get current executing class working directory.
@@ -256,6 +259,7 @@ public class ExcelToJSONConvertor {
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void SetFailureStatus(int RowNumber, Enum SheetName) throws IOException {
 		FileInputStream fsIP = new FileInputStream(new File(Path));
 		@SuppressWarnings("resource")
@@ -291,6 +295,7 @@ public class ExcelToJSONConvertor {
 	
 	
 
+	@SuppressWarnings("rawtypes")
 	public void SetPassStatus(int RowNumber, Enum SheetName) throws IOException {
 		FileInputStream fsIP = new FileInputStream(new File(Path));
 		@SuppressWarnings("resource")
@@ -321,14 +326,5 @@ public class ExcelToJSONConvertor {
 			i++;
 		}
 	}
-
-	/*
-	 * public static void main(String args[]) {
-	 * 
-	 * String rowJsonObject = "abc\\"; String jsonFormattedString =
-	 * rowJsonObject.replaceAll("\\\\", "");
-	 * 
-	 * }
-	 */
 
 }
