@@ -110,7 +110,20 @@ public class ExcelToJSONConvertor {
 
 					// Create a String list to save column data in a row.
 					List<Object> rowDataList = new LinkedList<Object>();
-
+					HSSFCell LastCell=(HSSFCell) row.getCell(lastCellNum-1);
+					if(LastCell!=null && LastCell.toString().contains("Test Results") )
+							{
+						row.removeCell(LastCell);
+							}
+					else if (LastCell!=null && LastCell.toString().contains("Exception"))
+					{
+						HSSFCell TestResultCell=(HSSFCell) row.getCell(lastCellNum-2);
+						row.removeCell(LastCell);
+						row.removeCell(TestResultCell);
+					}
+					
+					
+					lastCellNum = row.getLastCellNum();
 					// Loop in the row cells.
 					for (int j = firstCellNum; j < lastCellNum; j++) {
 						// Get current cell.
