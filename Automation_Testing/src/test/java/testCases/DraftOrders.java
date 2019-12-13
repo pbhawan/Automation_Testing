@@ -26,7 +26,6 @@ import com.viome.components.ExcelToJSONConvertor;
 import com.viome.components.HTTPConnection;
 import com.viome.enums.webhooks;
 
-//Draft Order Added 123 /
 
 public class DraftOrders {
 	HTTPConnection HC;

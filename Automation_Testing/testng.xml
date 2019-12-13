@@ -1,13 +1,10 @@
-
-<suite name="Suite">
-  <test thread-count="5" name="Test" parallel="classes">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="ViomeSuite">
+  <test name="Checkout">
     <classes>
-      <class name="testCases.Customer"/>
-       <class name="testCases.Location"/>
-          <class name="testCases.Order"/>
-           <class name="testCases.Product"/>
-             <class name="testCases.Theme"/>
-             <class name="testCases.DraftOrder"/>
+      <class name="testCases.Checkout"/>
     </classes>
   </test>
+  
 </suite>
