@@ -80,7 +80,7 @@ public class Fulfillment {
 			map.put("updated_at", new Date());
 			map.put("created_at", new Date());
 			JSONObject FufillmentJsonData = HC.PostJson(mapper.writeValueAsString(map), WH.Fulfillment);
-			TimeUnit.SECONDS.sleep(30);
+			TimeUnit.SECONDS.sleep(20);
 			_CP = DB.GetRecordFromDB(FufillmentJsonData,"Fulfillment");
 			if (_CP.rs.next()) {
 				try {					
@@ -118,8 +118,8 @@ public class Fulfillment {
 //int    			Assert.assertEquals(JsonArrayObject.get("grams").toString(),_CP.rs.getString("grams").toString(),"grams" + Iteration);
     				Assert.assertEquals(JsonArrayObject.get("name").toString(),_CP.rs.getString("line_name").toString(),"name not Match in Row" + Iteration);
  
-    				Assert.assertEquals(JsonArrayObject.get("pre_tax_price").toString(),_CP.rs.getString("pre_tax_price").toString(),"pre_tax_price not Match in Row" + Iteration);
-    				Assert.assertEquals(JsonArrayObject.get("pre_tax_price_set").toString(),_CP.rs.getString("pre_tax_price_set").toString(),"pre_tax_price_set not Match in Row" + Iteration);
+    				Assert.assertEquals(JsonArrayObject.get("pre_tax_price").toString(),_CP.rs.getString("line_pre_tax_price").toString(),"pre_tax_price not Match in Row" + Iteration);
+    				Assert.assertEquals(JsonArrayObject.get("pre_tax_price_set").toString(),_CP.rs.getString("line_pre_tax_price_set").toString(),"pre_tax_price_set not Match in Row" + Iteration);
     				Assert.assertEquals(JsonArrayObject.get("price").toString(),_CP.rs.getString("price").toString(),"price not Match in Row" + Iteration);
     				Assert.assertEquals(JsonArrayObject.get("price_set").toString(),_CP.rs.getString("price_set").toString(), "price_set not Match in Row" + Iteration);
     				Assert.assertEquals(JsonArrayObject.get("product_exists").toString(),_CP.rs.getString("product_exists").toString(),"product_exists not Match in Row" + Iteration);

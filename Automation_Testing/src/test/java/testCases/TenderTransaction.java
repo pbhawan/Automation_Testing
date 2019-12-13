@@ -70,7 +70,7 @@ public class TenderTransaction {
 			map.put("id", new Date().getTime());			
 			map.put("processed_at", new Date());
 			JSONObject TenderTransactionJsonData = HC.PostJson(mapper.writeValueAsString(map), WH.Tender_Transaction);
-			TimeUnit.SECONDS.sleep(30);
+			TimeUnit.SECONDS.sleep(20);
 			_CP = DB.GetRecordFromDB(TenderTransactionJsonData,"Tender_Transaction");
 			if (_CP.rs.next()) {
 				try {					

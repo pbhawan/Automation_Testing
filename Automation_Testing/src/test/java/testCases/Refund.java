@@ -88,7 +88,7 @@ public class Refund {
 			}
 			
 			JSONObject RefundJsonData = HC.PostJson(mapper.writeValueAsString(map), WH.Refund);
-			TimeUnit.SECONDS.sleep(30);
+			TimeUnit.SECONDS.sleep(20);
 			_CP = DB.GetRecordFromDB(RefundJsonData,"Refund");
 			if (_CP.rs.next()) {
 				try {

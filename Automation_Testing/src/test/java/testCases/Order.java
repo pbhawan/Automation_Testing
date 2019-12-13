@@ -74,7 +74,7 @@ public class Order {
 			map.put("updated_at", new Date());
 			map.put("created_at", new Date());
 			JSONObject OrderJsonData = HC.PostJson(mapper.writeValueAsString(map), WH.Order);
-			TimeUnit.SECONDS.sleep(30);
+			TimeUnit.SECONDS.sleep(20);
 			_CP = DB.GetRecordFromDB(OrderJsonData,"Order");
 			if (_CP.rs.next()) {
 				try {				

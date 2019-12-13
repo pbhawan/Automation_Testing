@@ -98,7 +98,7 @@ public class Product {
 			}
 				}	
 			JSONObject ProductJsonData = HC.PostJson(mapper.writeValueAsString(map), WH.Product);
-			TimeUnit.SECONDS.sleep(30);
+			TimeUnit.SECONDS.sleep(20);
 			_CP = DB.GetRecordFromDB(ProductJsonData,"Product");
 			if (_CP.rs.next()) {
 				try {

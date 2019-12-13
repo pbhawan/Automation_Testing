@@ -40,21 +40,21 @@ public class DBConnection {
 				
 			case "Checkout":
 				id = JsonData.get("id").toString();
-				sql="SELECT  o.*,l.* FROM public.orders as o INNER JOIN public.line_items as l ON o.external_id = l.mapping_id WHERE o.type='Checkout' and o.external_id=" + id + ";";
+				sql="SELECT o.*,l.external_id, l.admin_graphql_api_id, l.applied_discount_amount, l.applied_discount_description, l.applied_discount_title, l.applied_discount_value, l.applied_discount_value_type, l.custom, l.discount_allocations, l.discounted_price_set, l.discounts, l.id, l.line_price_set, l.original_line_price_set, l.price_set, l.properties, l.total_discount_set, l.fulfillable_quantity, l.fulfillment_service, l.fulfillment_status, l.gift_card, l.grams, l.line_price, l.name, l.order_id, l.original_line_price, l.original_price, l.price, l.product_exists, l.product_id, l.product_id_pk, l.quantity, l.refund_line_item_id, l.requires_shipping, l.sku, l.taxable, l.title, l.total_discount,l.variant_id, l.variant_inventory_management, l.variant_title, l.vendor, l.mapping_id, l.compare_at_price, l.country_code_of_origin, l.province_code_of_origin, l.harmonized_system_code, l.country_hs_codes, l.unit_price_measurement, l.discounted_price, l.key, l.applied_discounts, l.pre_tax_price, l.pre_tax_price_set FROM public.orders as o INNER JOIN public.line_items as l ON o.external_id = l.mapping_id WHERE o.type='Checkout' and o.external_id=" + id + ";";
 				System.out.println(sql);
 				_CP.rs = _CP.stmt.executeQuery(sql);
 				break;
 				
 			case "DraftOrder":
 				id = JsonData.get("id").toString();
-				sql="SELECT  o.*,l.admin_graphql_api_id,l.total_discount_set,l.tax_lines,l.applied_discount_amount,l.applied_discount_description,l.applied_discount_title,l.applied_discount_value,l.applied_discount_value_type,l.discount_allocations,l.external_id,l.fulfillable_quantity,l.fulfillment_service,l.fulfillment_status,l.gift_card,l.grams,l.id,l.id,l.mapping_id,l.name as line_name,l.order_id,l.price,l.price_set,l.product_exists,l.product_id,l.properties,l.properties,l.quantity,l.refund_line_item_id,l.requires_shipping,l.sku,l.tax_lines,l.taxable,l.title,l.total_discount,l.variant_id,l.variant_inventory_management,l.variant_title,l.vendor FROM public.orders as o INNER JOIN public.line_items as l ON o.external_id = l.mapping_id WHERE o.type='Draft_Order' and o.external_id=" + id + ";";
+				sql="SELECT  o.*,l.custom,l.admin_graphql_api_id,l.total_discount_set,l.tax_lines,l.applied_discount_amount,l.applied_discount_description,l.applied_discount_title,l.applied_discount_value,l.applied_discount_value_type,l.discount_allocations,l.external_id,l.fulfillable_quantity,l.fulfillment_service,l.fulfillment_status,l.gift_card,l.grams,l.id,l.id,l.mapping_id,l.name as line_name,l.order_id,l.price,l.price_set,l.product_exists,l.product_id,l.properties,l.properties,l.quantity,l.refund_line_item_id,l.requires_shipping,l.sku,l.tax_lines,l.taxable,l.title,l.total_discount,l.variant_id,l.variant_inventory_management,l.variant_title,l.vendor FROM public.orders as o INNER JOIN public.line_items as l ON o.external_id = l.mapping_id WHERE o.type='Draft_Order' and o.external_id=" + id + ";";
 				System.out.println(sql);
 				_CP.rs = _CP.stmt.executeQuery(sql);
 				break;
 				
 			case "Fulfillment":
 				id = JsonData.get("id").toString();
-				sql="SELECT  f.*,l.pre_tax_price_set,l.pre_tax_price,l.admin_graphql_api_id,l.total_discount_set,l.tax_lines,l.applied_discount_amount,l.applied_discount_description,l.applied_discount_title,l.applied_discount_value,l.applied_discount_value_type,l.discount_allocations,l.external_id,l.fulfillable_quantity,l.fulfillment_service,l.fulfillment_status,l.gift_card,l.grams,l.id,l.id,l.mapping_id,l.name as line_name,l.order_id,l.price,l.price_set,l.product_exists,l.product_id,l.properties,l.properties,l.quantity,l.refund_line_item_id,l.requires_shipping,l.sku,l.tax_lines,l.taxable,l.title,l.total_discount,l.variant_id,l.variant_inventory_management,l.variant_title,l.vendor FROM public.fulfillment as f INNER JOIN public.line_items as l ON f.external_id = l.mapping_id WHERE f.external_id=" + id + ";";
+				sql="SELECT  f.*,l.custom,l.pre_tax_price_set as line_pre_tax_price_set,l.pre_tax_price as line_pre_tax_price,l.admin_graphql_api_id,l.total_discount_set,l.tax_lines,l.applied_discount_amount,l.applied_discount_description,l.applied_discount_title,l.applied_discount_value,l.applied_discount_value_type,l.discount_allocations,l.external_id,l.fulfillable_quantity,l.fulfillment_service,l.fulfillment_status,l.gift_card,l.grams,l.id,l.id,l.mapping_id,l.name as line_name,l.order_id,l.price,l.price_set,l.product_exists,l.product_id,l.properties,l.properties,l.quantity,l.refund_line_item_id,l.requires_shipping,l.sku,l.tax_lines,l.taxable,l.title,l.total_discount,l.variant_id,l.variant_inventory_management,l.variant_title,l.vendor FROM public.fulfillment as f INNER JOIN public.line_items as l ON f.external_id = l.mapping_id WHERE f.external_id=" + id + ";";
 				System.out.println(sql);
 				_CP.rs = _CP.stmt.executeQuery(sql);
 				break;
@@ -75,7 +75,7 @@ public class DBConnection {
 				
 			case "Order":
 				id = JsonData.get("id").toString();
-				sql="SELECT  o.*,l.admin_graphql_api_id,l.total_discount_set,l.tax_lines,l.applied_discount_amount,l.applied_discount_description,l.applied_discount_title,l.applied_discount_value,l.applied_discount_value_type,l.discount_allocations,l.external_id,l.fulfillable_quantity,l.fulfillment_service,l.fulfillment_status,l.gift_card,l.grams,l.id,l.id,l.mapping_id,l.name as line_name,l.order_id,l.price,l.price_set,l.product_exists,l.product_id,l.properties,l.properties,l.quantity,l.refund_line_item_id,l.requires_shipping,l.sku,l.tax_lines,l.taxable,l.title,l.total_discount,l.variant_id,l.variant_inventory_management,l.variant_title,l.vendor FROM public.orders as o INNER JOIN public.line_items as l ON o.external_id = l.mapping_id WHERE o.type='Order' and o.external_id=" + id + ";";
+				sql="SELECT  o.*,l.custom,l.admin_graphql_api_id,l.total_discount_set,l.tax_lines,l.applied_discount_amount,l.applied_discount_description,l.applied_discount_title,l.applied_discount_value,l.applied_discount_value_type,l.discount_allocations,l.external_id,l.fulfillable_quantity,l.fulfillment_service,l.fulfillment_status,l.gift_card,l.grams,l.id,l.id,l.mapping_id,l.name as line_name,l.order_id,l.price,l.price_set,l.product_exists,l.product_id,l.properties,l.properties,l.quantity,l.refund_line_item_id,l.requires_shipping,l.sku,l.tax_lines,l.taxable,l.title,l.total_discount,l.variant_id,l.variant_inventory_management,l.variant_title,l.vendor FROM public.orders as o INNER JOIN public.line_items as l ON o.external_id = l.mapping_id WHERE o.type='Order' and o.external_id=" + id + ";";
 				System.out.println(sql);
 				_CP.rs = _CP.stmt.executeQuery(sql);
 				break;
@@ -96,7 +96,7 @@ public class DBConnection {
 				
 			case "Refund":
 				id = JsonData.get("id").toString();
-				sql="SELECT o.order_adjustments,o.order_transactions,o.note,o.order_id,o.restock,o.\"type\",o.user_id,rli.*,li.* from public.orders o,refund_line_items rli,line_items li where rli.mapping_id = o.external_id and rli.refund_line_item_id = li.external_id and type='Refund_Order' and o.external_id=" + id +";"; 
+				sql="SELECT o.order_adjustments,o.order_transactions,o.note,o.order_id,o.restock,o.type,o.user_id,rli.*,li.* from public.orders o,refund_line_items rli,line_items li where rli.mapping_id = o.external_id and rli.refund_line_item_id = li.external_id and type='Refund_Order' and o.external_id=" + id +";"; 
 				System.out.println(sql);
 				_CP.rs = _CP.stmt.executeQuery(sql);
 				break;

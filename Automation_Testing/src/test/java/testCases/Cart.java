@@ -1,6 +1,5 @@
 package testCases;
 
-import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -10,7 +9,6 @@ import java.util.concurrent.TimeUnit;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.ParseException;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
@@ -31,7 +29,6 @@ public class Cart {
 	ConnectionProperties _CP;
 	ExcelToJSONConvertor EJ;
 	webhooks WH;
-	GenerateReport GR;
 
 	private static ObjectMapper mapper = new ObjectMapper();
 	ArrayList<Object> JsonRecords;
@@ -71,7 +68,7 @@ public class Cart {
 			map.put("updated_at", new Date());
 			map.put("created_at", new Date());
 			JSONObject CartJsonData = HC.PostJson(mapper.writeValueAsString(map), WH.Cart);
-			TimeUnit.SECONDS.sleep(30);
+			TimeUnit.SECONDS.sleep(20);
 			_CP = DB.GetRecordFromDB(CartJsonData, "Cart");
 			if (_CP.rs.next()) {
 			try {

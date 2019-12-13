@@ -70,7 +70,7 @@ public class OrderTransaction {
 			map.put("created_at", new Date());
 			map.put("processed_at", new Date());
 			JSONObject OrderTransactionJsonData = HC.PostJson(mapper.writeValueAsString(map), WH.Order_Transaction);
-			TimeUnit.SECONDS.sleep(30);
+			TimeUnit.SECONDS.sleep(20);
 			_CP = DB.GetRecordFromDB(OrderTransactionJsonData,"Order_Transaction");
 			if (_CP.rs.next()) {
 				try {
