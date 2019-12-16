@@ -98,7 +98,7 @@ public class Product {
 			}
 				}	
 			JSONObject ProductJsonData = HC.PostJson(mapper.writeValueAsString(map), WH.Product);
-			TimeUnit.SECONDS.sleep(20);
+			TimeUnit.SECONDS.sleep(30);
 			_CP = DB.GetRecordFromDB(ProductJsonData,"Product");
 			if (_CP.rs.next()) {
 				try {
@@ -157,7 +157,7 @@ public class Product {
 //int	    		Assert.assertEquals(JsonArrayObject.get("old_inventory_quantity").toString(),_CP.rs.getString("old_inventory_quantity").toString(),"old_inventory_quantity not Match in Row" + Iteration);
 	    			Assert.assertEquals(JsonArrayObject.get("requires_shipping").toString(),_CP.rs.getString("requires_shipping").toString(),"requires_shipping not Match in Row" + Iteration);
 	    			Assert.assertEquals(JsonArrayObject.get("inventory_quantity").toString(),_CP.rs.getString("inventory_quantity").toString(),"inventory_quantity not Match in Row" + Iteration);
-//askvncpindb	    Assert.assertEquals(JsonArrayObject.get("presentment_prices").toString(),_CP.rs.getString("presentment_prices").toString(),"presentment_prices not Match in Row" + Iteration); 			
+	    			Assert.assertEquals(JsonArrayObject.get("presentment_prices").toString(),_CP.rs.getString("presentment_prices").toString(),"presentment_prices not Match in Row" + Iteration); 			
     				}
 					Assert.assertEquals(ProductJsonData.get("vendor").toString(),_CP.rs.getString("vendor").toString(), "vendor not Match in Row" + Iteration);
 					

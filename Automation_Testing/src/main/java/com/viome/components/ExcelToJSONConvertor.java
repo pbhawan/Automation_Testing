@@ -23,21 +23,12 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
-
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.testng.annotations.DataProvider;
-
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.cfg.MapperBuilder;
-import com.viome.enums.webhooks;
 
 public class ExcelToJSONConvertor {
 
@@ -110,17 +101,17 @@ public class ExcelToJSONConvertor {
 
 					// Create a String list to save column data in a row.
 					List<Object> rowDataList = new LinkedList<Object>();
-					HSSFCell LastCell=(HSSFCell) row.getCell(lastCellNum-1);
-					if(LastCell!=null && LastCell.toString().contains("Test Results") )
-							{
-						row.removeCell(LastCell);
-							}
-					else if (LastCell!=null && LastCell.toString().contains("Exception"))
-					{
-						HSSFCell TestResultCell=(HSSFCell) row.getCell(lastCellNum-2);
-						row.removeCell(LastCell);
-						row.removeCell(TestResultCell);
-					}
+//					HSSFCell LastCell=(HSSFCell) row.getCell(lastCellNum-1);
+//					if(LastCell!=null && LastCell.toString().contains("Test Results") )
+//							{
+//						row.removeCell(LastCell);
+//							}
+//					else if (LastCell!=null && LastCell.toString().contains("Exception"))
+//					{
+//						HSSFCell TestResultCell=(HSSFCell) row.getCell(lastCellNum-2);
+//						row.removeCell(LastCell);
+//						row.removeCell(TestResultCell);
+//					}
 					
 					
 					lastCellNum = row.getLastCellNum();
@@ -288,13 +279,18 @@ public class ExcelToJSONConvertor {
 			String CurrentsheetName = sheet.getSheetName();
 			if (CurrentsheetName.equalsIgnoreCase(SheetName.toString()) && CurrentsheetName != null
 					&& CurrentsheetName.length() > 0) {
-				Row row1 = sheet.getRow(0);
+				Row row1 = sheet.getRow(0);	            
 				Cell cell1 = row1.createCell(lastCellNum);
 				cell1.setCellValue("Status Pass/Fail");
 				Row row = sheet.getRow(RowNumber);
 				Cell cell = row.createCell(lastCellNum);
 				cell.setCellValue("Failed");
-
+				CellStyle style=excelWorkBook.createCellStyle();
+	            // Setting Cell Background color  
+				style.setFillForegroundColor(IndexedColors.RED.getIndex());
+	            style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+	            cell.setCellStyle(style);
+	
 				Cell cell11 = row1.createCell(lastCellNum + 1);
 				cell11.setCellValue("Exception Message/Failed Due To");
 				Row row11 = sheet.getRow(RowNumber);
@@ -337,6 +333,11 @@ public class ExcelToJSONConvertor {
 				Row row = sheet.getRow(RowNumber);
 				Cell cell = row.createCell(lastCellNum);
 				cell.setCellValue("Passed");
+				// Setting Cell Background color 
+				CellStyle style=excelWorkBook.createCellStyle(); 
+				style.setFillForegroundColor(IndexedColors.GREEN.getIndex());
+	            style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+	            cell.setCellStyle(style);
 				fsIP.close();
 				FileOutputStream outputStream = new FileOutputStream(Path);
 				excelWorkBook.write(outputStream);
